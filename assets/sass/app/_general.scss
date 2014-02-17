@@ -1,0 +1,8 @@
+.main-nav ul, .footer-nav ul {
+    @extend .nav;
+    @extend .nav-pills;
+}
+
+.footer-nav ul {
+    @include inline-block();
+}

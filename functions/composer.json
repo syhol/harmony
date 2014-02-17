@@ -1,0 +1,16 @@
+{
+    "name": "syholloway/dev-2",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Holloway",
+            "email": "holloway.sy@gmail.com"
+        }
+    ],
+    "require": {
+        "phpdocumentor/reflection-docblock": "2.*"
+    },
+    "psr-0": {
+        "" : "/psr-0"
+    }
+}
