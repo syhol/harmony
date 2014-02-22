@@ -6,7 +6,7 @@
  * Template used for pages
  */
 
-include('templates/header.php'); ?>
+render_template('header'); ?>
 
 <div class="container">
 
@@ -32,10 +32,10 @@ include('templates/header.php'); ?>
 		
 		</section>
 
-		<?php include('templates/sidebar.php'); ?>
+		<?php render_template('sidebar'); ?>
 	
 	</div>
 
 </div>
 
-<?php include('templates/footer.php'); ?>
+<?php render_template('footer'); ?>

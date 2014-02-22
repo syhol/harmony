@@ -1,41 +1,19 @@
 <?php
 /**
- * This is the config array containing the envrionment config
- * 
- * Each top level array is an "envrionment", feel free to add more envrionments
- * if you wish, plus more config variables inside all.
- * 
+ * Config Module
+ *
+ * Lets theme config variables be get/set using a clean API without the need to 
+ * work directly with global variables. also allows the use of per environment
+ * config, providing a diffrent set of config for each environment.
+ *
  * @package Config
  * @author Simon Holloway
+ * @version 1.0.0
  */
 
-return array(
+$theme_config = array();
 
-    /**
-     * Default config always loaded regardless of environment
-     */
-    'default' => array(
-        'site-logo' => 'https://cdn3.iconfinder.com/data/icons/free-social-icons/67/wordpress_square-128.png'
-    ),
+require('functions.php');
 
-    /**
-     * Dev environment config
-     */
-    'dev' => array(
-
-    ),
-
-    /**
-     * Demo environment config
-     */
-    'demo' => array(
-
-    ),
-
-    /**
-     * Live environment config
-     */
-    'live' => array(
-
-    ),
-);
+load_environment_config('default');
+load_environment_config();

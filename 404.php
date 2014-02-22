@@ -7,7 +7,7 @@
  * the database
  */
 
-include('templates/header.php'); ?>
+render_template('header'); ?>
 
 <div class="container">
 
@@ -33,4 +33,4 @@ include('templates/header.php'); ?>
 
 </div>
 
-<?php include('templates/footer.php'); ?>
+<?php render_template('footer'); ?>

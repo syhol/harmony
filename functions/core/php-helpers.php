@@ -10,6 +10,7 @@
  * Convert a string to camelCase format
  * 
  * @author Simon Holloway
+ * @author Laravel Illuminate\Support\helpers.php
  * @param  string $string
  * @param  string $seperator
  * @return string
@@ -31,6 +32,7 @@ function camel_case($string, $capitalise_first_char = false)
  * Revert a string from snake_case to regular text
  * 
  * @author Simon Holloway
+ * @author Laravel Illuminate\Support\helpers.php
  * @param  string $string
  * @param  string $seperator
  * @return string
@@ -55,6 +57,7 @@ function remove_camel_case($string, $seperator = ' ')
  * the string lowercase
  * 
  * @author Simon Holloway
+ * @author Laravel Illuminate\Support\helpers.php
  * @param  string $string
  * @param  string $seperator
  * @return string
@@ -68,6 +71,7 @@ function snake_case($string, $seperator = '_')
  * Strip out all non-alphanumeric items from a string
  * 
  * @author Simon Holloway
+ * @author Laravel Illuminate\Support\helpers.php
  * @param  string $string
  * @return string
  */
@@ -80,6 +84,7 @@ function alphanumeric($string)
  * Take a string and make it pretty 
  * 
  * @author Simon Holloway
+ * @author Laravel Illuminate\Support\helpers.php
  * @param  string $string
  * @return string
  */
@@ -151,6 +156,32 @@ function array_dot_set(&$array, $key, $value)
     $array[array_shift($keys)] = $value;
 
     return $array;
+}
+
+/**
+ * Check if passed key is the key of the first item in the array
+ * 
+ * @author Simon Holloway
+ * @param  array            $array
+ * @param  string|integer   $key
+ * @return boolean
+ */
+function array_is_first(&$array, $key) {
+    reset($array);
+    return $key === key($array);
+}
+
+/**
+ * Check if passed key is the key of the last item in the array
+ * 
+ * @author Simon Holloway
+ * @param  array            $array
+ * @param  string|integer   $key
+ * @return boolean
+ */
+function array_is_last(&$array, $key) {
+    end($array);
+    return $key === key($array);
 }
 
 /**

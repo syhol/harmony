@@ -77,7 +77,7 @@ function load_environment_config($config_env = null)
         $config_env = ENV;
     }
 
-    $all_config = require('config.php');
+    $all_config = require('config-environments.php');
 
     if ( ! isset($all_config[$config_env]) ) {
         return;

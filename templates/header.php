@@ -1,4 +1,4 @@
-<?php include('head.php'); ?>
+<?php render_template('head'); ?>
 
 <header class="masthead">
     

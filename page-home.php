@@ -8,7 +8,7 @@
  * Template Name: Home
  */
 
-include('templates/header.php'); ?>
+render_template('header'); ?>
 
 <div class="container">
 
@@ -62,7 +62,7 @@ include('templates/header.php'); ?>
 					var_dump(prettify_string(snake_case($subject)));
 
 					?>
-				
+
 				</article>
 							
 			<?php endwhile; endif; ?>
@@ -73,4 +73,4 @@ include('templates/header.php'); ?>
 
 </div>
 
-<?php include('templates/footer.php'); ?>
+<?php render_template('footer') ?>

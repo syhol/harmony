@@ -12,11 +12,13 @@
 // Define constants
 define('L', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
-define('FUNC_DIR', dirname(__DIR__) . DS);
-define('CORE_DIR', FUNC_DIR . 'core' . DS);
-define('MODULES_DIR', FUNC_DIR . 'modules' . DS);
-define('VENDOR_DIR', FUNC_DIR . 'vendor' . DS);
-define('CLASS_DIR', FUNC_DIR . 'psr-0' . DS);
+define('FUNCTIONS_DIR', dirname(__DIR__) . DS);
+define('CORE_DIR', FUNCTIONS_DIR . 'core' . DS);
+define('MODULES_DIR', FUNCTIONS_DIR . 'modules' . DS);
+define('VENDOR_DIR', FUNCTIONS_DIR . 'vendor' . DS);
+define('CLASS_DIR', FUNCTIONS_DIR . 'psr-0' . DS);
+define('THEME_DIR', dirname(FUNCTIONS_DIR) . DS);
+define('TEMPLATES_DIR', THEME_DIR . 'templates' . DS);
 
 if (false === defined('ENV')) {
     define('ENV', 'live');
@@ -38,10 +40,14 @@ include(CORE_DIR . 'wp-hooks.php');
 $dir = new DirectoryIterator(MODULES_DIR);
 foreach ($dir as $module_dir) {
     if ( ! $module_dir->isDot() && $module_dir->isDir() ) {
-        $module_init = $module_dir->getPathname() . DS . 'init.php';
-        if (is_readable($module_init)) {
-            include $module_init;
-        }
+        $module_init = $module_dir->getPathname() . DS . $module_dir->getFilename() . '.php';
+    } elseif($module_dir->isFile()) {
+        $module_init = $module_dir->getPathname();
+    } else {
+        continue;
+    }
+    if (is_readable($module_init)) {
+        require($module_init);
     }
 }
 

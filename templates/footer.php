@@ -10,7 +10,7 @@
                 <?php wp_nav_menu(array('theme_location' => 'footer', 'container' => false)); ?>
 
             </div>
-        
+            
         </div>        
 
         <div class="row">
@@ -27,4 +27,4 @@
         
 </footer>
 
-<?php include('foot.php'); ?>
+<?php render_template('foot'); ?>

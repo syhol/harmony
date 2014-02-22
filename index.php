@@ -7,7 +7,7 @@
  * indexs. Ultimate fallback for all routes.
  */
 
-include('templates/header.php'); ?>
+render_template('header'); ?>
 
 <div class="container">
 
@@ -25,7 +25,7 @@ include('templates/header.php'); ?>
 
 		    	<?php while(have_posts()) : the_post(); ?>
 
-					<?php include('templates/index-item.php'); ?>
+					<?php render_template('index-item'); ?>
 					
 				<?php endwhile; ?>
 				
@@ -47,10 +47,10 @@ include('templates/header.php'); ?>
 		
 		</section>
 
-		<?php include('templates/sidebar.php'); ?>
+		<?php render_template('sidebar'); ?>
 	
 	</div>
 
 </div>
 
-<?php include('templates/footer.php'); ?>
+<?php render_template('footer'); ?>
