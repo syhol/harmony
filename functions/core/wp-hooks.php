@@ -26,7 +26,7 @@ function print_theme_assets() {
  * 
  * @return void
  */
-function print_theme_assets() {
+function print_admin_assets() {
     wp_enqueue_style('app-admin', get_asset_url('stylesheets/admin.css'));
 }
 
