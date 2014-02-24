@@ -1,0 +1,1 @@
+require([],function(){}),define("app",function(){});

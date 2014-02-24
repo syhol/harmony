@@ -12,13 +12,15 @@
 // Define constants
 define('L', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
-define('FUNCTIONS_DIR', dirname(__DIR__) . DS);
-define('CORE_DIR', FUNCTIONS_DIR . 'core' . DS);
-define('MODULES_DIR', FUNCTIONS_DIR . 'modules' . DS);
-define('VENDOR_DIR', FUNCTIONS_DIR . 'vendor' . DS);
-define('CLASS_DIR', FUNCTIONS_DIR . 'psr-0' . DS);
-define('THEME_DIR', dirname(FUNCTIONS_DIR) . DS);
-define('TEMPLATES_DIR', THEME_DIR . 'templates' . DS);
+
+define('THEME_DIR', dirname(dirname(dirname(__FILE__))) . DS);
+    define('TEMPLATES_DIR', THEME_DIR . 'templates' . DS);
+    define('ASSETS_DIR',    THEME_DIR . 'assets' . DS);
+    define('FUNCTIONS_DIR', THEME_DIR . 'functions' . DS);
+        define('CORE_DIR',      FUNCTIONS_DIR . 'core' . DS);
+        define('MODULES_DIR',   FUNCTIONS_DIR . 'modules' . DS);
+        define('VENDOR_DIR',    FUNCTIONS_DIR . 'vendor' . DS);
+        define('CLASS_DIR',     FUNCTIONS_DIR . 'psr-0' . DS);
 
 if (false === defined('ENV')) {
     define('ENV', 'live');

@@ -84,7 +84,11 @@ function bruprot_auth_attempt($user, $username, $password)
         return bruprot_locked_out($ip, $options);
         //If other auth error
     } elseif ($user instanceof WP_Error) {
-        $amount = $options['attempt_limit'] - $options['attempts'][$ip]['count'];
+        $count = 0;
+        if (isset($options['attempts'][$ip]['count'])) {
+            $count = $options['attempts'][$ip]['count'];
+        }
+        $amount = $options['attempt_limit'] - $count;
         $user->add('bruprot', __('You have ' . $amount . ' login attempts left.'));
         return $user;
         //If not locked out and user passed standard auth
