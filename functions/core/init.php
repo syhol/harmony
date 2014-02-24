@@ -9,25 +9,28 @@
  * @version 1.0.0
  */
 
-// Define constants
+// General constants
 define('L', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
 
-define('THEME_DIR', dirname(dirname(dirname(__FILE__))) . DS);
-    define('TEMPLATES_DIR', THEME_DIR . 'templates' . DS);
-    define('ASSETS_DIR',    THEME_DIR . 'assets' . DS);
-    define('FUNCTIONS_DIR', THEME_DIR . 'functions' . DS);
-        define('CORE_DIR',      FUNCTIONS_DIR . 'core' . DS);
-        define('MODULES_DIR',   FUNCTIONS_DIR . 'modules' . DS);
-        define('VENDOR_DIR',    FUNCTIONS_DIR . 'vendor' . DS);
-        define('CLASS_DIR',     FUNCTIONS_DIR . 'psr-0' . DS);
+// Directory constants
+define('THEME_DIR',     dirname(dirname(dirname(__FILE__))) . DS);
+define('TEMPLATES_DIR', THEME_DIR       . 'templates'       . DS);
+define('ASSETS_DIR',    THEME_DIR       . 'assets'          . DS);
+define('FUNCTIONS_DIR', THEME_DIR       . 'functions'       . DS);
+define('CORE_DIR',      FUNCTIONS_DIR   . 'core'            . DS);
+define('MODULES_DIR',   FUNCTIONS_DIR   . 'modules'         . DS);
+define('VENDOR_DIR',    FUNCTIONS_DIR   . 'vendor'          . DS);
+define('CLASS_DIR',     FUNCTIONS_DIR   . 'psr-0'           . DS);
 
 if (false === defined('ENV')) {
     define('ENV', 'live');
 }
 
 // Include composer autoloader
-include(VENDOR_DIR . 'autoload.php');
+if (is_readable(VENDOR_DIR . 'autoload.php')) {
+    include(VENDOR_DIR . 'autoload.php');
+}
 
 // Include php helpers
 include(CORE_DIR . 'php-helpers.php');
