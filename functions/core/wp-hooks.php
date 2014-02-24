@@ -15,6 +15,7 @@ add_action('wp_head', 'print_theme_icons');
 /**
  * Print the application css file
  * 
+ * @author Simon Holloway
  * @return void
  */
 function print_theme_assets() {
@@ -24,6 +25,7 @@ function print_theme_assets() {
 /**
  * Print the application admin css file
  * 
+ * @author Simon Holloway
  * @return void
  */
 function print_admin_assets() {
@@ -33,6 +35,7 @@ function print_admin_assets() {
 /**
  * Print require.js script tag
  * 
+ * @author Simon Holloway
  * @return void
  */
 function print_require_js() {
@@ -42,6 +45,7 @@ function print_require_js() {
 /**
  * Print favicon, apple-touch-icon and msapplication icon links
  * 
+ * @author Simon Holloway
  * @return void
  */
 function print_theme_icons() {
