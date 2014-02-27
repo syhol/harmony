@@ -2,8 +2,9 @@
 /**
  * Brute Protection hooks
  * 
- * @package Brute Protection
- * @author Simon Holloway
+ * @package Brute_Protection
+ * @author  Simon Holloway <holloway.sy@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 
 
@@ -11,10 +12,6 @@
  * Register Actions and Filters
  */
 
-add_filter('bruprot_get_options', 'bruprot_apply_default_options');
-add_filter('shake_error_codes', 'bruprot_add_shake_codes', 1, 1);
-add_filter('authenticate', 'bruprot_auth_attempt', 55, 3);
-add_action('login_form', 'bruprot_credit_link');
 
 /**
  * Handlers for Actions and Filters
@@ -39,6 +36,7 @@ function bruprot_apply_default_options($options = array())
     }
     return $options;
 }
+add_filter('bruprot_get_options', 'bruprot_apply_default_options');
 
 /**
  * Add the brute protection error message to the list of error messages to shake
@@ -51,6 +49,7 @@ function bruprot_add_shake_codes($codes)
     $codes[] = 'brute_attempt';
     return $codes;
 }
+add_filter('shake_error_codes', 'bruprot_add_shake_codes', 1, 1);
 
 /**
  * Filter to run on authenticate to stop brute force attempts
@@ -101,6 +100,7 @@ function bruprot_auth_attempt($user, $username, $password)
     }
     
 }
+add_filter('authenticate', 'bruprot_auth_attempt', 55, 3);
 
 /**
  * Display a message on the login form announcing that this module is active
@@ -111,3 +111,4 @@ function bruprot_credit_link()
 {
     echo "<p>Login form protected by Brute Protection.<br /><br /><br /></p>";
 }
+add_action('login_form', 'bruprot_credit_link');

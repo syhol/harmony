@@ -7,9 +7,10 @@
  * include in the templates scope. Using the render_template action the path 
  * and variables (data) can be changed/overridden. 
  *
- * @package Render Template
- * @author Simon Holloway
- * @uses Theme Core
+ * @package Render_Template
+ * @uses    Theme_Core
+ * @author  Simon Holloway <holloway.sy@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
  * @version 1.0.0
  */
 
@@ -49,7 +50,7 @@ add_action('render_template', 'set_module_template_path', 6);
 /**
  * Set the default path in the theme templates directory
  * 
- * Set the path to {TEMPLATES_DIR}/{pathname}.php by default
+ * Set the path to {TEMPLATES_DIR}/{$path}.php by default
  *  
  * @author Simon Holloway
  * @param object $template
@@ -63,7 +64,7 @@ function set_default_template_path($template) {
  * Set the path to module templates when the ":" operator is used
  * 
  * if a module template is called the path will be set to 
- * {MODULES_DIR}/{$module}/templates/{pathname}.php  
+ * {MODULES_DIR}/{$module}/templates/{$path}.php  
  * 
  * @example render_template('mymodule:mydirectory/mytemlate');
  * 

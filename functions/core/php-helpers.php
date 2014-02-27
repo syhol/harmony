@@ -2,8 +2,9 @@
 /**
  * PHP Helpers
  *
- * @package Theme Core
- * @author Simon Holloway
+ * @package  Theme_Core
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  */
 
 /**

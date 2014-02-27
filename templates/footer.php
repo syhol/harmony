@@ -3,28 +3,12 @@
     
     <div class="container">
         
-        <div class="row">
+        <?php render_template('footer/nav'); ?>
         
-            <div class="md-col-12 footer-nav">
-            
-                <?php wp_nav_menu(array('theme_location' => 'footer', 'container' => false)); ?>
+        <?php render_template('footer/copyright'); ?>
 
-            </div>
-            
-        </div>        
-
-        <div class="row">
-        
-            <div class="md-col-12">
-            
-                <p class="copyright">&copy; Copyright <?php echo date('Y') . ' ' . get_bloginfo('name'); ?>.</p>
-
-            </div>
-        
-        </div>
-    
     </div>
         
 </footer>
 
-<?php render_template('foot'); ?>
+<?php render_template('footer/foot'); ?>

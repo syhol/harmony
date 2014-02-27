@@ -4,9 +4,10 @@
  * 
  * Initialise application logic
  *
- * @package Theme Core
- * @author Simon Holloway
- * @version 1.0.0
+ * @package  Theme_Core
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @version  1.0.0
  */
 
 // General constants
@@ -28,18 +29,19 @@ if (false === defined('ENV')) {
 }
 
 // Include composer autoloader
-if (is_readable(VENDOR_DIR . 'autoload.php')) {
-    include(VENDOR_DIR . 'autoload.php');
-}
+include(VENDOR_DIR . 'autoload.php');
 
-// Include php helpers
-include(CORE_DIR . 'php-helpers.php');
+// require php helpers
+require(CORE_DIR . 'php-helpers.php');
 
-// Include wordpress helpers
-include(CORE_DIR . 'wp-helpers.php');
+// require wordpress helpers
+require(CORE_DIR . 'wp-helpers.php');
 
-// Include wordpress hooks
-include(CORE_DIR . 'wp-hooks.php');
+// require wordpress hooks
+require(CORE_DIR . 'wp-hooks.php');
+
+// require data bindings for templates
+require(CORE_DIR . 'data-bindings.php');
 
 // Include modules
 $dir = new DirectoryIterator(MODULES_DIR);
@@ -51,9 +53,7 @@ foreach ($dir as $module_dir) {
     } else {
         continue;
     }
-    if (is_readable($module_init)) {
-        require($module_init);
-    }
+    include($module_init);
 }
 
 do_action('theme_modules_loaded');

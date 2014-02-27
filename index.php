@@ -25,7 +25,7 @@ render_template('header'); ?>
 
                 <?php while(have_posts()) : the_post(); ?>
 
-                    <?php render_template('index-item', get_post_index_data); ?>
+                    <?php render_template('index-item'); ?>
                     
                 <?php endwhile; ?>
                 

@@ -7,7 +7,8 @@
  * config, providing a diffrent set of config for each environment.
  *
  * @package Config
- * @author Simon Holloway
+ * @author  Simon Holloway <holloway.sy@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
  * @version 1.0.0
  */
 

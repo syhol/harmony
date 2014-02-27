@@ -6,7 +6,8 @@
  * if you wish, plus more config variables inside all.
  * 
  * @package Config
- * @author Simon Holloway
+ * @author  Simon Holloway <holloway.sy@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 
 return array(

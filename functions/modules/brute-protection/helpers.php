@@ -2,8 +2,9 @@
 /**
  * Brute Protection helpers and functions
  * 
- * @package Brute Protection
- * @author Simon Holloway
+ * @package Brute_Protection
+ * @author  Simon Holloway <holloway.sy@gmail.com>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 
 /**
