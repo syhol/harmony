@@ -18,7 +18,7 @@ render_template('header'); ?>
 			
 				<header>
 				
-					<h1><?php the_title(); ?></h1>
+					<h1><?php page_title(); ?></h1>
 					
 				</header>
 				

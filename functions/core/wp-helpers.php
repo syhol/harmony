@@ -30,24 +30,59 @@ function get_theme_url($path = '') {
 }
 
 /**
- * Get standard data for a post index item
+ * Get date query timestamp from a WP_Query archive query
  *  
  * @author Simon Holloway
- * @param  object   $post
- * @return array
+ * @param  object   WP_Query
+ * @return integer|false
  */
-function get_post_index_data($post = null) {
-    
-    if (is_null($post)) {
-        global $post;
+function get_archive_timestamp($query = null) {
+    if(is_null($query)) {
+        global $wp_query;
+        $query = $wp_query;
     }
 
-    return array(
-        'title' => $post->post_title,
-        'classes' => join(' ', get_post_class('', $post->ID)),
-        'link' => get_permalink($post->ID),
-        'link_text' => 'Read More&nbsp;&raquo;',
-        'text' => get_the_excerpt(),
-        'title_attribute' => the_title_attribute(array('echo' => false))
-    );
+    if ( ! $query->is_date() )
+        return false;
+
+
+    $vars = $query->query_vars;
+    $day = isset($vars['day']) && $vars['day'] > 0 
+        ? str_pad($vars['day'], 2, '0', STR_PAD_LEFT) : '01';
+
+    $month = isset($vars['monthnum']) && $vars['monthnum'] > 0  
+        ? str_pad($vars['monthnum'], 2, '0', STR_PAD_LEFT) : '01';
+
+    $year = isset($vars['year'])  && $vars['year'] > 0  
+        ? str_pad($vars['year'], 4, '0', STR_PAD_LEFT) : date('Y');
+
+    return strtotime($day . '-' . $month . '-' . $year);
+}
+
+/**
+ * Get title for a page/post/term/archive/index/search/404/and more...
+ *  
+ * @author Simon Holloway
+ * @param object WP_Query|null
+ * @return string title
+ */
+function get_page_title($query = null) {
+    if(is_null($query)) {
+        global $wp_query;
+        $query = $wp_query;
+    }
+    $title = '';
+    return apply_filters('page_title', $title, $query);
+}
+
+/**
+ * echo get_page_title()
+ *
+ * @see get_page_title()
+ * @author Simon Holloway
+ * @param  object WP_Query|null
+ * @return string title
+ */
+function page_title($query = null) {
+    echo get_page_title($query);
 }

@@ -20,48 +20,13 @@ render_template('header'); ?>
 			
 				<header>
 				
-					<h1><?php the_title(); ?></h1>
+					<h1><?php page_title(); ?></h1>
 					
 				</header>
 				
 				<article <?php post_class(); ?>>
 					
 					<?php the_content(); ?>
-
-
-					<a class="btn btn-default" href="#"><span class="glyphicon glyphicon-align-left"></span></a>
-           			<a class="btn btn-default" href="#"><i class="fa fa-align-left"></i></a>
-
-           			</br>
-
-           			<a class="btn btn-default" href="#"><span class="glyphicon glyphicon-align-center"></span></a>
-           			<a class="btn btn-default" href="#"><i class="fa fa-align-center"></i></a>
-
-           			</br>
-           			
-           			<a class="btn btn-default" href="#"><span class="glyphicon glyphicon-align-right"></span></a>
-           			<a class="btn btn-default" href="#"><i class="fa fa-align-right"></i></a>
-					
-					<?php 
-
-					global $theme_config;
-					set_config('this.is.a.multidimentional.array', 'yay');
-					var_dump($theme_config);
-					var_dump(get_config('this.is.a.multidimentional', 'yay'));
-
-					$subject = 'hello, this is my string, my string says hello, would you like to say hello back?';
-					var_dump(str_replace_first('hello', 'HELLO', $subject));
-					var_dump(str_replace_last('hello', 'HELLO', $subject));
-					var_dump(str_replace('hello', 'HELLO', $subject));
-
-					$subject = 'This is some Awesome!';
-					var_dump(snake_case($subject));
-					var_dump(camel_case($subject));
-					var_dump(camel_case($subject, true));
-					var_dump(remove_camel_case(camel_case($subject)));
-					var_dump(prettify_string(snake_case($subject)));
-
-					?>
 
 				</article>
 							

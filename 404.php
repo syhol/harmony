@@ -17,7 +17,7 @@ render_template('header'); ?>
         
             <header>
             
-                <h1>404</h1>
+                <h1><?php page_title(); ?></h1>
                 
             </header>
             
