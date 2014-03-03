@@ -9,15 +9,6 @@
 
 
 /**
- * Register Actions and Filters
- */
-
-
-/**
- * Handlers for Actions and Filters
- */
-
-/**
  * Set default module options using the bruprot_get_options hook
  * 
  * @param  array $options

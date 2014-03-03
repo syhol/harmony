@@ -6838,7 +6838,7 @@ input[type="button"].btn-block {
   border-radius: 4px;
 }
 /* line 81, ../sass/bootstrap/_input-groups.scss */
-.input-group-addon.input-sm,
+.input-group-addon.input-sm, .input-group-sm > .input-group-addon.form-control,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .input-group-addon.btn {
   padding: 5px 10px;
@@ -6846,7 +6846,7 @@ input[type="button"].btn-block {
   border-radius: 3px;
 }
 /* line 86, ../sass/bootstrap/_input-groups.scss */
-.input-group-addon.input-lg,
+.input-group-addon.input-lg, .input-group-lg > .input-group-addon.form-control,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .input-group-addon.btn {
   padding: 10px 16px;
@@ -9746,7 +9746,13 @@ button.close {
     display: none !important;
   }
 }
-/* line 6, ../sass/app/_general.scss */
+/* line 9, ../sass/app/_general.scss */
+.main-nav ul .current_page_item > a, .main-nav ul .current_page_item > a:hover, .main-nav ul .current_page_item > a:focus, .main-nav ul .current_page_parent > a, .main-nav ul .current_page_parent > a:hover, .main-nav ul .current_page_parent > a:focus, .footer-nav ul .current_page_item > a, .footer-nav ul .current_page_item > a:hover, .footer-nav ul .current_page_item > a:focus, .footer-nav ul .current_page_parent > a, .footer-nav ul .current_page_parent > a:hover, .footer-nav ul .current_page_parent > a:focus {
+  color: white;
+  background-color: #428bca;
+}
+
+/* line 18, ../sass/app/_general.scss */
 .footer-nav ul {
   display: -moz-inline-stack;
   display: inline-block;

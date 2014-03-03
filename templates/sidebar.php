@@ -1,7 +1,11 @@
-<section class="sidebar col-md-3">
-	
-	<?php if (is_active_sidebar('sidebar')) : ?>
-        <?php dynamic_sidebar('sidebar'); ?>
-    <?php endif; ?>
+<?php
+/**
+ * Sidebar Template
+ *
+ * Renders the standard sidebar on the site using dynamic_sidebar
+ */
+?>
 
-</section >
+<?php if (is_active_sidebar('sidebar')) : ?>
+    <?php dynamic_sidebar('sidebar'); ?>
+<?php endif; ?>

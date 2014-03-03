@@ -1,8 +1,20 @@
 .main-nav ul, .footer-nav ul {
-    @extend .nav;
-    @extend .nav-pills;
+  @extend .nav;
+  @extend .nav-pills;
+
+  .current_page_item, .current_page_parent {
+    & > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $nav-pills-active-link-hover-color;
+        background-color: $nav-pills-active-link-hover-bg;
+      }
+    }
+  }
 }
 
+
 .footer-nav ul {
-    @include inline-block();
+  @include inline-block();
 }

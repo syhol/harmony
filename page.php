@@ -13,26 +13,20 @@ render_template('header'); ?>
 	<div class="row">
 		
 		<section class="col-md-9">
-		
+        
 			<?php if(have_posts()) : while(have_posts()) : the_post(); ?>
-			
-				<header>
-				
-					<h1><?php page_title(); ?></h1>
-					
-				</header>
-				
-				<article <?php post_class(); ?>>
-				
-					<?php the_content(); ?>
-				
-				</article>
-							
+
+				<?php render_template('single-item'); ?>
+
 			<?php endwhile; endif; ?>
 		
 		</section>
 
-		<?php render_template('sidebar'); ?>
+		<section class="col-md-3">
+
+			<?php render_template('sidebar'); ?>
+		
+		</section>
 	
 	</div>
 

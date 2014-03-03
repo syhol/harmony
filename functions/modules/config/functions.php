@@ -30,12 +30,13 @@ function set_config($key, $value)
  * 
  * @see array_dot_get()
  * @param   string  $key
+ * @param   misex   $default default value to return if none found
  * @return  mixed
  */
-function get_config($key)
+function get_config($key, $default = null)
 {
     global $theme_config;
-    return array_dot_get($theme_config, $key);
+    return array_dot_get($theme_config, $key, $default);
 }
 
 /**

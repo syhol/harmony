@@ -15,41 +15,39 @@ define('L', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
 
 // Directory constants
-define('THEME_DIR',     dirname(dirname(dirname(__FILE__))) . DS);
-define('TEMPLATES_DIR', THEME_DIR       . 'templates'       . DS);
-define('ASSETS_DIR',    THEME_DIR       . 'assets'          . DS);
-define('FUNCTIONS_DIR', THEME_DIR       . 'functions'       . DS);
-define('CORE_DIR',      FUNCTIONS_DIR   . 'core'            . DS);
-define('MODULES_DIR',   FUNCTIONS_DIR   . 'modules'         . DS);
-define('VENDOR_DIR',    FUNCTIONS_DIR   . 'vendor'          . DS);
-define('CLASS_DIR',     FUNCTIONS_DIR   . 'psr-0'           . DS);
+define('THEME_PATH',     dirname(dirname(dirname(__FILE__)))  . DS);
+define('TEMPLATES_PATH', THEME_PATH       . 'templates'       . DS);
+define('ASSETS_PATH',    THEME_PATH       . 'assets'          . DS);
+define('FUNCTIONS_PATH', THEME_PATH       . 'functions'       . DS);
+define('CORE_PATH',      FUNCTIONS_PATH   . 'core'            . DS);
+define('MODULES_PATH',   FUNCTIONS_PATH   . 'modules'         . DS);
+define('VENDOR_PATH',    FUNCTIONS_PATH   . 'vendor'          . DS);
+define('CLASS_PATH',     FUNCTIONS_PATH   . 'psr-0'           . DS);
+define('CUSTOM_PATH',    FUNCTIONS_PATH   . 'custom'          . DS);
 
 if (false === defined('ENV')) {
     define('ENV', 'live');
 }
 
 // Include composer autoloader
-include(VENDOR_DIR . 'autoload.php');
+include(VENDOR_PATH . 'autoload.php');
 
 // require php helpers
-require(CORE_DIR . 'php-helpers.php');
+require(CORE_PATH . 'php-helpers.php');
 
 // require wordpress helpers
-require(CORE_DIR . 'wp-helpers.php');
+require(CORE_PATH . 'wp-helpers.php');
 
 // require wordpress hooks
-require(CORE_DIR . 'wp-hooks.php');
-
-// require data bindings for templates
-require(CORE_DIR . 'data-bindings.php');
+require(CORE_PATH . 'wp-hooks.php');
 
 // Include modules
-$dir = new DirectoryIterator(MODULES_DIR);
-foreach ($dir as $module_dir) {
-    if ( ! $module_dir->isDot() && $module_dir->isDir() ) {
-        $module_init = $module_dir->getPathname() . DS . $module_dir->getFilename() . '.php';
-    } elseif($module_dir->isFile()) {
-        $module_init = $module_dir->getPathname();
+$dir = new DirectoryIterator(MODULES_PATH);
+foreach ($dir as $module_PATH) {
+    if ( ! $module_PATH->isDot() && $module_PATH->isDir() ) {
+        $module_init = $module_PATH->getPathname() . DS . $module_PATH->getFilename() . '.php';
+    } elseif($module_PATH->isFile()) {
+        $module_init = $module_PATH->getPathname();
     } else {
         continue;
     }
@@ -57,3 +55,6 @@ foreach ($dir as $module_dir) {
 }
 
 do_action('theme_modules_loaded');
+
+// require data bindings for templates
+require(CUSTOM_PATH . 'init.php');

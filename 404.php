@@ -12,23 +12,18 @@ render_template('header'); ?>
 <div class="container">
 
     <div class="row">
+
+        <section class="col-md-9">
         
-        <section class="col-md-12">
-        
-            <header>
-            
-                <h1><?php page_title(); ?></h1>
-                
-            </header>
-            
-            <article>
-            
-                    <p>That page you requested does not exist.</p>
-            
-            </article>
+            <?php render_template('single-item'); ?>
         
         </section>
-    
+
+        <section class="col-md-3">
+
+            <?php render_template('sidebar'); ?>
+        
+        </section>
     </div>
 
 </div>

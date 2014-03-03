@@ -14,13 +14,13 @@ render_template('header'); ?>
     <div class="row">
         
         <section class="col-md-9">
-        
+
             <header>
 
                 <h1><?php page_title() ?></h1>
 
             </header>
-        
+                    
             <?php if (have_posts()) : ?>
 
                 <?php while(have_posts()) : the_post(); ?>
@@ -44,10 +44,14 @@ render_template('header'); ?>
                 </article><!-- #post-0 -->
                         
             <?php endif; ?>
-        
+
         </section>
 
-        <?php render_template('sidebar'); ?>
+        <section class="col-md-3">
+
+            <?php render_template('sidebar'); ?>
+        
+        </section>
     
     </div>
 

@@ -3,7 +3,7 @@
  * Render Template Module
  *
  * A small template loader module that loads a template from a prefedined 
- * location (usually the themes TEMPLATES_DIR) and sets up variables to be 
+ * location (usually the themes TEMPLATES_PATH) and sets up variables to be 
  * include in the templates scope. Using the render_template action the path 
  * and variables (data) can be changed/overridden. 
  *
@@ -50,21 +50,21 @@ add_action('render_template', 'set_module_template_path', 6);
 /**
  * Set the default path in the theme templates directory
  * 
- * Set the path to {TEMPLATES_DIR}/{$path}.php by default
+ * Set the path to {TEMPLATES_PATH}/{$path}.php by default
  *  
  * @author Simon Holloway
  * @param object $template
  * @return void
  */
 function set_default_template_path($template) {
-    $template->path = TEMPLATES_DIR . $template->original->path . '.php';
+    $template->path = TEMPLATES_PATH . $template->original->path . '.php';
 }
 
 /**
  * Set the path to module templates when the ":" operator is used
  * 
  * if a module template is called the path will be set to 
- * {MODULES_DIR}/{$module}/templates/{$path}.php  
+ * {MODULES_PATH}/{$module}/templates/{$path}.php  
  * 
  * @example render_template('mymodule:mydirectory/mytemlate');
  * 
@@ -75,6 +75,6 @@ function set_default_template_path($template) {
 function set_module_template_path($template) {
     if (strpos($template->original->path, ':') !== false) {
         list($module, $path) = explode(':', $template->original->path);
-        $template->path =  MODULES_DIR . $module . DS . 'templates' . DS . $path . '.php';
+        $template->path =  MODULES_PATH . $module . DS . 'templates' . DS . $path . '.php';
     }
 }
