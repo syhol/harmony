@@ -12,7 +12,6 @@
 /**
  * Print the application css file
  * 
- * @author Simon Holloway
  * @return void
  */
 function print_theme_assets() {
@@ -23,7 +22,6 @@ add_action('wp_enqueue_scripts', 'print_theme_assets');
 /**
  * Print the application admin css file
  * 
- * @author Simon Holloway
  * @return void
  */
 function print_admin_assets() {
@@ -34,7 +32,6 @@ add_action('admin_enqueue_scripts', 'print_admin_assets');
 /**
  * Print require.js script tag
  * 
- * @author Simon Holloway
  * @return void
  */
 function print_require_js() {
@@ -45,7 +42,6 @@ add_action('wp_footer', 'print_require_js');
 /**
  * Print favicon, apple-touch-icon and msapplication icon links
  * 
- * @author Simon Holloway
  * @return void
  */
 function print_theme_icons() {
@@ -57,7 +53,6 @@ add_action('wp_head', 'print_theme_icons');
 /**
  * Print theme title tag, using wp_title();
  * 
- * @author Simon Holloway
  * @return void
  */
 function print_theme_title_tag() {
@@ -70,7 +65,6 @@ add_action('wp_head', 'print_theme_title_tag', 1);
 /**
  * Print meta charset in head
  * 
- * @author Simon Holloway
  * @return void
  */
 function print_theme_charset() {

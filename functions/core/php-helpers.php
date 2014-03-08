@@ -4,108 +4,19 @@
  *
  * @package  Theme_Core
  * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @author   Lots of functions stolen from Laravel's Illuminate\Support
  * @license  http://opensource.org/licenses/MIT MIT
  */
 
 /**
- * Convert a string to camelCase format
- * 
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
- * @param  string $string
- * @param  string $seperator
- * @return string
- */
-function camel_case($string, $capitalise_first_char = false)
-{
-    $string = str_replace(' ', '', ucwords(strtolower(alphanumeric($string))));
-
-    if ($capitalise_first_char) {
-        $string[0] = strtoupper($string[0]);
-    } else {
-        $string[0] = strtolower($string[0]);
-    }
-
-    return $string;
-}
-
-/**
- * Revert a string from snake_case to regular text
- * 
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
- * @param  string $string
- * @param  string $seperator
- * @return string
- */
-function remove_camel_case($string, $seperator = ' ')
-{
-    preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $string, $matches);
-
-    $ret = $matches[0];
-
-    foreach ($ret as &$match) {
-        $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
-    }
-
-    return implode($seperator, $ret);
-}
-
-/**
- * Convert a string to snake_case format
- * 
- * Replace spaces with another character, an underscore by default and make
- * the string lowercase
- * 
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
- * @param  string $string
- * @param  string $seperator
- * @return string
- */
-function snake_case($string, $seperator = '_')
-{
-    return strtolower(str_replace(' ', $seperator, alphanumeric($string)));
-}
-
-/**
- * Strip out all non-alphanumeric items from a string
- * 
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
- * @param  string $string
- * @return string
- */
-function alphanumeric($string)
-{
-    return preg_replace("/[^A-Za-z0-9 ]/", '', $string);
-}
-
-/**
- * Take a string and make it pretty 
- * 
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
- * @param  string $string
- * @return string
- */
-function prettify_string($string)
-{
-    return ucfirst(str_replace(array('_', '-'), ' ', $string ));
-}
-
-/**
  * Get an item from an array using "dot" notation.
  *
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
  * @param  array   $array
  * @param  string  $key
  * @param  mixed   $default
  * @return mixed
  */
-function array_dot_get($array, $key, $default = null)
-{
+function array_dot_get($array, $key, $default = null) {
     if (is_null($key)) return $array;
 
     if (isset($array[$key])) return $array[$key];
@@ -128,15 +39,12 @@ function array_dot_get($array, $key, $default = null)
  *
  * If no key is given to the method, the entire array will be replaced.
  *
- * @author Simon Holloway
- * @author Laravel Illuminate\Support\helpers.php
  * @param  array   $array
  * @param  string  $key
  * @param  mixed   $value
  * @return array
  */
-function array_dot_set(&$array, $key, $value) 
-{
+function array_dot_set(&$array, $key, $value)  {
     if (is_null($key)) return $array = $value;
 
     $keys = explode('.', $key);
@@ -162,7 +70,6 @@ function array_dot_set(&$array, $key, $value)
 /**
  * Check if passed key is the key of the first item in the array
  * 
- * @author Simon Holloway
  * @param  array            $array
  * @param  string|integer   $key
  * @return boolean
@@ -175,7 +82,6 @@ function array_is_first(&$array, $key) {
 /**
  * Check if passed key is the key of the last item in the array
  * 
- * @author Simon Holloway
  * @param  array            $array
  * @param  string|integer   $key
  * @return boolean
@@ -186,16 +92,48 @@ function array_is_last(&$array, $key) {
 }
 
 /**
+ * Get the first key in the array
+ * 
+ * @param  array            $array
+ * @return boolean
+ */
+function array_get_first(&$array) {
+    reset($array);
+    return key($array);
+}
+
+/**
+ * Get the last key in the array
+ * 
+ * @param  array            $array
+ * @return boolean
+ */
+function array_get_last(&$array) {
+    end($array);
+    return key($array);
+}
+
+/**
+ * Split a string by multiple delimiters
+ * 
+ * @param  array            $array
+ * @param  string|integer   $key
+ * @return array
+ */
+function explode_multiple($delimiters, $string) {
+    $delimiters = (array)$delimiters;
+    return explode($delimiters[0], str_replace($delimiters, $delimiters[0], $string));
+}
+
+/**
  * Replace the first occurrence of string within a string
  * 
- * @author Simon Holloway
  * @param  string $search  string to search for
  * @param  string $replace string to replace the search string with
  * @param  string $subject string to run the replace on
  * @return string          altered $subject string
  */
-function str_replace_first($search, $replace, $subject)
-{
+function str_replace_first($search, $replace, $subject) {
     $pos = strpos($subject, $search);
 
     if ($pos !== false) {
@@ -208,14 +146,12 @@ function str_replace_first($search, $replace, $subject)
 /**
  * Replace the last occurrence of string within a string
  * 
- * @author Simon Holloway
  * @param  string $search  string to search for
  * @param  string $replace string to replace the search string with
  * @param  string $subject string to run the replace on
  * @return string          altered $subject string
  */
-function str_replace_last($search, $replace, $subject)
-{
+function str_replace_last($search, $replace, $subject) {
     $pos = strrpos($subject, $search);
 
     if ($pos !== false) {
@@ -223,4 +159,163 @@ function str_replace_last($search, $replace, $subject)
     }
 
     return $subject;
+}
+
+/**
+ * Determine if a given string contains a given substring.
+ *
+ * @param  string        $haystack
+ * @param  string|array  $needles
+ * @return bool
+ */
+function str_contains($haystack, $needles) {
+    foreach ((array) $needles as $needle)
+    {
+        if ($needle != '' && strpos($haystack, $needle) !== false) return true;
+    }
+
+    return false;
+}
+
+/**
+ * Generate a "random" alpha-numeric string.
+ *
+ * Should not be considered sufficient for cryptography, etc.
+ *
+ * @param  int     $length
+ * @return string
+ */
+function str_random($length = 16) {
+    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+}
+
+/**
+ * Limit the number of characters in a string.
+ *
+ * @param  string  $value
+ * @param  int     $limit
+ * @param  string  $end
+ * @param  boolean $to_nearest_word
+ * @return string
+ */
+function str_limit($value, $limit = 100, $end = '...', $to_nearest_word = true) {
+    if (strlen($value) <= $limit) {
+        return $value;
+    }
+
+    $value = rtrim(substr($value, 0, $limit));
+
+    if ($to_nearest_word) {
+        $value = preg_replace('/\s+?(\S+)?$/', '', $value);
+    }
+    
+    return $value . $end;
+}
+
+/**
+ * Limit the number of words in a string.
+ *
+ * @param  string  $value
+ * @param  int     $limit
+ * @param  string  $end
+ * @return string
+ */
+function str_limit_words($value, $limit = 20, $end = '...') {
+    $words = explode(' ', $value);
+
+    if (count($words) <= $limit) {
+        return $value;
+    }
+
+    return implode(' ', array_splice($words, 0, $limit)) . $end;
+}
+
+/**
+ * Convert a string to camelCase format
+ * 
+ * @param  string $string
+ * @param  string $seperator
+ * @return string
+ */
+function camel_case($string, $capitalise_first_char = false) {
+    $string = str_replace(' ', '', ucwords(strtolower(alphanumeric($string))));
+
+    if ($capitalise_first_char) {
+        $string[0] = strtoupper($string[0]);
+    } else {
+        $string[0] = strtolower($string[0]);
+    }
+
+    return $string;
+}
+
+/**
+ * Revert a string from snake_case to regular text
+ * 
+ * @param  string $string
+ * @param  string $seperator
+ * @return string
+ */
+function remove_camel_case($string, $seperator = ' ') {
+    preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $string, $matches);
+
+    $ret = $matches[0];
+
+    foreach ($ret as &$match) {
+        $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+    }
+
+    return implode($seperator, $ret);
+}
+
+/**
+ * Convert a string to snake_case format
+ * 
+ * Replace spaces with another character, an underscore by default and make
+ * the string lowercase
+ * 
+ * @param  string $string
+ * @param  string $seperator
+ * @return string
+ */
+function snake_case($string, $seperator = '_') {
+    return strtolower(str_replace(' ', $seperator, alphanumeric($string)));
+}
+
+/**
+ * Strip out all non-alphanumeric items from a string
+ * 
+ * @param  string   $string
+ * @param  boolean  $strip_spaces Should spaces be stripped put
+ * @return string
+ */
+function alphanumeric($string, $strip_spaces = false) {
+    $pattern = $strip_spaces ? '/[^A-Za-z0-9]/' : '/[^A-Za-z0-9 ]/' ;
+    return preg_replace($pattern, '', $string);
+}
+
+/**
+ * Take a string and make it pretty 
+ * 
+ * @param  string $string
+ * @return string
+ */
+function prettify($string) {
+    return ucfirst(str_replace(array('_', '-'), ' ', $string));
+}
+
+/**
+ * Dump the passed variables and end the script.
+ *
+ * @param  dynamic  mixed
+ * @return void
+ */
+function dd() {
+    foreach (func_get_args() as $var) {
+        var_dump($var);
+    }
+    
+    die();
 }

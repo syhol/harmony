@@ -1,3 +1,11 @@
+<?php
+/**
+ *
+ * 
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ */
+?>
 <div class="row footer-nav">
 
     <div class="md-col-12">

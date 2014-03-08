@@ -14,12 +14,11 @@
 /**
  * Get title for a page/post/term/archive/index/search/404/and more...
  *  
- * @author Simon Holloway
  * @param object WP_Query|null
  * @return string title
  */
 function get_page_title($query = null) {
-    if(is_null($query)) {
+    if (is_null($query)) {
         global $wp_query;
         $query = $wp_query;
     }
@@ -30,7 +29,6 @@ function get_page_title($query = null) {
  * echo get_page_title()
  *
  * @see get_page_title()
- * @author Simon Holloway
  * @param  object WP_Query|null
  * @return string title
  */
@@ -42,7 +40,6 @@ function page_title($query = null) {
 /**
  * Get date query timestamp from a WP_Query archive query
  *  
- * @author Simon Holloway
  * @param  object   WP_Query
  * @return integer|false
  */
@@ -67,7 +64,6 @@ function get_archive_timestamp($query) {
 /**
  * Apply default page title
  * 
- * @author Simon Holloway
  * @param string title string
  * @param query WP_Query object
  * @return string title
@@ -107,7 +103,6 @@ add_filter('page_title', 'default_page_title', 5, 2);
 /**
  * Apply page title to wp_title (a.k.a head title tag)
  * 
- * @author Simon Holloway
  * @param string title string
  * @param string seperator
  * @param string location

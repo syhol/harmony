@@ -1,3 +1,11 @@
+<?php
+/**
+ *
+ * 
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ */
+?>
 <link rel="shortcut icon" href="<?php echo get_asset_url('img/icons/favicon.ico'); ?>">
 <link rel="apple-touch-icon" sizes="57x57" href="<?php echo get_asset_url('img/icons/apple-touch-icon-57x57.png'); ?>">
 <link rel="apple-touch-icon" sizes="114x114" href="<?php echo get_asset_url('img/icons/apple-touch-icon-114x114.png'); ?>">

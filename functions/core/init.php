@@ -32,13 +32,13 @@ if (false === defined('ENV')) {
 // Include composer autoloader
 include(VENDOR_PATH . 'autoload.php');
 
-// require php helpers
+// Require php helpers
 require(CORE_PATH . 'php-helpers.php');
 
-// require wordpress helpers
+// Require wordpress helpers
 require(CORE_PATH . 'wp-helpers.php');
 
-// require wordpress hooks
+// Require wordpress hooks
 require(CORE_PATH . 'wp-hooks.php');
 
 // Include modules

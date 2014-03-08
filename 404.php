@@ -5,6 +5,9 @@
  * Uses default headers and footers with a full width 12 col content
  * Template used when a route is not matched or content is not found in 
  * the database
+ * 
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  */
 
 render_template('header'); ?>

@@ -15,14 +15,14 @@
  * 
  * @return array
  */
-function bind_post_single_data($template) {
+function bind_post_single_data($data) {
     
-    if ( ! ($template->data instanceof WP_Post) && ! empty($template->data) ) {
+    if ( ! ($data instanceof WP_Post) && ! empty($data) ) {
         return;
     }
 
-    if ($template->data instanceof WP_Post) {
-        $post = $template->data;
+    if ($data instanceof WP_Post) {
+        $post = $data;
     } else {
         global $post;
         if ( ! ($post instanceof WP_Post) ) {
@@ -30,65 +30,71 @@ function bind_post_single_data($template) {
         }
     }
 
-    $template->data = array(
-        'title' => get_page_title(),
+    $data = array(
+        'title' => get_the_title($post->ID),
         'classes' => join(' ', get_post_class('single-item', $post->ID)),
         'content' => apply_filters('the_content', $post->post_content)
     );
+
+    return $data;
 }
-add_action('render_template_single-item', 'bind_post_single_data', 5);
+add_action('render_template_data_single-item', 'bind_post_single_data', 5);
 
 /**
  * Set standard data for a post single item
  *  
- * @param object $template template object 
+ * @param mixed $data data passed to template
  * 
  * @return array
  */
-function bind_post_single_404_data($template) {
+function bind_post_single_404_data($data) {
     
-    if ( ! empty($template->data) || ! is_404()) {
-        return;
+    if ( ! empty($data) || ! is_404()) {
+        return $data;
     }
 
-    $template->data = array(
+    $data = array(
         'classes' => 'page-404 error-404 single-item',
         'title' => 'Page Not Found',
         'content' => 'Sorry, the page you have requested does not exist.'
     );
+
+    return $data;
 }
-add_action('render_template_single-item', 'bind_post_single_404_data', 5);
+add_action('render_template_data_single-item', 'bind_post_single_404_data', 5);
 
 
 /**
  * Set standard data for a post index item from global $post
  *  
- * @param object $template template object 
+ * @param mixed $data data passed to template
  * 
  * @return array
  */
-function bind_post_index_data($template) {
+function bind_post_index_data($data) {
     
-    if ( ! ($template->data instanceof WP_Post) && ! empty($template->data) ) {
-        return;
+    if ( ! ($data instanceof WP_Post) && ! empty($data) ) {
+        return $data;
     }
 
-    if ($template->data instanceof WP_Post) {
-        $post = $template->data;
+    if ($data instanceof WP_Post) {
+        $post = $data;
     } else {
         global $post;
         if ( ! ($post instanceof WP_Post) ) {
-            return;
+            return $data;
         }
     }
 
-    $template->data = array(
-        'title' => $post->post_title,
+    $data = array(
+        'title' => get_the_title($post->ID),
         'classes' => join(' ', get_post_class('index-item', $post->ID)),
         'link' => get_permalink($post->ID),
         'link_text' => 'Read More&nbsp;&raquo;',
-        'content' => get_the_excerpt(),
+        'content' => get_excerpt($post->ID),
         'title_attribute' => the_title_attribute(array('echo' => false))
     );
+
+    return $data;
 }
-add_action('render_template_index-item', 'bind_post_index_data', 5);
+add_action('render_template_data_index-item', 'bind_post_index_data', 5);

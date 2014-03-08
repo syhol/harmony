@@ -4,6 +4,9 @@
  * 
  * Uses default headers and footers with a 9 col content and a 3 col sidebar
  * Template used for pages
+ * 
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  */
 
 render_template('header'); ?>

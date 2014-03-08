@@ -6,6 +6,9 @@
  * Template used as the front page
  * 
  * Template Name: Home
+ * 
+ * @author   Simon Holloway <holloway.sy@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  */
 
 render_template('header'); ?>

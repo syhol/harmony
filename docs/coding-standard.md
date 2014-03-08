@@ -31,9 +31,9 @@ Templating Formatting:
 
 <?php if ($condition1) : ?>
     <div>Condition 1</div>
-<?php elseif ($condition2 && $condition3): ?>
+<?php elseif ($condition2 && $condition3) : ?>
     <div>Condition 2 and Condition 3</div>
-<?php else: ?>
+<?php else : ?>
     <div>Default</div>
 <?php endif; ?>
 

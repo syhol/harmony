@@ -8,23 +8,61 @@
  */
 
 /**
- * Get the asset url path and pass a param to append to the end
+ * Get the asset url path and pass a string param to append to the end
  *  
- * @author Simon Holloway
  * @param  string   $path
- * @return string       url to assets with any extra path appended to the end
+ * @return string          url to assets with any extra path appended to the end
  */
 function get_asset_url($path = '') {
     return get_theme_url('assets/' . trim($path, '/'));
 }
 
 /**
- * Get the theme url path and pass a param to append to the end
+ * Get the theme url path and pass a string param to append to the end
  *  
- * @author Simon Holloway
  * @param  string   $path
- * @return string       url to assets with any extra path appended to the end
+ * @return string          url to assets with any extra path appended to the end
  */
 function get_theme_url($path = '') {
     return get_template_directory_uri() . '/' . trim($path, '/');
+}
+
+/**
+ * Get the excerpt from a post id
+ * 
+ * Uses post_excerpt, if post_excerpt is not available it will use post_content
+ * and convert it to an excerpt by running excerpt filters and wp_trim_words.
+ * If no $post_id passed will attempt to use the global post object.
+ *  
+ * @param  integer|string $post_id
+ * @return string
+ */
+function get_excerpt($post_id = null) {
+
+    if (is_numeric($post_id)) {
+        $post = get_post($post_id);
+    } else {
+        global $post;
+    }
+
+    if ( ! ($post instanceof WP_Post) ) {
+        return '';
+    }
+
+    if (isset($post->post_excerpt) && ! empty($post->post_excerpt) ) {
+        $excerpt = $post->post_excerpt;
+    } else {
+        $excerpt = $post->post_content;
+        $excerpt = strip_shortcodes($excerpt);
+        $excerpt = apply_filters('the_content', $excerpt);
+        $excerpt = str_replace(']]>', ']]&gt;', $excerpt);
+        $excerpt_length = apply_filters('excerpt_length', 55);
+        $excerpt_more = apply_filters('excerpt_more', ' ' . '[&hellip;]');
+        $excerpt = wp_trim_words($excerpt, $excerpt_length, $excerpt_more);
+    }
+
+    $excerpt = apply_filters('get_the_excerpt', $excerpt);
+    $excerpt = apply_filters('the_excerpt', $excerpt);
+
+    return $excerpt;
 }
