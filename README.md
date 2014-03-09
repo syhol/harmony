@@ -1,4 +1,4 @@
-# WP Starter Theme
+# Harmony - A WP Starter Theme
 
 ## Todos
 - Route module

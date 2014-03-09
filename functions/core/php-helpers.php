@@ -18,16 +18,12 @@
  */
 function array_dot_get($array, $key, $default = null) {
     if (is_null($key)) return $array;
-
     if (isset($array[$key])) return $array[$key];
 
-    foreach (explode('.', $key) as $segment)
-    {
-        if ( ! is_array($array) || ! array_key_exists($segment, $array))
-        {
+    foreach (explode('.', $key) as $segment) {
+        if ( ! is_array($array) || ! array_key_exists($segment, $array)) {
             return $default;
         }
-
         $array = $array[$segment];
     }
 
@@ -58,7 +54,6 @@ function array_dot_set(&$array, $key, $value)  {
         if ( ! isset($array[$key]) || ! is_array($array[$key])) {
             $array[$key] = array();
         }
-
         $array =& $array[$key];
     }
 
@@ -122,7 +117,7 @@ function array_get_last(&$array) {
  */
 function explode_multiple($delimiters, $string) {
     $delimiters = (array)$delimiters;
-    return explode($delimiters[0], str_replace($delimiters, $delimiters[0], $string));
+    return explode(chr(1), str_replace($delimiters, chr(1), $string));
 }
 
 /**
@@ -169,9 +164,10 @@ function str_replace_last($search, $replace, $subject) {
  * @return bool
  */
 function str_contains($haystack, $needles) {
-    foreach ((array) $needles as $needle)
-    {
-        if ($needle != '' && strpos($haystack, $needle) !== false) return true;
+    foreach ((array)$needles as $needle) {
+        if ($needle != '' && strpos($haystack, $needle) !== false) {
+            return true;
+        }
     }
 
     return false;
