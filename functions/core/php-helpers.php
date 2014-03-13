@@ -111,8 +111,8 @@ function array_get_last(&$array) {
 /**
  * Split a string by multiple delimiters
  * 
- * @param  array            $array
- * @param  string|integer   $key
+ * @param  array            $delimiters
+ * @param  string|integer   $string
  * @return array
  */
 function explode_multiple($delimiters, $string) {
@@ -232,7 +232,7 @@ function str_limit_words($value, $limit = 20, $end = '...') {
  * Convert a string to camelCase format
  * 
  * @param  string $string
- * @param  string $seperator
+ * @param  boolean $capitalise_first_char
  * @return string
  */
 function camel_case($string, $capitalise_first_char = false) {

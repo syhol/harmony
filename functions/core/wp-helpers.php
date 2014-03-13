@@ -8,26 +8,6 @@
  */
 
 /**
- * Get the asset url path and pass a string param to append to the end
- *  
- * @param  string   $path
- * @return string          url to assets with any extra path appended to the end
- */
-function get_asset_url($path = '') {
-    return get_theme_url('assets/' . trim($path, '/'));
-}
-
-/**
- * Get the theme url path and pass a string param to append to the end
- *  
- * @param  string   $path
- * @return string          url to assets with any extra path appended to the end
- */
-function get_theme_url($path = '') {
-    return get_template_directory_uri() . '/' . trim($path, '/');
-}
-
-/**
  * Get the excerpt from a post id
  * 
  * Uses post_excerpt, if post_excerpt is not available it will use post_content

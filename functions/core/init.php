@@ -43,11 +43,11 @@ require(CORE_PATH . 'wp-hooks.php');
 
 // Include modules
 $dir = new DirectoryIterator(MODULES_PATH);
-foreach ($dir as $module_PATH) {
-    if ( ! $module_PATH->isDot() && $module_PATH->isDir() ) {
-        $module_init = $module_PATH->getPathname() . DS . $module_PATH->getFilename() . '.php';
-    } elseif($module_PATH->isFile()) {
-        $module_init = $module_PATH->getPathname();
+foreach ($dir as $module_path) {
+    if ( ! $module_path->isDot() && $module_path->isDir() ) {
+        $module_init = $module_path->getPathname() . DS . $module_path->getFilename() . '.php';
+    } elseif($module_path->isFile()) {
+        $module_init = $module_path->getPathname();
     } else {
         continue;
     }

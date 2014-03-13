@@ -20,6 +20,24 @@ render_template('header'); ?>
         
             <h1 class="text-center"><?php page_title(); ?></h1>
 
+                  <hr>
+
+                  <h3>Location Helpers</h3>
+                  
+                  <ul>
+                        <li>get_route: <?php echo get_route('to/my/route'); ?></li>
+                        <li>get_theme_url: <?php echo get_theme_url('to/my/resource.js'); ?></li>
+                        <li>get_theme_path: <?php echo get_theme_path('to/my/resource.php'); ?></li>
+                        <li>get_asset_url: <?php echo get_asset_url('js/resource.js'); ?></li>
+                        <li>get_asset_path: <?php echo get_asset_path('php/resource.php'); ?></li>
+                        <li>get_template_url: <?php echo get_template_url('single/template.php'); ?></li>
+                        <li>get_template_path: <?php echo get_template_path('single/template.php'); ?></li>
+                        <li>get_function_url: <?php echo get_function_url('core/funcs.php'); ?></li>
+                        <li>get_function_path: <?php echo get_function_path('custom/funcs.php'); ?></li>
+                        <li>get_module_url: <?php echo get_module_url('my-module/resource.js'); ?></li>
+                        <li>get_module_path: <?php echo get_module_path('my-module/resource.php'); ?></li>
+                  </ul>
+
                   <?php 
 
                   $array = array(
