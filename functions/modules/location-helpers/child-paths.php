@@ -54,5 +54,5 @@ function get_child_function_path($path = '') {
  * @return string          url to module with extra path appended
  */
 function get_child_module_path($path = '') {
-    return get_child_function_path('module/' . ltrim($path, '/'));
+    return get_child_function_path('modules/' . ltrim($path, '/'));
 }

@@ -54,5 +54,5 @@ function get_function_path($path = '') {
  * @return string          url to module with extra path appended
  */
 function get_module_path($path = '') {
-    return get_function_path('module/' . ltrim($path, '/'));
+    return get_function_path('modules/' . ltrim($path, '/'));
 }

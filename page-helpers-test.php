@@ -22,6 +22,80 @@ render_template('header'); ?>
 
                   <hr>
 
+                  <h3>Sorcery</h3>
+                  
+                  <h4>Comming Soon</h4>
+
+                  <?php //render_sorcery_widget('text', 'my-key', array(), 'this is my value'); ?>
+                  <?php //render_sorcery_widget('password', 'my-key', array(), 'this is my value'); ?>
+                  <?php //render_sorcery_widget('radio', 'my-key', array(), 'value 1'); ?>
+                  <?php //render_sorcery_widget('radio', 'my-key', array(
+                        //'attributes' => array('checked' => 'checked')
+                  //), 'value 2'); ?>
+                  <?php //render_sorcery_widget('checkbox', 'my-key', array(), 'this is my value'); ?>
+                  <?php //render_sorcery_widget('select', 'my-key', array('selected' => 'value2'), array(
+                        //'value1' => 'Value 1',
+                        //'value2' => 'Value 2',
+                        //'Value 3' => array(
+                        //      'value4' => 'Value 4'
+                        //)
+                  //)); ?>
+
+                  <hr>
+
+                  <h3>Render Template</h3>
+                  
+                  <?php render_template('single-item'); ?>
+
+                  <?php render_template('single-item', array(
+                        'classes' => 'jumbotron',
+                        'title' => 'OMG It\'s Jumbo',
+                        'content' => '<p>Love the jumbo, im just a standard jumbo paragraph.</p>' .
+                                     '<p>I\'m using the same template as the content above, but using different injected values.</p>'
+                  )); ?>
+
+                  <?php render_template('index-item', array('post' => get_post(1))); ?>
+                  
+                  <?php render_template('index-item', array('title' => get_the_title() . ' With Some Extras!')); ?>
+
+                  <hr>
+
+                  <h3>Page Title</h3>
+                  
+                  <p>
+                        Render it: <?php page_title(); ?>
+                  </p>
+
+                  <p>
+                        Return it:
+                        <?php var_dump(get_page_title()); ?>
+                  </p>
+
+                  <?php
+                  $month_query = new WP_Query(array(
+                        'monthnum' => 8
+                  )); 
+                  $author_query = new WP_Query(array(
+                        'author_name' => 'sholloway'
+                  ));
+                  $tag_query = new WP_Query(array(
+                        'tag' => 'training'
+                  )); 
+                  $search_query = new WP_Query(array(
+                        's' => 'Keyword Search'
+                  )); 
+                  ?>
+
+                  <p>
+                        Custom queries:
+                        <h4><?php page_title($month_query); ?></h4>
+                        <h4><?php page_title($author_query); ?></h4>
+                        <h4><?php page_title($tag_query); ?></h4>
+                        <h4><?php page_title($search_query); ?></h4>
+                  </p>
+
+                  <hr>
+
                   <h3>Location Helpers</h3>
                   
                   <ul>
@@ -125,11 +199,11 @@ render_template('header'); ?>
                   <?php 
                   $delimiters = array('://', '.', '/', '?', '=');
                   $subject = 'http://www.google.com/seg1/seg2?query1=test';
-                  $exploded = explode_multiple($delimiters, $subject); ?>
+                  ?>
 
                   <p>
                         Explode <code>"<?php echo $subject; ?>"</code> by <code>"<?php echo implode('"</code> and <code>"', $delimiters); ?>"</code>:
-                        <?php var_dump($exploded); ?>
+                        <?php var_dump(explode_multiple($delimiters, $subject)); ?>
                   </p>
 
                   <hr>

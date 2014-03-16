@@ -68,7 +68,9 @@ function get_archive_timestamp($query) {
  * @param query WP_Query object
  * @return string title
  */
-function default_page_title($title, $query) {
+function default_page_title($title, $query) { 
+    $o = '&ldquo;';
+    $c = '&rdquo;';
     if ($query->is_home()) {
         if (get_option('page_for_posts', true)) {
             $title = get_the_title(get_option('page_for_posts', true));
@@ -76,9 +78,13 @@ function default_page_title($title, $query) {
             $title = 'Latest Posts';
         }
     } elseif ($query->is_archive()) {
-        if ($query->is_tax() || $query->is_category() || $query->is_tag()) {
+        if ($query->is_tax() && $query->get_queried_object()) {
             $title = $query->get_queried_object()->name;
-        } elseif ($query->is_post_type_archive()) {
+        } elseif ($query->is_category() && $query->get_queried_object()) {
+            $title = 'In Category' . $o . $query->get_queried_object()->name . $c;
+        } elseif ($query->is_tag() && $query->get_queried_object()) {
+            $title = 'Tagged  ' . $o . $query->get_queried_object()->name . $c;
+        } elseif ($query->is_post_type_archive() && $query->get_queried_object()) {
             $title = $query->get_queried_object()->labels->name;
         } elseif ($query->is_day()) {
             $title = 'Archives - ' . date('jS \o\f F Y', get_archive_timestamp($query));
@@ -86,11 +92,11 @@ function default_page_title($title, $query) {
             $title = 'Archives - ' . date('F Y', get_archive_timestamp($query));
         } elseif ($query->is_year()) {
             $title = 'Archives - ' . date('Y', get_archive_timestamp($query));
-        } elseif ($query->is_author()) {
+        } elseif ($query->is_author() && $query->get_queried_object()) {
             $title = 'By: ' . $query->get_queried_object()->display_name;
         }
     } elseif ($query->is_search()) {
-        $title = 'Search Results for &quot;' . $query->query_vars['s'] . '&quot;';
+        $title = 'Search Results for ' . $o . $query->query_vars['s'] . $c;
     } elseif ($query->is_404()) {
         $title = 'Not Found';
     } elseif($query->is_singular()) {
