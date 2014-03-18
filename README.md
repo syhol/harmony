@@ -1,5 +1,7 @@
 # Harmony - A WP Starter Theme
 
+![](https://raw.github.com/syholloway/harmony/master/screenshot.png)
+
 ## Todos
 - Route module
 - Post Type module
