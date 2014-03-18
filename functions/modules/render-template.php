@@ -24,17 +24,24 @@
  * 
  * @param  string   $path 
  * @param  array    $data
+ * @param  boolean  $ob     Use output buffering and return the result
  * @return void
  */
-function render_template($path, array $data = array()) {
+function render_template($path, array $data = array(), $ob = false) {
     $original_path = $path;
     $original_data = $data;
     $data = apply_filters('render_template_data', $data, $original_data, $path);
     $data = apply_filters('render_template_data_' . $original_path, $data, $original_data, $path);
     $path = apply_filters('render_template_path', $path, $original_path, $data);
     $path = apply_filters('render_template_path_' . $original_path, $path, $original_path, $data);
-    if(is_array($data)) extract($data);
+    if (is_array($data)) extract($data);
+    if ($ob) ob_start();
     require($path);
+    if ($ob) {
+        $out = ob_get_contents();
+        ob_end_clean();
+        return $out;
+    }
 }
 
 /**

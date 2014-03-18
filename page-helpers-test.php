@@ -24,22 +24,50 @@ render_template('header'); ?>
 
                   <h3>Sorcery</h3>
                   
-                  <h4>Comming Soon</h4>
+                  <h4>Widgets</h4>
+                  
+                  <h5>Textbox</h5>
 
-                  <?php //render_sorcery_widget('text', 'my-key', array(), 'this is my value'); ?>
-                  <?php //render_sorcery_widget('password', 'my-key', array(), 'this is my value'); ?>
-                  <?php //render_sorcery_widget('radio', 'my-key', array(), 'value 1'); ?>
-                  <?php //render_sorcery_widget('radio', 'my-key', array(
-                        //'attributes' => array('checked' => 'checked')
-                  //), 'value 2'); ?>
-                  <?php //render_sorcery_widget('checkbox', 'my-key', array(), 'this is my value'); ?>
-                  <?php //render_sorcery_widget('select', 'my-key', array('selected' => 'value2'), array(
-                        //'value1' => 'Value 1',
-                        //'value2' => 'Value 2',
-                        //'Value 3' => array(
-                        //      'value4' => 'Value 4'
-                        //)
-                  //)); ?>
+                  <?php 
+                  sorcery_widget_text('My Text', 'value');
+                  ?>
+                  
+                  <h5>Textarea</h5>
+
+                  <?php 
+                  sorcery_widget_textarea('My Textarea', 'value ipsum');
+                  ?>
+
+                  <h5>Radio Button</h5>
+
+                  <?php 
+                  sorcery_widget_radio('My Radio', 'one');
+                  sorcery_widget_radio('My Radio', 'two', true);
+                  sorcery_widget_radio('My Radio', 'three');
+                  ?>
+
+                  <h5>Checkbox</h5>
+
+                  <?php 
+                  sorcery_widget_checkbox('My Check','one', true);
+                  sorcery_widget_checkbox('My Check', 'two');
+                  sorcery_widget_checkbox('My Check', 'three', true);
+                  ?>
+
+                  <h5>Select</h5>
+
+                  <?php 
+                  sorcery_widget_select('My Select', 'six', array(
+                        'one' => 'One',
+                        'two' => 'Two',
+                        'three' => 'Three',
+                        'Four' => array(
+                              'five' => 'Five',
+                              'six' => 'Six',
+                              'seven' => 'Seven'
+                        )
+                  ));
+                  ?>
 
                   <hr>
 
@@ -57,6 +85,10 @@ render_template('header'); ?>
                   <?php render_template('index-item', array('post' => get_post(1))); ?>
                   
                   <?php render_template('index-item', array('title' => get_the_title() . ' With Some Extras!')); ?>
+
+                  <?php // Oh and you can return it too ?>
+                  <?php $single_item = render_template('single-item', array('content' => 'look at me!'), true); ?>
+                  <?php var_dump($single_item); ?>
 
                   <hr>
 
@@ -88,10 +120,10 @@ render_template('header'); ?>
 
                   <p>
                         Custom queries:
-                        <h4><?php page_title($month_query); ?></h4>
-                        <h4><?php page_title($author_query); ?></h4>
-                        <h4><?php page_title($tag_query); ?></h4>
-                        <h4><?php page_title($search_query); ?></h4>
+                        <h5><?php page_title($month_query); ?></h5>
+                        <h5><?php page_title($author_query); ?></h5>
+                        <h5><?php page_title($tag_query); ?></h5>
+                        <h5><?php page_title($search_query); ?></h5>
                   </p>
 
                   <hr>
