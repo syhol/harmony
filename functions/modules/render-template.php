@@ -25,7 +25,7 @@
  * @param  string   $path 
  * @param  array    $data
  * @param  boolean  $ob     Use output buffering and return the result
- * @return void
+ * @return void|string
  */
 function render_template($path, array $data = array(), $ob = false) {
     $original_path = $path;
