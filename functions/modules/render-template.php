@@ -28,12 +28,7 @@
  * @return void|string
  */
 function render_template($path, array $data = array(), $ob = false) {
-    $original_path = $path;
-    $original_data = $data;
-    $data = apply_filters('render_template_data', $data, $original_data, $path);
-    $data = apply_filters('render_template_data_' . $original_path, $data, $original_data, $path);
-    $path = apply_filters('render_template_path', $path, $original_path, $data);
-    $path = apply_filters('render_template_path_' . $original_path, $path, $original_path, $data);
+    list($path, $data) = parse_template_data($path, $data);
     if (is_array($data)) extract($data);
     if ($ob) ob_start();
     require($path);
@@ -42,6 +37,29 @@ function render_template($path, array $data = array(), $ob = false) {
         ob_end_clean();
         return $out;
     }
+}
+
+/**
+ * Prepare the data and path for a template
+ * 
+ * @param  string   $path 
+ * @param  array    $data
+ * @return array            Contains the [0] => $data and [1] => $path
+ */
+function parse_template_data($path, array $data = array()) {
+    $original_path = $path;
+    $original_data = $data;
+    $filters = array(
+        'template_data',
+        'template_data_' . $original_path,
+        'template_path',
+        'template_path_' . $original_path
+    );
+    $data = apply_filters($filters[0], $data, $original_data, $path);
+    $data = apply_filters($filters[1], $data, $original_data, $path);
+    $path = apply_filters($filters[2], $path, $original_path, $data);
+    $path = apply_filters($filters[3], $path, $original_path, $data);
+    return array($path, $data);
 }
 
 /**
@@ -64,7 +82,7 @@ function set_default_template_path($path, $original_path, $data) {
     }
     return $path;
 }
-add_filter('render_template_path', 'set_default_template_path', 5, 3);
+add_filter('template_path', 'set_default_template_path', 5, 3);
 
 /**
  * Set the path to module templates when the ":" operator is used
@@ -89,4 +107,4 @@ function set_module_template_path($path, $original_path, $data) {
     }
     return $path;
 }
-add_filter('render_template_path', 'set_module_template_path', 6, 3);
+add_filter('template_path', 'set_module_template_path', 6, 3);

@@ -39,7 +39,7 @@ function bind_post_single_data($data) {
     
     return wp_parse_args($data, $defaultData);
 }
-add_action('render_template_data_single-item', 'bind_post_single_data', 5);
+add_filter('template_data_single-item', 'bind_post_single_data', 5);
 
 /**
  * Set standard data for a post single item
@@ -62,7 +62,7 @@ function bind_post_single_404_data($data) {
 
     return wp_parse_args($data, $the404Data);
 }
-add_action('render_template_data_single-item', 'bind_post_single_404_data', 5);
+add_filter('template_data_single-item', 'bind_post_single_404_data', 5);
 
 
 /**
@@ -102,4 +102,4 @@ function bind_post_index_data($data) {
 
     return wp_parse_args($data, $defaultData);
 }
-add_action('render_template_data_index-item', 'bind_post_index_data', 5);
+add_filter('template_data_index-item', 'bind_post_index_data', 5);

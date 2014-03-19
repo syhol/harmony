@@ -54,7 +54,7 @@ foreach ($dir as $module_path) {
     include($module_init);
 }
 
-do_action('theme_modules_loaded');
+do_action('modules_loaded');
 
 // require data bindings for templates
 require(CUSTOM_PATH . 'init.php');

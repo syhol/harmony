@@ -32,4 +32,4 @@ function sorcery_widgets_template_redirect($path, $original_path, $data) {
     }
     return $path;
 }
-add_filter('render_template_path' , 'sorcery_widgets_template_redirect', 30, 3);
+add_filter('template_path' , 'sorcery_widgets_template_redirect', 30, 3);

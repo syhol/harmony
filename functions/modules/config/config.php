@@ -16,5 +16,9 @@ $theme_config = array();
 
 require('functions.php');
 
-load_environment_config('default');
-load_environment_config();
+function load_initial_config() {
+    set_config('config_file', get_function_path('custom/config.php'));
+    load_environment_config('all');
+    load_environment_config();
+}
+add_action('modules_loaded', 'load_initial_config');
