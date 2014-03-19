@@ -26,19 +26,19 @@ render_template('header'); ?>
                   
                   <h4>Widgets</h4>
                   
-                  <h5>Textbox</h5>
+                  <label>Textbox</label>
 
                   <?php 
                   sorcery_widget_text('My Text', 'value');
                   ?>
                   
-                  <h5>Textarea</h5>
+                  <label>Textarea</label>
 
                   <?php 
                   sorcery_widget_textarea('My Textarea', 'value ipsum');
                   ?>
 
-                  <h5>Radio Button</h5>
+                  <label>Radio Button</label>
 
                   <?php 
                   sorcery_widget_radio('My Radio', 'one');
@@ -46,7 +46,7 @@ render_template('header'); ?>
                   sorcery_widget_radio('My Radio', 'three');
                   ?>
 
-                  <h5>Checkbox</h5>
+                  <label>Checkbox</label>
 
                   <?php 
                   sorcery_widget_checkbox('My Check','one', true);
@@ -54,7 +54,7 @@ render_template('header'); ?>
                   sorcery_widget_checkbox('My Check', 'three', true);
                   ?>
 
-                  <h5>Select</h5>
+                  <label>Select</label>
 
                   <?php 
                   sorcery_widget_select('My Select', 'six', array(
