@@ -3,22 +3,31 @@
 ![](https://raw.github.com/syholloway/harmony/master/screenshot.png)
 
 ## Todos
-- Route module
+- Wordpress helpers
+    - Location helpers
 - Post Type module
 - Taxonomy module
 - Meta module
-    - Post/Page/Custom
-    - User
-    - Term
-    - Site - (options page)
+    - Meta types
+        - Post
+        - User
+        - Term
+        - Site - (options page)
+    - Meta forms
+        - Widgets
+        - Fields
+        - Validation
 - Create a good way to add theme setup like menus, images sizes ect. 
-- Pagination helpers
-- Infinite scroll module
+- Pagination module
+    - Infinite scroll sub module
+    - JS Slider pagination sub module
 - Image module
     - Featured image module
 - Menu module
 
 ## Modules
-- Config module
+- Route module
+- Registry module
 - Page Title module
 - Render Template module
+- PHP Helpers

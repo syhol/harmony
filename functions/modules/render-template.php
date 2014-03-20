@@ -19,8 +19,7 @@
  * 
  * Pass a path and a dataset to this function and render_template hooks will 
  * attempt to interpret the path into a real file path, then the file is 
- * included and the data var is added to the templates scope, arrays are 
- * extracted by default, but the original is still available at $original_data
+ * included and the data array is extracted in to the templates scope
  * 
  * @param  string   $path 
  * @param  array    $data

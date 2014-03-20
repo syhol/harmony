@@ -128,6 +128,33 @@ render_template('header'); ?>
 
                   <hr>
 
+                  <h3>Registry</h3>
+
+                  <?php 
+                  $original_logo = 'https://cdn3.iconfinder.com/data/icons/free-social-icons/67/wordpress_square-128.png';
+                  $alt_logo = 'http://speckycdn.sdm.netdna-cdn.com/wp-content/uploads/2013/09/25-40-flat-logos.png'; 
+                  ?>
+
+                  <p>Global registry that can be swapped out at a momounts notice</p>
+
+                  <p>Get a registry value</p>
+                  <p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
+
+                  <p>Edit a registry value</p>
+                  <?php set_registry('site-logo', $alt_logo); ?>
+                  <p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
+
+                  <p>And back again</p>
+                  <?php set_registry('site-logo', $original_logo); ?>
+                  <p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
+
+                  <p>Swap out the entire register container for new registry values throughout</p>
+                  <?php $old_registry = registry_container(array('site-logo' => $alt_logo)); ?>
+                  <p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
+
+                  <p>Then re-inject old container back in to return to the old state</p>
+                  <?php registry_container($old_registry); ?>
+                  <p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
                   <h3>Location Helpers</h3>
                   
                   <ul>

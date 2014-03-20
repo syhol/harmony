@@ -62,7 +62,7 @@ function bind_post_single_404_data($data) {
 
     return wp_parse_args($data, $the404Data);
 }
-add_filter('template_data_single-item', 'bind_post_single_404_data', 5);
+add_filter('template_data_single-item', 'bind_post_single_404_data', 4);
 
 
 /**
