@@ -150,7 +150,7 @@ while ($condition) {
 * No space between the condition and the close parenthese `)` (unless specified)
 * 1 space between the close parenthese and open iteration body `:`
 * Open iteration body `:` must go on the same line 
-* Close iteration body `<?php endif; ?>` must go on the next line after the body finishes
+* Close iteration body must go on the next line after the body finishes
 * for, endfor, foreach, endforeach, while, and endwhile must go on a line by itself
 
 ```php
@@ -172,7 +172,7 @@ while ($condition) {
 
 * Use snake_case for long variable names
 * Explicit descriptive names over brevity
-* 1 space each side of an assignment operator (=)
+* 1 space each side of an assignment operator `=`
 
 #### Bad example:
 ```php
@@ -215,8 +215,8 @@ One file per class.
 ### Namespaces
 Don't use them.
 
-## Documentation
+### Documentation
 PHP DocBlocks at the top of every file, a PHP DocBlock for each function.
 
-## Type Juggling
+### Type Juggling
 Swapping types should be done with the (bool)/(string)/(array) syntax
