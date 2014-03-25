@@ -175,12 +175,12 @@ while ($condition) {
 * 1 space each side of an assignment operator (=)
 
 #### Bad example:
-```
+```php
 <?php $ptNmCnt=1; ?>
 ```
 
 #### Good example:
-```
+```php
 <?php $post_name_count = 1; ?>
 ```
 
