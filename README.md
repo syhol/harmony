@@ -73,9 +73,8 @@ The following coding style is a mixture of PSR-2 and WordPress style
 * Else and elseif must go on the same line as the close body of the previous selection
 * Elseif must be used as 1 word and not "else if"
 
-```
+```php
 <?php
-
 if ($condition1) {
     action1();
     action2();
@@ -87,7 +86,6 @@ if ($condition1) {
 } else {
     defaultaction();
 }
-
 ?>
 ```
 
@@ -104,8 +102,7 @@ if ($condition1) {
 * If, else, elseif, and endif must go on a line by itself
 * Elseif must be used as 1 word and not "else if"
 
-```
-
+```php
 <?php if ($condition1) : ?>
     <div>Condition 1</div>
 <?php elseif ($condition2 && $condition3) : ?>
@@ -115,7 +112,6 @@ if ($condition1) {
 <?php else : ?>
     <div>Default</div>
 <?php endif; ?>
-
 ```
 
 ### Iteration
@@ -131,21 +127,17 @@ if ($condition1) {
 * Open iteration body `{` must go on the same line 
 * Close iteration body `}` must go on the next line after the body finishes
 
-```
+```php
 <?php
-
 for ($i = 0; $i < $count; $i++) {
     action();
 }
-
 foreach ($array as $key => $value) {
     action();
 }
-
 while ($condition) {
     action();
 }
-
 ?>
 ```
 
@@ -161,8 +153,7 @@ while ($condition) {
 * Close iteration body `<?php endif; ?>` must go on the next line after the body finishes
 * for, endfor, foreach, endforeach, while, and endwhile must go on a line by itself
 
-```
-
+```php
 <?php for ($i = 0; $i < $count; $i++) : ?>
     <div>Looping</div>
 <?php endfor; ?>
@@ -209,13 +200,11 @@ while ($condition) {
 * Open function body `{` must go on the same line 
 * Close function body `}` must go on the next line after the body finishes
 
-```
+```php
 <?php
-
 function add_params($param1, array $array_of_params, $default_param = 1) {
     return $param1 + $default_param;
 }
-
 ?>
 ```
 
