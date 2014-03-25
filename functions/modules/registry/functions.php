@@ -58,6 +58,45 @@ function get_registry($key, $default = null) {
 }
 
 /**
+ * Push an entry to a registry array variable
+ * 
+ * You can use array dot notation
+ * 
+ * @see array_dot_get()
+ * @see array_dot_set()
+ * @param   string  $key
+ * @param   mixed   $value 
+ * @return  mixed
+ */
+function push_registry($key, $value) {
+    $array = get_registry($key, array());
+    if ( ! is_array($array) ) $array = array();
+    array_push($array, $value);
+    array_dot_set($key, $array);
+}
+
+/**
+ * Pull an entry from registry and delete it
+ * 
+ * You can use array dot notation
+ * 
+ * @see array_dot_get()
+ * @see array_dot_set()
+ * @param   string  $key
+ * @param   mixed   $value 
+ * @return  mixed
+ */
+function pull_registry($key, $index = null) {
+    $registry = registry_container();
+    if ( ! is_null($index) ) $key .= '.' . $index;
+    $value = array_dot_get($registry, $key, null);
+    array_dot_forget($registry, $key);
+    array_dot_set($registry, $key, $value);
+    registry_container($registry);
+    return $value;
+}
+
+/**
  * Empty the config container and return the old one
  * 
  * @return mixed    old registry container

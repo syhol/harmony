@@ -14,9 +14,9 @@ render_template('header'); ?>
 
 <div class="container">
 
-	<div class="row">
-		
-		<section class="col-sm-10 col-sm-offset-1">
+      <div class="row">
+
+            <section class="col-sm-10 col-sm-offset-1">
         
             <h1 class="text-center"><?php page_title(); ?></h1>
 
@@ -71,6 +71,38 @@ render_template('header'); ?>
 
                   <hr>
 
+                  <h3>Profiler</h3>
+                  
+                  <?php
+
+                  ob_start();
+
+                  $diffs1 = array();
+                  for ($i = 1; $i < 100; $i++) {
+                        profile_start(); 
+                        $single_item = render_template('single-item', array('content' => 'look at me!'), true);
+                        echo $single_item;
+                        $profile = profile_stop();
+                        $diffs1[] = $profile['time-diff'];
+                  }
+
+                  $diffs2 = array();
+                  for ($i = 1; $i < 100; $i++) {
+                        profile_start(); 
+                        render_template('single-item', array('content' => 'look at me!'));
+                        $profile = profile_stop();
+                        $diffs2[] = $profile['time-diff'];
+                  }
+
+                  ob_end_clean();
+
+                  var_dump(array_sum($diffs1) / count($diffs1));
+                  var_dump(array_sum($diffs2) / count($diffs2));
+
+                  ?>
+
+                  <hr>
+
                   <h3>Render Template</h3>
                   
                   <?php render_template('single-item'); ?>
@@ -87,7 +119,7 @@ render_template('header'); ?>
                   <?php render_template('index-item', array('title' => get_the_title() . ' With Some Extras!')); ?>
 
                   <?php // Oh and you can return it too ?>
-                  <?php $single_item = render_template('single-item', array('content' => 'look at me!'), true); ?>
+                  <?php $single_item = template('single-item', array('content' => 'look at me!')); ?>
                   <?php var_dump($single_item); ?>
 
                   <hr>
@@ -398,10 +430,10 @@ render_template('header'); ?>
                   </p>
 
 
-		</section>
-	
-	</div>
+            </section>
+
+      </div>
 
 </div>
 
-<?php render_template('footer') ?>
+<?php render_template('footer'); ?>

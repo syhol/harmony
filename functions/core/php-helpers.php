@@ -63,6 +63,30 @@ function array_dot_set(&$array, $key, $value)  {
 }
 
 /**
+ * Remove an array item from a given array using "dot" notation.
+ *
+ * @param  array   $array
+ * @param  string  $key
+ * @return void
+ */
+function array_dot_forget(&$array, $key)
+{
+    $keys = explode('.', $key);
+
+    while (count($keys) > 1) {
+        $key = array_shift($keys);
+
+        if ( ! isset($array[$key]) || ! is_array($array[$key])) {
+            return;
+        }
+
+        $array =& $array[$key];
+    }
+
+    unset($array[array_shift($keys)]);
+}
+
+/**
  * Check if passed key is the key of the first item in the array
  * 
  * @param  array            $array

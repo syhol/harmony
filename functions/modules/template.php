@@ -1,13 +1,13 @@
 <?php
 /**
- * Render Template Module
+ * Template Module
  *
  * A small template loader module that loads a template from a prefedined 
  * location (usually the themes TEMPLATES_PATH) and sets up variables to be 
  * include in the templates scope. Using the render_template action the path 
  * and variables (data) can be changed/overridden. 
  *
- * @package Render_Template
+ * @package Template
  * @uses    Location_Helpers
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
@@ -15,9 +15,9 @@
  */
 
 /**
- * Render a template from the templates directory
+ * Compile a template then returns it as a string
  * 
- * Pass a path and a dataset to this function and render_template hooks will 
+ * Pass a path and a dataset to this function and template hooks will 
  * attempt to interpret the path into a real file path, then the file is 
  * included and the data array is extracted in to the templates scope
  * 
@@ -26,16 +26,28 @@
  * @param  boolean  $ob     Use output buffering and return the result
  * @return void|string
  */
-function render_template($path, array $data = array(), $ob = false) {
+function template($path, array $data = array()) {
+    ob_start();
+    render_template($path, $data);
+    return ob_get_clean();
+}
+
+/**
+ * Render a template from the templates directory
+ * 
+ * Pass a path and a dataset to this function and template hooks will 
+ * attempt to interpret the path into a real file path, then the file is 
+ * included and the data array is extracted in to the templates scope
+ * 
+ * @param  string   $path 
+ * @param  array    $data
+ * @param  boolean  $ob     Use output buffering and return the result
+ * @return void|string
+ */
+function render_template($path, array $data = array()) {
     list($path, $data) = parse_template_data($path, $data);
     if (is_array($data)) extract($data);
-    if ($ob) ob_start();
     require($path);
-    if ($ob) {
-        $out = ob_get_contents();
-        ob_end_clean();
-        return $out;
-    }
 }
 
 /**

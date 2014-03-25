@@ -23,9 +23,9 @@ function get_custom_route($url = null) {
 
     $url = '#/' . trim($url, '/') . '/#';
 
-    foreach (get_registry('routes', array()) as $pattern => $route) {
+    foreach (get_registry('router.routes', array()) as $route) {
         
-        $pattern = '#' . $pattern . '#';
+        $pattern = '#' . $route['pattern'] . '#';
 
         if (preg_match_all($pattern, $url, $matches, PREG_SET_ORDER)) {
             $matches = $matches[0];
@@ -48,13 +48,11 @@ function get_custom_route($url = null) {
  */
 function add_route($path, $callback = false, $template = false) {
     $path = '/' . trim($path, '/') . '/';
-    $routes = get_registry('routes', array());
-    $routes[$path] = array(
+    push_registry('router.routes', array(
         'path' => $path,
         'callback' => $callback,
         'template' => $template
-    );
-    set_registry('routes', $routes);
+    ));
 }
 
 /**
