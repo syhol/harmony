@@ -205,7 +205,11 @@ render_template('header'); ?>
 			$alt_logo = 'http://speckycdn.sdm.netdna-cdn.com/wp-content/uploads/2013/09/25-40-flat-logos.png'; 
 			?>
 
-			<p>Global registry that can be swapped out at a momounts notice</p>
+			<p>
+				Global data store where individual items or the entire data 
+				container can be swapped out at a moments notice, useful for 
+				storing application runtime values/object/variables.
+			</p>
 
 			<p>Get a registry value</p>
 			<p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
