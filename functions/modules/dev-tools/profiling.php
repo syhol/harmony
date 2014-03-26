@@ -11,27 +11,27 @@
 
 
 function profile_start($profile_id = null) {
-    if (is_null($profile_id)) $profile_id = str_random();
-    set_registry('dev-tools.active-profile', $profile_id);
-    set_registry('dev-tools.active-profiles.' . $profile_id, array(
-        'memory' => memory_get_usage(true),
-        'timestamp' => microtime(true)
-    ));
+	if (is_null($profile_id)) $profile_id = str_random();
+	set_registry('dev-tools.active-profile', $profile_id);
+	set_registry('dev-tools.active-profiles.' . $profile_id, array(
+		'memory' => memory_get_usage(true),
+		'timestamp' => microtime(true)
+	));
 }
 
 function profile_stop($profile_id = null) {
-    $stop_time = microtime(true);
-    $stop_memory = memory_get_usage(true);
-    if (is_null($profile_id)) {
-        $profile_id = get_registry('dev-tools.active-profile');
-    }
-    $start_time = get_registry('dev-tools.active-profiles.' . $profile_id . '.timestamp');
-    $start_memory = get_registry('dev-tools.active-profiles.' . $profile_id . '.memory');
-    profile_remove($profile_id);
-    return array(
-        'time-diff' => $stop_time - $start_time,
-        'memory-diff' => $stop_memory - $start_memory
-    );
+	$stop_time = microtime(true);
+	$stop_memory = memory_get_usage(true);
+	if (is_null($profile_id)) {
+		$profile_id = get_registry('dev-tools.active-profile');
+	}
+	$start_time = get_registry('dev-tools.active-profiles.' . $profile_id . '.timestamp');
+	$start_memory = get_registry('dev-tools.active-profiles.' . $profile_id . '.memory');
+	profile_remove($profile_id);
+	return array(
+		'time-diff' => $stop_time - $start_time,
+		'memory-diff' => $stop_memory - $start_memory
+	);
 }
 
 function profile_dump($profile_id = null) {
@@ -43,20 +43,20 @@ function profile_dd($profile_id = null) {
 }
 
 function profile_remove($profile_id) {
-    $profiles = get_registry('dev-tools.active-profiles', array());
-    if (isset($profiles[$profile_id])) unset($profiles[$profile_id]);
+	$profiles = get_registry('dev-tools.active-profiles', array());
+	if (isset($profiles[$profile_id])) unset($profiles[$profile_id]);
 
-    //Fix the active profile
-    $active = get_registry('dev-tools.active-profile');
-    if ( ! isset($profiles[$active]) && count($profiles) > 0) {
-        $most_recent = 0;
-        foreach ($profiles as $id => $profile) {
-            if($most_recent <= $profile['timestamp']) {
-                $most_recent = $profile['timestamp'];
-                set_registry('dev-tools.active-profile', $id);
-            }
-        }
-    }
+	//Fix the active profile
+	$active = get_registry('dev-tools.active-profile');
+	if ( ! isset($profiles[$active]) && count($profiles) > 0) {
+		$most_recent = 0;
+		foreach ($profiles as $id => $profile) {
+			if($most_recent <= $profile['timestamp']) {
+				$most_recent = $profile['timestamp'];
+				set_registry('dev-tools.active-profile', $id);
+			}
+		}
+	}
 
-    set_registry('dev-tools.active-profiles', $profiles);
+	set_registry('dev-tools.active-profiles', $profiles);
 }

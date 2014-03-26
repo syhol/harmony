@@ -14,20 +14,20 @@ render_template('header'); ?>
 
 <div class="container">
 
-    <div class="row">
+	<div class="row">
 
-        <section class="col-md-9">
-        
-            <?php render_template('single-item'); ?>
-        
-        </section>
+		<section class="col-md-9">
+		
+			<?php render_template('single-item'); ?>
+		
+		</section>
 
-        <section class="col-md-3">
+		<section class="col-md-3">
 
-            <?php render_template('sidebar'); ?>
-        
-        </section>
-    </div>
+			<?php render_template('sidebar'); ?>
+		
+		</section>
+	</div>
 
 </div>
 

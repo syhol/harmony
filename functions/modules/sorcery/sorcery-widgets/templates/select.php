@@ -9,12 +9,12 @@
  */
 ?>
 <select <?php echo $attributes; ?>>
-    <?php foreach ($options as $key => $label) : ?>
-        <?php render_template($item_template, array(
-            'value' => $value,
-            'key' => $key,
-            'label' => $label,
-            'item_template' => $item_template
-        )); ?>
-    <?php endforeach; ?>
+	<?php foreach ($options as $key => $label) : ?>
+		<?php render_template($item_template, array(
+			'value' => $value,
+			'key' => $key,
+			'label' => $label,
+			'item_template' => $item_template
+		)); ?>
+	<?php endforeach; ?>
 </select>

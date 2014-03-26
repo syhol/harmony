@@ -10,13 +10,13 @@
  */
 ?>
 <article class="<?php echo $classes; ?>">
-
-    <header>
-        <h1><?php echo $title; ?></h1>
-    </header>
-
-    <div class="wysiwyg">
-        <?php echo $content; ?>
-    </div>
-
+	
+	<header>
+		<h1><?php echo $title; ?></h1>
+	</header>
+	
+	<div class="wysiwyg">
+		<?php echo $content; ?> 
+	</div>
+	
 </article>

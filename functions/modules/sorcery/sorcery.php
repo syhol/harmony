@@ -23,13 +23,13 @@ require('sorcery-widgets/sorcery-widgets.php');
  * @return void
  */
 function sorcery_widgets_template_redirect($path, $original_path, $data) {
-    if (str_contains($original_path, 'sorcery-widgets:')) {
-        list($module, $new_path) = explode(':', $original_path);
-        $module_template = get_module_path('/sorcery/sorcery-widgets/templates/' . $new_path . '.php');
-        if (is_file($module_template)) {
-            $path = $module_template;
-        }
-    }
-    return $path;
+	if (str_contains($original_path, 'sorcery-widgets:')) {
+		list($module, $new_path) = explode(':', $original_path);
+		$module_template = get_module_path('/sorcery/sorcery-widgets/templates/' . $new_path . '.php');
+		if (is_file($module_template)) {
+			$path = $module_template;
+		}
+	}
+	return $path;
 }
 add_filter('template_path' , 'sorcery_widgets_template_redirect', 30, 3);

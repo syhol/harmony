@@ -4,30 +4,30 @@
 
 ## Todos
 - Wordpress helpers
-    - Location helpers
+	- Location helpers
 - Post Type module
 - Taxonomy module
 - Meta module
-    - Meta types
-        - Post
-        - User
-        - Term
-        - Site - (options page)
-    - Meta forms
-        - Widgets
-        - Fields
-        - Validation
+	- Meta types
+		- Post
+		- User
+		- Term
+		- Site - (options page)
+	- Meta forms
+		- Widgets
+		- Fields
+		- Validation
 - Create a good way to add theme setup like menus, images sizes ect. 
 - Pagination module
-    - Infinite scroll sub module
-    - JS Slider pagination sub module
+	- Infinite scroll sub module
+	- JS Slider pagination sub module
 - Image module
-    - Featured image module
+	- Featured image module
 - Menu module
 
 ## Modules
 - Dev Tools
-    - Profiler
+	- Profiler
 - Route module
 - Registry module
 - Page Title module
@@ -37,9 +37,9 @@
 ## Requirments
 
 * PHP >= 5.2
-    * php_curl
+	* php_curl
 * Apache 2.*
-    * rewrite_module
+	* rewrite_module
 * Wordpress >= 3.5 
 
 ## Code Style
@@ -52,9 +52,9 @@ The following coding style is a mixture of PSR-2 and WordPress style
 
 ### Indentation
 
-* 4 spaces for PHP indentation
-* 4 spaces for HTML indentation
-* 4 spaces for JavaScript indentation
+* 1 tab for PHP indentation
+* 1 tab for HTML indentation
+* 1 tab for JavaScript indentation
 * 2 spaces for CSS indentation
 
 
@@ -65,7 +65,7 @@ The following coding style is a mixture of PSR-2 and WordPress style
 * 1 space between the selection keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
 * 1 space each side of operators
-    * 1 space each side of Not (!) operators and 1 space after the not condition
+	* 1 space each side of Not (!) operators and 1 space after the not condition
 * No space between the condition and the close parenthese `)` (unless specified)
 * 1 space between the close parenthese and open selection body
 * Open selection body `{` must go on the same line 
@@ -76,15 +76,15 @@ The following coding style is a mixture of PSR-2 and WordPress style
 ```php
 <?php
 if ($condition1) {
-    action1();
-    action2();
+	action1();
+	action2();
 } elseif ($condition2 && $condition3) {
-    action3();
-    action4();
+	action3();
+	action4();
 } elseif ( ! $condition4 ) {
-    action5();
+	action5();
 } else {
-    defaultaction();
+	defaultaction();
 }
 ?>
 ```
@@ -94,7 +94,7 @@ if ($condition1) {
 * 1 space between the selection keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
 * 1 space each side of operators
-    * 1 space each side of Not (!) operators and 1 space after the not condition
+	* 1 space each side of Not (!) operators and 1 space after the not condition
 * No space between the condition and the close parenthese `)` (unless specified)
 * 1 space between the close parenthese and open selection body `:`
 * Open selection body `:` must go on the same line 
@@ -104,13 +104,13 @@ if ($condition1) {
 
 ```php
 <?php if ($condition1) : ?>
-    <div>Condition 1</div>
+	<div>Condition 1</div>
 <?php elseif ($condition2 && $condition3) : ?>
-    <div>Condition 2 and Condition 3</div>
+	<div>Condition 2 and Condition 3</div>
 <?php elseif ( ! $condition4 ) : ?>
-    <div>Not Condition 4</div>
+	<div>Not Condition 4</div>
 <?php else : ?>
-    <div>Default</div>
+	<div>Default</div>
 <?php endif; ?>
 ```
 
@@ -121,7 +121,7 @@ if ($condition1) {
 * 1 space between the iteration keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
 * 1 space each side of operators
-    * 1 space each side of `as`, `=>` and conditional/assignment operators
+	* 1 space each side of `as`, `=>` and conditional/assignment operators
 * No space between the condition and the close parenthese `)` (unless specified)
 * 1 space between the close parenthese and open iteration body
 * Open iteration body `{` must go on the same line 
@@ -130,13 +130,13 @@ if ($condition1) {
 ```php
 <?php
 for ($i = 0; $i < $count; $i++) {
-    action();
+	action();
 }
 foreach ($array as $key => $value) {
-    action();
+	action();
 }
 while ($condition) {
-    action();
+	action();
 }
 ?>
 ```
@@ -146,7 +146,7 @@ while ($condition) {
 * 1 space between the iteration keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
 * 1 space each side of operators
-    * 1 space each side of `as`, `=>` and conditional/assignment operators
+	* 1 space each side of `as`, `=>` and conditional/assignment operators
 * No space between the condition and the close parenthese `)` (unless specified)
 * 1 space between the close parenthese and open iteration body `:`
 * Open iteration body `:` must go on the same line 
@@ -155,15 +155,15 @@ while ($condition) {
 
 ```php
 <?php for ($i = 0; $i < $count; $i++) : ?>
-    <div>Looping</div>
+	<div>Looping</div>
 <?php endfor; ?>
 
 <?php foreach ($array as $key => $value) : ?>
-    <div>Looping</div>
+	<div>Looping</div>
 <?php endforeach; ?>
 
 <?php while ($condition) : ?>
-    <div>Looping</div>
+	<div>Looping</div>
 <?php endwhile; ?>
 
 ```
@@ -203,7 +203,7 @@ while ($condition) {
 ```php
 <?php
 function add_params($param1, array $array_of_params, $default_param = 1) {
-    return $param1 + $default_param;
+	return $param1 + $default_param;
 }
 ?>
 ```

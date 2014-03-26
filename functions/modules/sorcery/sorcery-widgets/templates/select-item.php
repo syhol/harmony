@@ -11,19 +11,19 @@
  */
 ?>
 <?php if (is_array($label)) : ?>
-    <optgroup label="<?php echo $key; ?>">
-    <?php foreach ($label as $child_key => $child_label) : ?>
-        <?php render_template($item_template, array(
-            'value' => $value, 
-            'key' => $child_key, 
-            'label' => $child_label,
-            'item_template' => $item_template
-        )); ?>
-    <?php endforeach; ?>
-    </optgroup>
+	<optgroup label="<?php echo $key; ?>">
+	<?php foreach ($label as $child_key => $child_label) : ?>
+		<?php render_template($item_template, array(
+			'value' => $value, 
+			'key' => $child_key, 
+			'label' => $child_label,
+			'item_template' => $item_template
+		)); ?>
+	<?php endforeach; ?>
+	</optgroup>
 <?php else : ?>
-    <?php $is_selected = ($value === $key) ? 'selected="selected"' : ''; ?>
-    <option value="<?php echo $key; ?>" <?php echo $is_selected; ?>>
-        <?php echo $label; ?>
-    </option>
+	<?php $is_selected = ($value === $key) ? 'selected="selected"' : ''; ?>
+	<option value="<?php echo $key; ?>" <?php echo $is_selected; ?>>
+		<?php echo $label; ?>
+	</option>
 <?php endif; ?>

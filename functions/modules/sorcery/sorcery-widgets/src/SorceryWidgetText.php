@@ -9,15 +9,15 @@
  */
 class SorceryWidgetText extends SorceryWidget
 {
-    protected $template = 'sorcery-widgets:input';
+	protected $template = 'sorcery-widgets:input';
 
-    protected function prepareData()
-    {
-        if (isset($this->data['value'])) {
-            $this->data['attributes']['value'] = $this->data['value'];
-        }
-        $this->data['attributes']['name'] = $this->id;
-        $this->data['attributes']['type'] = 'text';
-        $this->data['attributes']['class'][] = 'form-control';
-    }
+	protected function prepareData()
+	{
+		if (isset($this->data['value'])) {
+			$this->data['attributes']['value'] = $this->data['value'];
+		}
+		$this->data['attributes']['name'] = $this->id;
+		$this->data['attributes']['type'] = 'text';
+		$this->data['attributes']['class'][] = 'form-control';
+	}
 }

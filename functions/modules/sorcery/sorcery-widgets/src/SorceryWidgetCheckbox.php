@@ -9,17 +9,17 @@
  */
 class SorceryWidgetCheckbox extends SorceryWidgetRadio
 {
-    protected $template = 'sorcery-widgets:labeled-input';
+	protected $template = 'sorcery-widgets:labeled-input';
 
-    protected function prepareData()
-    {
-        parent::prepareData();
-        $this->data['attributes']['type'] = 'checkbox';
-        $this->data['container_attributes']['class'][] = 'checkbox';
+	protected function prepareData()
+	{
+		parent::prepareData();
+		$this->data['attributes']['type'] = 'checkbox';
+		$this->data['container_attributes']['class'][] = 'checkbox';
 
-        $key = array_search('radio', $this->data['container_attributes']['class']);
-        if ($key !== false) {
-            unset($this->data['container_attributes']['class'][$key]);
-        }
-    }
+		$key = array_search('radio', $this->data['container_attributes']['class']);
+		if ($key !== false) {
+			unset($this->data['container_attributes']['class'][$key]);
+		}
+	}
 }

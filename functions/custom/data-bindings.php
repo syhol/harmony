@@ -16,28 +16,28 @@
  * @return array
  */
 function bind_post_single_data($data) {
-    
-    if (isset($data['post']) && $data['post'] instanceof WP_Post) {
-        $post = $data['post'];
-    } else {
-        global $post;
-    }
+	
+	if (isset($data['post']) && $data['post'] instanceof WP_Post) {
+		$post = $data['post'];
+	} else {
+		global $post;
+	}
 
-    $defaultData = array(
-        'title' => '',
-        'classes' => '',
-        'content' => ''
-    );
+	$defaultData = array(
+		'title' => '',
+		'classes' => '',
+		'content' => ''
+	);
 
-    if ($post instanceof WP_Post) {
-        $defaultData = array(
-            'title' => get_the_title($post->ID),
-            'classes' => join(' ', get_post_class('single-item', $post->ID)),
-            'content' => apply_filters('the_content', $post->post_content)
-        );
-    }
-    
-    return wp_parse_args($data, $defaultData);
+	if ($post instanceof WP_Post) {
+		$defaultData = array(
+			'title' => get_the_title($post->ID),
+			'classes' => join(' ', get_post_class('single-item', $post->ID)),
+			'content' => apply_filters('the_content', $post->post_content)
+		);
+	}
+	
+	return wp_parse_args($data, $defaultData);
 }
 add_filter('template_data_single-item', 'bind_post_single_data', 5);
 
@@ -49,18 +49,18 @@ add_filter('template_data_single-item', 'bind_post_single_data', 5);
  * @return array
  */
 function bind_post_single_404_data($data) {
-    
-    $the404Data = array();
+	
+	$the404Data = array();
 
-    if ( is_404() ) {
-        $the404Data = array(
-            'classes' => 'page-404 error-404 single-item',
-            'title' => 'Page Not Found',
-            'content' => 'Sorry, the page you have requested does not exist.'
-        );
-    }
+	if ( is_404() ) {
+		$the404Data = array(
+			'classes' => 'page-404 error-404 single-item',
+			'title' => 'Page Not Found',
+			'content' => 'Sorry, the page you have requested does not exist.'
+		);
+	}
 
-    return wp_parse_args($data, $the404Data);
+	return wp_parse_args($data, $the404Data);
 }
 add_filter('template_data_single-item', 'bind_post_single_404_data', 4);
 
@@ -73,33 +73,33 @@ add_filter('template_data_single-item', 'bind_post_single_404_data', 4);
  * @return array
  */
 function bind_post_index_data($data) {
-    
-    if (isset($data['post']) && $data['post'] instanceof WP_Post) {
-        $post = $data['post'];
-    } else {
-        global $post;
-    }
+	
+	if (isset($data['post']) && $data['post'] instanceof WP_Post) {
+		$post = $data['post'];
+	} else {
+		global $post;
+	}
 
-    $defaultData = array(
-        'title' => '',
-        'classes' => '',
-        'link' => '',
-        'link_text' => '',
-        'content' => '',
-        'title_attribute' => '',
-    );
+	$defaultData = array(
+		'title' => '',
+		'classes' => '',
+		'link' => '',
+		'link_text' => '',
+		'content' => '',
+		'title_attribute' => '',
+	);
 
-    if ($post instanceof WP_Post) {
-        $defaultData = array(
-            'title' => get_the_title($post->ID),
-            'classes' => join(' ', get_post_class('index-item', $post->ID)),
-            'link' => get_permalink($post->ID),
-            'link_text' => 'Read More&nbsp;&raquo;',
-            'content' => get_excerpt($post->ID),
-            'title_attribute' => the_title_attribute(array('echo' => false))
-        );
-    }
+	if ($post instanceof WP_Post) {
+		$defaultData = array(
+			'title' => get_the_title($post->ID),
+			'classes' => join(' ', get_post_class('index-item', $post->ID)),
+			'link' => get_permalink($post->ID),
+			'link_text' => 'Read More&nbsp;&raquo;',
+			'content' => get_excerpt($post->ID),
+			'title_attribute' => the_title_attribute(array('echo' => false))
+		);
+	}
 
-    return wp_parse_args($data, $defaultData);
+	return wp_parse_args($data, $defaultData);
 }
 add_filter('template_data_index-item', 'bind_post_index_data', 5);

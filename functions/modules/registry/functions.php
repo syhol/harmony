@@ -15,15 +15,15 @@
  * get the active container, call the function with no parameters.
  *
  * @param   mixed   $new_container  a new registry container
- * @return  mixed                   the active registry container (likely an array)
+ * @return  mixed				   the active registry container (likely an array)
  */
 function registry_container($new_container = null) {
-    static $registry_container = array();    
-    $returned_container = $registry_container;
-    if ( ! empty($new_container) ) {
-        $registry_container = $new_container;
-    }
-    return $returned_container;
+	static $registry_container = array();	
+	$returned_container = $registry_container;
+	if ( ! empty($new_container) ) {
+		$registry_container = $new_container;
+	}
+	return $returned_container;
 }
 
 /**
@@ -37,9 +37,9 @@ function registry_container($new_container = null) {
  * @return  void
  */
 function set_registry($key, $value) {
-    $registry = registry_container();
-    array_dot_set($registry, $key, $value);
-    registry_container($registry);
+	$registry = registry_container();
+	array_dot_set($registry, $key, $value);
+	registry_container($registry);
 }
 
 /**
@@ -53,8 +53,8 @@ function set_registry($key, $value) {
  * @return  mixed
  */
 function get_registry($key, $default = null) {
-    $registry = registry_container();
-    return array_dot_get($registry, $key, $default);
+	$registry = registry_container();
+	return array_dot_get($registry, $key, $default);
 }
 
 /**
@@ -69,10 +69,10 @@ function get_registry($key, $default = null) {
  * @return  mixed
  */
 function push_registry($key, $value) {
-    $array = get_registry($key, array());
-    if ( ! is_array($array) ) $array = array();
-    array_push($array, $value);
-    array_dot_set($key, $array);
+	$array = get_registry($key, array());
+	if ( ! is_array($array) ) $array = array();
+	array_push($array, $value);
+	array_dot_set($key, $array);
 }
 
 /**
@@ -87,22 +87,22 @@ function push_registry($key, $value) {
  * @return  mixed
  */
 function pull_registry($key, $index = null) {
-    $registry = registry_container();
-    if ( ! is_null($index) ) $key .= '.' . $index;
-    $value = array_dot_get($registry, $key, null);
-    array_dot_forget($registry, $key);
-    array_dot_set($registry, $key, $value);
-    registry_container($registry);
-    return $value;
+	$registry = registry_container();
+	if ( ! is_null($index) ) $key .= '.' . $index;
+	$value = array_dot_get($registry, $key, null);
+	array_dot_forget($registry, $key);
+	array_dot_set($registry, $key, $value);
+	registry_container($registry);
+	return $value;
 }
 
 /**
  * Empty the config container and return the old one
  * 
- * @return mixed    old registry container
+ * @return mixed	old registry container
  */
 function reset_registry() {
-    return registry_container(array());
+	return registry_container(array());
 }
 
 /**
@@ -115,9 +115,9 @@ function reset_registry() {
  * @return void
  */
 function load_registry(array $items) {
-    foreach ($items as $key => $value) {
-        set_registry($key, $value);
-    }
+	foreach ($items as $key => $value) {
+		set_registry($key, $value);
+	}
 }
 
 /**
@@ -128,18 +128,18 @@ function load_registry(array $items) {
  * @return void
  */
 function load_environment_registry($env = null) {
-    if (is_null($env)) {
-        if ( ! defined('ENV') ) {
-            return;
-        }
-        $env = ENV;
-    }
+	if (is_null($env)) {
+		if ( ! defined('ENV') ) {
+			return;
+		}
+		$env = ENV;
+	}
 
-    $files = get_registry_files();
-    foreach ($files as $file) {
-        $registry = require($file);
-        if (isset($registry[$env])) {
-            load_registry($registry[$env]);
-        }
-    }
+	$files = get_registry_files();
+	foreach ($files as $file) {
+		$registry = require($file);
+		if (isset($registry[$env])) {
+			load_registry($registry[$env]);
+		}
+	}
 }

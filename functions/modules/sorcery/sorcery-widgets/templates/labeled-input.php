@@ -11,7 +11,7 @@
  */
 ?>
 <div <?php echo $container_attributes; ?>>
-    <label>
-        <input <?php echo $attributes; ?> />&nbsp;<?php echo $label; ?>
-    </label>
+	<label>
+		<input <?php echo $attributes; ?> />&nbsp;<?php echo $label; ?>
+	</label>
 </div>

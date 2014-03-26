@@ -15,19 +15,19 @@ render_template('header'); ?>
 
 <div class="container">
 
-    <div class="row">
-        
-        <section class="col-md-12">
-        
-            <?php if(have_posts()) : while(have_posts()) : the_post(); ?>
+	<div class="row">
+		
+		<section class="col-md-12">
+		
+			<?php if(have_posts()) : while(have_posts()) : the_post(); ?>
 
-                <?php render_template('single-item'); ?>
+				<?php render_template('single-item'); ?>
 
-            <?php endwhile; endif; ?>
+			<?php endwhile; endif; ?>
 
-        </section>
-    
-    </div>
+		</section>
+	
+	</div>
 
 </div>
 

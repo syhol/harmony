@@ -14,25 +14,25 @@ render_template('header'); ?>
 
 <div class="container">
 
-    <div class="row">
+	<div class="row">
 
-        <section class="col-md-9">
+		<section class="col-md-9">
 
-            <?php if(have_posts()) : while(have_posts()) : the_post(); ?>
+			<?php if(have_posts()) : while(have_posts()) : the_post(); ?>
 
-            <?php render_template('single-item'); ?>
+			<?php render_template('single-item'); ?>
 
-            <?php endwhile; endif; ?>
+			<?php endwhile; endif; ?>
 
-        </section>
+		</section>
 
-        <section class="col-md-3 sidebar">
+		<section class="col-md-3 sidebar">
 
-        <?php render_template('sidebar'); ?>
+			<?php render_template('sidebar'); ?>
 
-        </section>
+		</section>
 
-    </div>
+	</div>
 
 </div>
 

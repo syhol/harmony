@@ -9,14 +9,14 @@
  */
 class SorceryWidgetTextarea extends SorceryWidget
 {
-    protected $template = 'sorcery-widgets:textarea';
+	protected $template = 'sorcery-widgets:textarea';
 
-    protected function prepareData()
-    {
-        if (isset($this->data['value'])) {
-            $this->data['attributes']['value'] = $this->data['value'];
-        }
-        $this->data['attributes']['name'] = $this->id;
-        $this->data['attributes']['class'][] = 'form-control';
-    }
+	protected function prepareData()
+	{
+		if (isset($this->data['value'])) {
+			$this->data['attributes']['value'] = $this->data['value'];
+		}
+		$this->data['attributes']['name'] = $this->id;
+		$this->data['attributes']['class'][] = 'form-control';
+	}
 }

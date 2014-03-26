@@ -11,31 +11,31 @@
 
 return array(
 
-    /**
-     * All config always loaded regardless of environment
-     */
-    'all' => array(
-        'site-logo' => 'https://cdn3.iconfinder.com/data/icons/free-social-icons/67/wordpress_square-128.png'
-    ),
+	/**
+	 * All config always loaded regardless of environment
+	 */
+	'all' => array(
+		'site-logo' => 'https://cdn3.iconfinder.com/data/icons/free-social-icons/67/wordpress_square-128.png'
+	),
 
-    /**
-     * Dev environment config
-     */
-    'dev' => array(
+	/**
+	 * Dev environment config
+	 */
+	'dev' => array(
 
-    ),
+	),
 
-    /**
-     * Demo environment config
-     */
-    'demo' => array(
+	/**
+	 * Demo environment config
+	 */
+	'demo' => array(
 
-    ),
+	),
 
-    /**
-     * Live environment config
-     */
-    'live' => array(
+	/**
+	 * Live environment config
+	 */
+	'live' => array(
 
-    ),
+	),
 );

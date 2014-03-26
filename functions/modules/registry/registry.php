@@ -21,7 +21,7 @@ require('functions.php');
  * @return void
  */
 function initialize_registry() {
-    load_environment_registry('all');
-    load_environment_registry();
+	load_environment_registry('all');
+	load_environment_registry();
 }
 add_action('modules_loaded', 'initialize_registry', 50);
