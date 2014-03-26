@@ -13,7 +13,7 @@
 /**
  * Get the route array requested url, (REQUEST_URI by default)
  * 
- * @param  string	   $url url to match against
+ * @param  string        $url url to match against
  * @return array|false
  */
 function get_custom_route($url = null) {
@@ -42,9 +42,9 @@ function get_custom_route($url = null) {
  * Route includes a pattern to match, a callback for successful matches and
  * an optional template path to include after callback has finished executing
  * 
- * @param string			$path	 regex pattern to match 
+ * @param string            $path     regex pattern to match 
  * @param boolean|callable  $callback callable callback on pattern match
- * @param boolean|string	$template template path to include after callback
+ * @param boolean|string    $template template path to include after callback
  */
 function add_route($path, $callback = false, $template = false) {
 	$path = '/' . trim($path, '/') . '/';
