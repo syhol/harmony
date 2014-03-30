@@ -46,6 +46,12 @@ render_template('header'); ?>
 			sorcery_widget_radio('My Radio', 'three');
 			?>
 
+			<?php 
+			$radio = new Sorcery_Widget_Checkbox('tasks', 'Taken out the trash');
+			$radio['attributes.data-trash'] = 'taken-out';
+			echo $radio;
+			?>
+
 			<label>Checkbox</label>
 
 			<?php 
@@ -144,7 +150,7 @@ render_template('header'); ?>
 			</div>
 			
 			<p>
-				Oh and you can return it compiled templates too
+				Oh and you can return compiled templates as strings too
 			</p>
 			<div class="well">
 				<?php $single_item = compile_template('single-item', array('content' => 'look at me!')); ?>

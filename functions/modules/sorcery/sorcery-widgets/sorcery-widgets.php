@@ -11,34 +11,35 @@
  * @version 1.0.0
  */
 
-require('src/SorceryWidget.php');
-require('src/SorceryWidgetText.php');
-require('src/SorceryWidgetTextarea.php');
-require('src/SorceryWidgetRadio.php');
-require('src/SorceryWidgetCheckbox.php');
-require('src/SorceryWidgetSelect.php');
+require('src/sorcery-widget.php');
+require('src/sorcery-widget-text.php');
+require('src/sorcery-widget-textarea.php');
+require('src/sorcery-widget-labeled-input.php');
+require('src/sorcery-widget-radio.php');
+require('src/sorcery-widget-checkbox.php');
+require('src/sorcery-widget-select.php');
 
 function sorcery_widget_text($name, $value, $data = array()) {
-	$widget = new SorceryWidgetText($name, $value, $data);
+	$widget = new Sorcery_Widget_Text($name, $value, $data);
 	$widget->render();
 }
 
 function sorcery_widget_textarea($name, $value, $data = array()) {
-	$widget = new SorceryWidgetTextarea($name, $value, $data);
+	$widget = new Sorcery_Widget_Textarea($name, $value, $data);
 	$widget->render();
 }
 
 function sorcery_widget_radio($name, $value, $checked = false, $data = array()) {
-	$widget = new SorceryWidgetRadio($name, $value, $checked, $data);
+	$widget = new Sorcery_Widget_Radio($name, $value, $checked, $data);
 	$widget->render();
 }
 
 function sorcery_widget_checkbox($name, $value, $checked = false, $data = array()) {
-	$widget = new SorceryWidgetCheckbox($name, $value, $checked, $data);
+	$widget = new Sorcery_Widget_Checkbox($name, $value, $checked, $data);
 	$widget->render();
 }
 
 function sorcery_widget_select($name, $value, $options = array(), $data = array()) {
-	$widget = new SorceryWidgetSelect($name, $value, $options, $data);
+	$widget = new Sorcery_Widget_Select($name, $value, $options, $data);
 	$widget->render();
 }
