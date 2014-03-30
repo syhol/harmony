@@ -25,54 +25,46 @@ render_template('header'); ?>
 			<h3>Sorcery</h3>
 			
 			<h4>Widgets</h4>
+
+			<?php $widgets = get_registry('sorcery.widgets.factory'); ?>
 			
 			<label>Textbox</label>
 
-			<?php 
-			sorcery_widget_text('My Text', 'value');
-			?>
+			<?php echo $widgets['text']; ?>
+			<?php echo $widgets->get('text', array('id' => 'My Textbox', 'value' => 'The Value')); ?>
+			<?php echo sorcery_widget_text(array('id' => 'My Textbox', 'value' => 'The Value')); ?>
 			
 			<label>Textarea</label>
 
-			<?php 
-			sorcery_widget_textarea('My Textarea', 'value ipsum');
-			?>
+			<?php echo sorcery_widget_textarea(array('id' => 'My Textarea', 'value' => 'The Value')); ?>
 
 			<label>Radio Button</label>
 
-			<?php 
-			sorcery_widget_radio('My Radio', 'one');
-			sorcery_widget_radio('My Radio', 'two', true);
-			sorcery_widget_radio('My Radio', 'three');
-			?>
-
-			<?php 
-			$radio = new Sorcery_Widget_Checkbox('tasks', 'Taken out the trash');
-			$radio['attributes.data-trash'] = 'taken-out';
-			echo $radio;
-			?>
+			<?php echo sorcery_widget_radio(array('id' => 'My Radio', 'value' => 'one')); ?>
+			<?php echo sorcery_widget_radio(array('id' => 'My Radio', 'value' => 'two', 'checked' => true)); ?>
+			<?php echo sorcery_widget_radio(array('id' => 'My Radio', 'value' => 'three')); ?>
 
 			<label>Checkbox</label>
 
-			<?php 
-			sorcery_widget_checkbox('My Check','one', true);
-			sorcery_widget_checkbox('My Check', 'two');
-			sorcery_widget_checkbox('My Check', 'three', true);
-			?>
+			<?php echo sorcery_widget_checkbox(array('id' => 'My Checkbox', 'value' => 'one')); ?>
+			<?php echo sorcery_widget_checkbox(array('id' => 'My Checkbox', 'value' => 'two', 'checked' => true)); ?>
+			<?php echo sorcery_widget_checkbox(array('id' => 'My Checkbox', 'value' => 'three', 'checked' => true)); ?>
 
 			<label>Select</label>
 
 			<?php 
-			sorcery_widget_select('My Select', 'six', array(
-				'one' => 'One',
-				'two' => 'Two',
-				'three' => 'Three',
-				'Four' => array(
-					'five' => 'Five',
-					'six' => 'Six',
-					'seven' => 'Seven'
-				)
-			));
+				echo sorcery_widget_select(array(
+					'id' => 'My Select', 'value' => 'three', 'options' => array(
+						'one' => 'One',
+						'two' => 'Two',
+						'three' => 'Three',
+						'Four' => array(
+							'five' => 'Five',
+							'six' => 'Six',
+							'seven' => 'Seven'
+						)
+					)
+				));
 			?>
 
 			<hr>

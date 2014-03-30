@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 ?>
-<select <?php echo $attributes; ?>>
+<select <?php echo flatten_attributes($attributes); ?>>
 	<?php foreach ($options as $key => $label) : ?>
 		<?php render_template($item_template, array(
 			'value' => $value,

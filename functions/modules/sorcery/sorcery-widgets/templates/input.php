@@ -10,4 +10,4 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 ?>
-<input <?php echo $attributes; ?> />
+<input <?php echo flatten_attributes($attributes); ?> />

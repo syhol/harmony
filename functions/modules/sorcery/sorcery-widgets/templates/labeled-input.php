@@ -10,8 +10,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 ?>
-<div <?php echo $container_attributes; ?>>
+<div <?php echo flatten_attributes($container_attributes); ?>>
 	<label>
-		<input <?php echo $attributes; ?> />&nbsp;<?php echo $label; ?>
+		<input <?php echo flatten_attributes($attributes); ?> />&nbsp;<?php echo $label; ?>
 	</label>
 </div>

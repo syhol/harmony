@@ -8,4 +8,4 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 ?>
-<textarea <?php echo $attributes; ?> /><?php echo $value; ?></textarea>
+<textarea <?php echo flatten_attributes($attributes); ?> /><?php echo $value; ?></textarea>

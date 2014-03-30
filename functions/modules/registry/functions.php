@@ -115,6 +115,7 @@ function reset_registry() {
  * @return void
  */
 function load_registry(array $items) {
+	$items = array_dot($items);
 	foreach ($items as $key => $value) {
 		set_registry($key, $value);
 	}

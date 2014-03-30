@@ -11,35 +11,80 @@
  * @version 1.0.0
  */
 
-require('src/sorcery-widget.php');
-require('src/sorcery-widget-text.php');
-require('src/sorcery-widget-textarea.php');
-require('src/sorcery-widget-labeled-input.php');
-require('src/sorcery-widget-radio.php');
-require('src/sorcery-widget-checkbox.php');
-require('src/sorcery-widget-select.php');
 
-function sorcery_widget_text($name, $value, $data = array()) {
-	$widget = new Sorcery_Widget_Text($name, $value, $data);
-	$widget->render();
+function sorcery_widget_text($data = array()) {
+	$data = sorcery_widget_default_attrs($data);
+
+	$data['attributes']['value'] = isset($data['value']) ? $data['value'] : '';
+	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
+	$data['attributes']['type'] = 'text';
+	$data['attributes']['class'][] = 'form-control';
+
+	return new Template('sorcery-widgets:input', $data);
 }
 
-function sorcery_widget_textarea($name, $value, $data = array()) {
-	$widget = new Sorcery_Widget_Textarea($name, $value, $data);
-	$widget->render();
+function sorcery_widget_textarea($data = array()) {
+	$data = sorcery_widget_default_attrs($data);
+
+	$data['value'] = isset($data['value']) ? $data['value'] : '';
+	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
+	$data['attributes']['class'][] = 'form-control';
+
+	return new Template('sorcery-widgets:textarea', $data);
 }
 
-function sorcery_widget_radio($name, $value, $checked = false, $data = array()) {
-	$widget = new Sorcery_Widget_Radio($name, $value, $checked, $data);
-	$widget->render();
+function sorcery_widget_radio($data = array()) {
+	$data = sorcery_widget_default_attrs($data);
+	$data = sorcery_widget_default_attrs($data, 'container_attributes');
+
+	$data['container_attributes']['class'][] = 'radio';
+	$data['attributes']['value'] = isset($data['value']) ? $data['value'] : '';
+	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
+	$data['attributes']['type'] = 'radio';
+	$val = $data['attributes']['value'];
+	$data['label'] = isset($data['label']) ? $data['label'] : prettify($val);
+	if (isset($data['checked']) && $data['checked']) {
+		$data['attributes']['checked'] = 'checked';
+	}
+
+	return new Template('sorcery-widgets:labeled-input', $data);
 }
 
-function sorcery_widget_checkbox($name, $value, $checked = false, $data = array()) {
-	$widget = new Sorcery_Widget_Checkbox($name, $value, $checked, $data);
-	$widget->render();
+function sorcery_widget_checkbox($data = array()) {
+	$data = sorcery_widget_default_attrs($data);
+	$data = sorcery_widget_default_attrs($data, 'container_attributes');
+
+	$data['container_attributes']['class'][] = 'checkbox';
+	$data['attributes']['value'] = isset($data['value']) ? $data['value'] : '';
+	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
+	$data['attributes']['type'] = 'checkbox';
+	$val = $data['attributes']['value'];
+	$data['label'] = isset($data['label']) ? $data['label'] : prettify($val);
+	if (isset($data['checked']) && $data['checked']) {
+		$data['attributes']['checked'] = 'checked';
+	}
+
+	return new Template('sorcery-widgets:labeled-input', $data);
 }
 
-function sorcery_widget_select($name, $value, $options = array(), $data = array()) {
-	$widget = new Sorcery_Widget_Select($name, $value, $options, $data);
-	$widget->render();
+function sorcery_widget_select($data = array()) {
+	$data = sorcery_widget_default_attrs($data);
+
+	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
+	$data['attributes']['class'][] = 'form-control';
+	$data['item_template'] = 'sorcery-widgets:select-item';
+
+	return new Template('sorcery-widgets:select', $data);
 }
+
+function sorcery_widget_default_attrs($data, $key = 'attributes') {
+	if ( ! isset($data[$key]) || ! is_array($data[$key]) ) {
+		$data[$key] = array();
+	}
+	if ( ! isset($data[$key]['class']) || ! is_array($data[$key]['class']) ) {
+		$data[$key]['class'] = array();
+	}
+	return $data;
+}
+
+

@@ -9,6 +9,8 @@
  */
 
 require('sorcery-widgets/sorcery-widgets.php');
+require('sorcery-common/sorcery-common.php');
+
 //require('sorcery-fields/sorcery-fields.php');
 //require('sorcery-validation/sorcery-validation.php');
 //require('sorcery-forms/sorcery-forms.php');
@@ -33,3 +35,28 @@ function sorcery_widgets_template_redirect($path, $original_path, $data) {
 	return $path;
 }
 add_filter('template_path' , 'sorcery_widgets_template_redirect', 30, 3);
+
+/**
+ * Setup the sorcery widgets factory
+ * 
+ * @return void
+ */
+function sorcery_config_setup() {
+	add_registry_file(__DIR__ . '/config.php');
+}
+add_action('modules_loaded' , 'sorcery_config_setup', 10);
+
+/**
+ * Setup the sorcery widgets factory
+ * 
+ * @return void
+ */
+function sorcery_widgets_factory_setup() {
+	$bindings = get_registry('sorcery.widgets.factory-bindings', array());
+	$factory = new Sorcery_Factory();
+	foreach ((array)$bindings as $id => $callback) {
+		$factory->set($id, $callback);
+	}
+	set_registry('sorcery.widgets.factory', $factory);
+}
+add_action('modules_loaded' , 'sorcery_widgets_factory_setup', 60);
