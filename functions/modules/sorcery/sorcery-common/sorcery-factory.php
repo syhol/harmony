@@ -9,6 +9,11 @@
  */
 class Sorcery_Factory implements ArrayAccess {
 
+	/**
+	 * collection of callbacks that can be called on via __call, ArrayAccess or get()
+	 * 
+	 * @var array
+	 */
 	protected $callbacks = array();
 
 	/**
@@ -37,10 +42,32 @@ class Sorcery_Factory implements ArrayAccess {
 		$this->callbacks[$id] = $callback;
 	}
 
+	/**
+	 * Get the widget id
+	 * 
+	 * @return string
+	 */
+	public function __call($id, $params) {
+		array_unshift($params, $id);
+		return call_user_func_array(array($this, 'get'), $params);
+	}
+
+	/**
+	 * Check if a callback exists
+	 * 
+	 * @param  string
+	 * @return boolean
+	 */
 	public function offsetExists($index) {
 		return isset($this->callbacks[$index]);
 	}
 
+	/**
+	 * Get run a callback and return the result
+	 * 
+	 * @param  string $index
+	 * @return mixed
+	 */
 	public function offsetGet($index) {
 		if($this->offsetExists($index)) {
 			return $this->get($index);
@@ -48,6 +75,13 @@ class Sorcery_Factory implements ArrayAccess {
 		return false;
 	}
 
+	/**
+	 * Set a new callback or override one
+	 * 
+	 * @param  string   $index
+	 * @param  callable $value
+	 * @return boolean
+	 */
 	public function offsetSet($index, $value) {
 		if($index) {
 			$this->set($index, $value);
@@ -58,6 +92,12 @@ class Sorcery_Factory implements ArrayAccess {
 
 	}
 
+	/**
+	 * Remove a callback
+	 * 
+	 * @param  string   $index
+	 * @return boolean
+	 */
 	public function offsetUnset($index) {
 		unset($this->callbacks[$index]);
 		return true;

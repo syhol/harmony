@@ -14,14 +14,3 @@
 
 require('registry-meta.php');
 require('functions.php');
-
-/**
- * Load registry vars from registry files for the 'all' and current environment
- * 
- * @return void
- */
-function initialize_registry() {
-	load_environment_registry('all');
-	load_environment_registry();
-}
-add_action('modules_loaded', 'initialize_registry', 50);

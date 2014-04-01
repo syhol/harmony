@@ -15,15 +15,15 @@ define('L', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
 
 // Directory constants
-define('THEME_PATH',	 dirname(dirname(dirname(__FILE__)))  . DS);
-define('TEMPLATES_PATH', THEME_PATH	   . 'templates'	   . DS);
-define('ASSETS_PATH',	THEME_PATH	   . 'assets'		  . DS);
-define('FUNCTIONS_PATH', THEME_PATH	   . 'functions'	   . DS);
-define('CORE_PATH',	  FUNCTIONS_PATH   . 'core'			. DS);
-define('MODULES_PATH',   FUNCTIONS_PATH   . 'modules'		 . DS);
-define('VENDOR_PATH',	FUNCTIONS_PATH   . 'vendor'		  . DS);
-define('CLASS_PATH',	 FUNCTIONS_PATH   . 'psr-0'		   . DS);
-define('CUSTOM_PATH',	FUNCTIONS_PATH   . 'custom'		  . DS);
+define('THEME_PATH',     dirname(dirname(dirname(__FILE__)))  . DS);
+define('TEMPLATES_PATH', THEME_PATH       . 'templates'       . DS);
+define('ASSETS_PATH',    THEME_PATH       . 'assets'          . DS);
+define('FUNCTIONS_PATH', THEME_PATH       . 'functions'       . DS);
+define('CORE_PATH',      FUNCTIONS_PATH   . 'core'            . DS);
+define('MODULES_PATH',   FUNCTIONS_PATH   . 'modules'         . DS);
+define('VENDOR_PATH',    FUNCTIONS_PATH   . 'vendor'          . DS);
+define('CLASS_PATH',     FUNCTIONS_PATH   . 'psr-0'           . DS);
+define('CUSTOM_PATH',    FUNCTIONS_PATH   . 'custom'          . DS);
 
 if (false === defined('ENV')) {
 	define('ENV', 'live');
@@ -33,6 +33,9 @@ if (false === defined('ENV')) {
 if (file_exists(VENDOR_PATH . 'autoload.php')) {
 	require(VENDOR_PATH . 'autoload.php');
 }
+
+// Require the psr-4 autoloader
+require(CORE_PATH . 'autoloader.php');
 
 // Require php helpers
 require(CORE_PATH . 'php-helpers.php');

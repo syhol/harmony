@@ -23,15 +23,14 @@ render_template('header'); ?>
 			<hr>
 
 			<h3>Sorcery</h3>
+
+			<?php $widgets = get_registry('sorcery.widgets.factory'); ?>
+			<?php $layouts = get_registry('sorcery.layouts.factory'); ?>
 			
 			<h4>Widgets</h4>
 
-			<?php $widgets = get_registry('sorcery.widgets.factory'); ?>
-			
 			<label>Textbox</label>
 
-			<?php echo $widgets['text']; ?>
-			<?php echo $widgets->get('text', array('id' => 'My Textbox', 'value' => 'The Value')); ?>
 			<?php echo sorcery_widget_text(array('id' => 'My Textbox', 'value' => 'The Value')); ?>
 			
 			<label>Textarea</label>
@@ -66,6 +65,52 @@ render_template('header'); ?>
 					)
 				));
 			?>
+
+			<label>Other ways of getting the widget</label>
+
+			<?php echo sorcery_widget_text(array('id' => 'My Textbox', 'value' => 'The Value')); ?>
+			<?php echo $widgets['text']->bulk_set(array(
+				'attributes' => array(
+					'name' => 'My Textbox', 
+					'value' => 'The Value',
+				)
+			)); ?>
+			<?php echo $widgets->get('text', array('id' => 'My Textbox', 'value' => 'The Value')); ?>
+			<?php echo $widgets->text(array('id' => 'My Textbox', 'value' => 'The Value')); ?>
+
+			<h4>Layouts</h4>
+
+			<?php $widget = $widgets->text(array('id' => 'My Textbox', 'value' => 'The Value')); ?>
+
+			<?php echo sorcery_layout_general(array('widget' => $widget, 'label' => 'My Field')); ?>
+
+			<?php echo sorcery_layout_general(array(
+				'widget' => $widget, 
+				'label' => 'My Field', 
+				'help' => 'Im a little help section'
+			)); ?>
+
+			<?php echo sorcery_layout_general(array(
+				'widget' => $widget, 
+				'label' => 'My Field', 
+				'help' => 'Im a little help section',
+				'errors' => array('This field is required', 'Must be an email address')
+			)); ?>
+
+			<?php echo sorcery_layout_horizontal(array(
+				'widget' => $widget, 
+				'label' => 'My Field', 
+			)); ?>
+
+			<?php echo sorcery_layout_horizontal(array(
+				'widget' => $widget, 
+				'label' => 'My Field', 
+				'errors' => array('This field is required')
+			)); ?>
+
+			<?php $widget['attributes.value'] = ''; ?>
+			<?php $widget['attributes.placeholder'] = 'My Placeholder'; ?>
+			<?php echo $layouts->horizontal(array('widget' => $widget)); ?>
 
 			<hr>
 

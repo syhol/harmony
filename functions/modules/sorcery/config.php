@@ -11,6 +11,12 @@
 return array(
 	'all' => array(
 		'sorcery' => array(
+			'layouts' => array(
+				'factory-bindings' => array(
+					'general'     => 'sorcery_layout_general',
+					'horizontal'  => 'sorcery_layout_horizontal'
+				)
+			),
 			'widgets' => array(
 				'factory-bindings' => array(
 					'text'     => 'sorcery_widget_text',

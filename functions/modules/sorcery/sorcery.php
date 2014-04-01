@@ -10,6 +10,7 @@
 
 require('sorcery-widgets/sorcery-widgets.php');
 require('sorcery-common/sorcery-common.php');
+require('sorcery-layouts/sorcery-layouts.php');
 
 //require('sorcery-fields/sorcery-fields.php');
 //require('sorcery-validation/sorcery-validation.php');
@@ -24,17 +25,25 @@ require('sorcery-common/sorcery-common.php');
  * @param string $data
  * @return void
  */
-function sorcery_widgets_template_redirect($path, $original_path, $data) {
-	if (str_contains($original_path, 'sorcery-widgets:')) {
-		list($module, $new_path) = explode(':', $original_path);
-		$module_template = get_module_path('/sorcery/sorcery-widgets/templates/' . $new_path . '.php');
-		if (is_file($module_template)) {
-			$path = $module_template;
+function sorcery_template_redirect($path, $original_path, $data) {
+	$sub_modules = array(
+		'widgets',
+		'layouts'
+	); 
+
+	foreach ($sub_modules as $sub_module) {
+		if (str_contains($original_path, 'sorcery-' . $sub_module . ':')) {
+				list($module, $new_path) = explode(':', $original_path);
+				$module_template = get_module_path('/sorcery/sorcery-' . $sub_module . '/templates/' . $new_path . '.php');
+				if (is_file($module_template)) {
+					$path = $module_template;
+				}
 		}
 	}
+
 	return $path;
 }
-add_filter('template_path' , 'sorcery_widgets_template_redirect', 30, 3);
+add_filter('template_path' , 'sorcery_template_redirect', 30, 3);
 
 /**
  * Setup the sorcery widgets factory
@@ -43,6 +52,7 @@ add_filter('template_path' , 'sorcery_widgets_template_redirect', 30, 3);
  */
 function sorcery_config_setup() {
 	add_registry_file(__DIR__ . '/config.php');
+	load_registry_file(__DIR__ . '/config.php');
 }
 add_action('modules_loaded' , 'sorcery_config_setup', 10);
 
@@ -51,12 +61,21 @@ add_action('modules_loaded' , 'sorcery_config_setup', 10);
  * 
  * @return void
  */
-function sorcery_widgets_factory_setup() {
-	$bindings = get_registry('sorcery.widgets.factory-bindings', array());
-	$factory = new Sorcery_Factory();
-	foreach ((array)$bindings as $id => $callback) {
-		$factory->set($id, $callback);
+function sorcery_factory_setup() {
+	$sub_modules = array(
+		'widgets',
+		'layouts'
+	); 
+
+	foreach ($sub_modules as $sub_module) {
+		$bindings = get_registry('sorcery.' . $sub_module . '.factory-bindings', array());
+		$factory = new Sorcery_Factory();
+		foreach ((array)$bindings as $id => $callback) {
+			$factory->set($id, $callback);
+		}
+		set_registry('sorcery.' . $sub_module . '.factory', $factory);
 	}
-	set_registry('sorcery.widgets.factory', $factory);
+
+	
 }
-add_action('modules_loaded' , 'sorcery_widgets_factory_setup', 60);
+add_action('modules_loaded' , 'sorcery_factory_setup', 60);

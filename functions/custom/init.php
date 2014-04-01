@@ -11,9 +11,9 @@
  */
 
 
-// add the config file and load it
+// add and load the config file to the registry
 add_registry_file(CUSTOM_PATH . 'config.php');
-initialize_registry();
+load_registry_file(CUSTOM_PATH . 'config.php');
 
 // require php helpers
 require(CUSTOM_PATH . 'php-helpers.php');

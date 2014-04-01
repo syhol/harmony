@@ -122,13 +122,13 @@ function load_registry(array $items) {
 }
 
 /**
- * Load an array from the config.php into the config variable
+ * Load an array from registry files into the config variable
  * 
  * @see load_registry()
  * @param  string $env defaults to whats in the ENV constant
  * @return void
  */
-function load_environment_registry($env = null) {
+function load_registry_files($env = null) {
 	if (is_null($env)) {
 		if ( ! defined('ENV') ) {
 			return;
@@ -138,9 +138,32 @@ function load_environment_registry($env = null) {
 
 	$files = get_registry_files();
 	foreach ($files as $file) {
-		$registry = require($file);
-		if (isset($registry[$env])) {
-			load_registry($registry[$env]);
-		}
+		load_registry_file($file);
 	}
+}
+
+
+/**
+ * Load an array from a registry file into the config variable
+ * 
+ * @see load_registry()
+ * @param  string $file file path 
+ * @param  string $env  defaults to whats in the ENV constant
+ * @return void
+ */
+function load_registry_file($file, $env = null) {
+	if (is_null($env)) {
+		if ( ! defined('ENV') ) {
+			return;
+		}
+		$env = ENV;
+	}
+
+	$registry = require($file);
+
+	if (isset($registry[$env]))
+		load_registry($registry[$env]);
+
+	if (isset($registry['all']))
+		load_registry($registry['all']);
 }
