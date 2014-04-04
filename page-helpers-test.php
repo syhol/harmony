@@ -112,6 +112,27 @@ render_template('header'); ?>
 			<?php $widget['attributes.placeholder'] = 'My Placeholder'; ?>
 			<?php echo $layouts->horizontal(array('widget' => $widget)); ?>
 
+			<h4>Validation</h4>
+
+			<p>
+				Required 
+				<?php var_dump(sorcery_validate_required('test')); ?>
+				<?php var_dump(sorcery_validate_required('')); ?>
+			</p>
+
+			<p>
+				Pattern 
+				<?php var_dump(sorcery_validate_pattern('test', '/[A-Za-z0-9]/')); ?>
+				<?php var_dump(sorcery_validate_pattern('t£$t', '/[A-Za-z0-9]/')); ?>
+			</p>
+
+			<p>
+				Max Char 
+				<?php var_dump(sorcery_validate_maxchar('test', 5)); ?>
+				<?php var_dump(sorcery_validate_maxchar('testextra', 5)); ?>
+			</p>
+			
+
 			<hr>
 
 			<h3>Profiler</h3>

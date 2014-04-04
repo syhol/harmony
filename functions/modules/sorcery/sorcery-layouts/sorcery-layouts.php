@@ -16,14 +16,14 @@ function sorcery_layout_general($data = array()) {
 	$data = sorcery_widget_default_attrs($data);
 	$data = sorcery_layout_standard_data($data);
 
-	return new Template('sorcery-layouts:general', $data);
+	return template('sorcery-layouts:general', $data);
 }
 
 function sorcery_layout_horizontal($data = array()) {
 	$data = sorcery_widget_default_attrs($data);
 	$data = sorcery_layout_standard_data($data);
 
-	return new Template('sorcery-layouts:horizontal', $data);
+	return template('sorcery-layouts:horizontal', $data);
 }
 
 function sorcery_layout_standard_data($data = array()) {
@@ -39,7 +39,7 @@ function sorcery_layout_standard_data($data = array()) {
 		$data['attributes']['class'][] = 'has-error';
 	}
 	if (is_array($data['errors'])) {
-		$open = '<p><span class="glyphicon glyphicon-warning-sign">&nbsp;</span>';
+		$open = '<p><span class="fa fa-exclamation-circle">&nbsp;</span>';
 		$close = '</p>';
 		$center = $close . $open;
 		$data['errors'] = $open . implode($center, $data['errors']) . $close;

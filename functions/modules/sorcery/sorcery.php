@@ -8,9 +8,11 @@
  * @version 0.1.0
  */
 
-require('sorcery-widgets/sorcery-widgets.php');
 require('sorcery-common/sorcery-common.php');
+
+require('sorcery-widgets/sorcery-widgets.php');
 require('sorcery-layouts/sorcery-layouts.php');
+require('sorcery-validation/sorcery-validation.php');
 
 //require('sorcery-fields/sorcery-fields.php');
 //require('sorcery-validation/sorcery-validation.php');
@@ -26,18 +28,14 @@ require('sorcery-layouts/sorcery-layouts.php');
  * @return void
  */
 function sorcery_template_redirect($path, $original_path, $data) {
-	$sub_modules = array(
-		'widgets',
-		'layouts'
-	); 
-
+	$sub_modules = array('widgets', 'layouts'); 
 	foreach ($sub_modules as $sub_module) {
 		if (str_contains($original_path, 'sorcery-' . $sub_module . ':')) {
-				list($module, $new_path) = explode(':', $original_path);
-				$module_template = get_module_path('/sorcery/sorcery-' . $sub_module . '/templates/' . $new_path . '.php');
-				if (is_file($module_template)) {
-					$path = $module_template;
-				}
+			list($module, $new_path) = explode(':', $original_path);
+			$module_template = get_module_path('/sorcery/sorcery-' . $sub_module . '/templates/' . $new_path . '.php');
+			if (is_file($module_template)) {
+				$path = $module_template;
+			}
 		}
 	}
 
@@ -62,11 +60,7 @@ add_action('modules_loaded' , 'sorcery_config_setup', 10);
  * @return void
  */
 function sorcery_factory_setup() {
-	$sub_modules = array(
-		'widgets',
-		'layouts'
-	); 
-
+	$sub_modules = array('widgets', 'layouts', 'validation'); 
 	foreach ($sub_modules as $sub_module) {
 		$bindings = get_registry('sorcery.' . $sub_module . '.factory-bindings', array());
 		$factory = new Sorcery_Factory();

@@ -11,6 +11,16 @@
 return array(
 	'all' => array(
 		'sorcery' => array(
+			'validation' => array(
+				'rules' => array(
+					'required' => 'sorcery_layout_general',
+					'pattern'  => 'sorcery_layout_horizontal'
+				),
+				'messages' => array(
+					'required' => 'This field is required',
+					'pattern'  => 'This field is invalid'
+				),
+			),
 			'layouts' => array(
 				'factory-bindings' => array(
 					'general'     => 'sorcery_layout_general',
