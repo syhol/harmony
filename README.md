@@ -42,6 +42,12 @@
 	* rewrite_module
 * Wordpress >= 3.5 
 
+## Composer Packages You May Wish To Use
+
+ * "illuminate/view" : "4.1.*",
+ * "twig/twig": "1.*",
+ * "mustache/mustache" : "2.*"
+
 ## Code Style
 
 The following coding style is a mixture of PSR-2 and WordPress style 
