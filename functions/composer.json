@@ -8,7 +8,9 @@
         }
     ],
     "require": {
-        
+        "illuminate/view" : "4.1.*",
+        "twig/twig": "1.*",
+        "mustache/mustache" : "2.*"
     },
     "psr-0": {
         "" : "/psr-0"

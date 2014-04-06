@@ -27,21 +27,18 @@ require('sorcery-validation/sorcery-validation.php');
  * @param string $data
  * @return void
  */
-function sorcery_template_redirect($path, $original_path, $data) {
+function sorcery_template_redirect($directory, $path, $request) {
 	$sub_modules = array('widgets', 'layouts'); 
 	foreach ($sub_modules as $sub_module) {
-		if (str_contains($original_path, 'sorcery-' . $sub_module . ':')) {
-			list($module, $new_path) = explode(':', $original_path);
-			$module_template = get_module_path('/sorcery/sorcery-' . $sub_module . '/templates/' . $new_path . '.php');
-			if (is_file($module_template)) {
-				$path = $module_template;
-			}
+		if (str_contains($request, 'sorcery-' . $sub_module . ':')) {
+			list($module, $new_path) = explode(':', $request);
+			$directory = get_module_path('/sorcery/sorcery-' . $sub_module . '/templates/');
 		}
 	}
 
-	return $path;
+	return $directory;
 }
-add_filter('template_path' , 'sorcery_template_redirect', 30, 3);
+add_filter('template_location' , 'sorcery_template_redirect', 30, 3);
 
 /**
  * Setup the sorcery widgets factory

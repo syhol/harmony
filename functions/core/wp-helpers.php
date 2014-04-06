@@ -19,7 +19,7 @@
  */
 function get_excerpt($post_id = null) {
 
-	if (is_numeric($post_id)) {
+	if (is_numeric($post_id) || $post_id instanceof WP_Post) {
 		$post = get_post($post_id);
 	} else {
 		global $post;

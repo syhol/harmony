@@ -1,0 +1,1 @@
+<h4>{{ $partial['title'] }}</h4>

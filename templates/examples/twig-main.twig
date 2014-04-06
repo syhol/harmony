@@ -1,0 +1,13 @@
+{% extends 'examples/twig-layout.twig' %}
+
+{% block heading %}
+	<h3>{{ title }}</h3>
+{% endblock %}
+
+{% block body %}
+	<p>{{ content }}</p>
+{% endblock %}
+
+{% block footer %}
+	{% include 'examples/twig-partial.twig' with {'title': partial.title} %}
+{% endblock %}

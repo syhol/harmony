@@ -7,42 +7,49 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Template implements ArrayAccess {
-
-	protected $template = false;
+class Divinity_Template implements ArrayAccess {
+	
+	public $template_directory = false;
+	
+	public $template = false;
 
 	protected $data = array();
 
+	protected $engine = array();
+
 	/**
-	 * Setup the widget
-	 * 
-	 * @param string $id   	name of widget
-	 * @param string $value	value of widget
-	 * @param array  $data  widget data and config
+	 * Setup the template with required properties
+	 *
+	 * @param string          $template_directory
+	 * @param string          $template
+	 * @param Divinity_Engine $engine
+	 * @param array           $data
 	 */
-	public function __construct($template = false, $data = array()) {
-		$this->set_template($template);
-		$this->set(null, $data);
+	public function __construct($template_directory, $template, Divinity_Engine $engine, array $data = array()) {
+		$this->template_directory = $template_directory;
+		$this->template = $template;
+		$this->data = $data;
+		$this->engine = $engine;
 	}
 
 	/**
-	 * Set the widget template
+	 * Set the template engine
 	 * 
-	 * @param string $template
+	 * @param Divinity_Engine $template
 	 * @return self
 	 */
-	public function set_template($template) {
-		$this->template = (string)$template;
+	public function set_engine(Divinity_Engine $engine) {
+		$this->engine = $engine;
 		return $this;
 	}
 
 	/**
-	 * Get the widget template
+	 * Get the template engine
 	 * 
 	 * @return string
 	 */
-	public function get_template() {
-		return $this->template;
+	public function get_engine() {
+		return $this->engine;
 	}
 
 	/**
@@ -63,7 +70,7 @@ class Template implements ArrayAccess {
 	 * @param string $data data to set 
 	 * @return self
 	 */
-	public function bulk_set($data) {
+	public function bulk_set(array $data) {
 		$data = array_dot($data);
 		foreach ($data as $index => $item) {
 			$this->set($index, $item);
@@ -91,11 +98,11 @@ class Template implements ArrayAccess {
 	 * @return void
 	 */
 	public function render() {
-		if ($this->template) {
-			render_template($this->template, $this->data);
-		} else {
-			throw new ErrorException('No template set');
-		}
+		return $this->engine->render(
+			$this->template_directory, 
+			$this->template, 
+			$this->data
+		);
 	}
 
 	/**
@@ -104,11 +111,11 @@ class Template implements ArrayAccess {
 	 * @return string
 	 */
 	public function compile() {
-		if ($this->template) {
-			return compile_template($this->template, $this->data);
-		} else {
-			throw new ErrorException('No template set');
-		}
+		return $this->engine->compile(
+			$this->template_directory, 
+			$this->template, 
+			$this->data
+		);	
 	}
 
 	/**

@@ -139,31 +139,149 @@ render_template('header'); ?>
 			
 			<?php
 
+			$using_twig = class_exists('Twig_Template');
+			$using_mustache = class_exists('Mustache_Template');
+			$using_blade = class_exists('Illuminate\View\Compilers\BladeCompiler');
+
 			ob_start();
 
+			$profile_strength = 1;
+
+			profile_start('total'); 
+
 			$diffs1 = array();
-			for ($i = 1; $i < 100; $i++) {
+			for ($i = 1; $i <= $profile_strength; $i++) {
 				profile_start(); 
-				$single_item = render_template('single-item', array('content' => 'look at me!'), true);
-				echo $single_item;
+				render_template('single-item', array('content' => 'look at me!'));
 				$profile = profile_stop();
 				$diffs1[] = $profile['time-diff'];
 			}
 
 			$diffs2 = array();
-			for ($i = 1; $i < 100; $i++) {
+			for ($i = 1; $i <= $profile_strength; $i++) {
 				profile_start(); 
-				render_template('single-item', array('content' => 'look at me!'));
+				$template = new Divinity_Template(
+					get_template_path(), 
+					'single-item.php', 
+					get_registry('divinity.engine.php'),
+					array('content' => 'look at me!', 'title' => 'Helpers Test', 'classes' => 'a')
+				);
+				$template->render();
 				$profile = profile_stop();
 				$diffs2[] = $profile['time-diff'];
 			}
+			
+			$diffs3 = array();
+			for ($i = 1; $i <= $profile_strength; $i++) {
+				profile_start(); 
+				$single_item = compile_template('single-item', array('content' => 'look at me!'), true);
+				echo $single_item;
+				$profile = profile_stop();
+				$diffs3[] = $profile['time-diff'];
+			}
 
+			if($using_twig) {
+				$diffs4 = array();
+				for ($i = 1; $i <= $profile_strength; $i++) {
+					profile_start(); 
+					render_template('examples/twig-main', array(
+						'title' => 'a', 
+						'content' => 'b', 
+						'partial' => array(
+							'title' => 'c'
+						)
+					));
+					$profile = profile_stop();
+					$diffs4[] = $profile['time-diff'];
+				}
+			}
+			
+			if($using_mustache) {
+				$diffs5 = array();
+				for ($i = 1; $i <= $profile_strength; $i++) {
+					profile_start(); 
+					render_template('examples/mustache-template', array(
+						'title' => 'a', 
+						'content' => 'b', 
+						'partial' => array(
+							'title' => 'c'
+						)
+					));
+					$profile = profile_stop();
+					$diffs5[] = $profile['time-diff'];
+				}
+			}
+
+			if($using_blade) {
+				$diffs6 = array();
+				for ($i = 1; $i <= $profile_strength; $i++) {
+					profile_start(); 
+					render_template('examples/blade-main', array(
+						'title' => 'a', 
+						'content' => 'b', 
+						'partial' => array(
+							'title' => 'c'
+						)
+					));
+					$profile = profile_stop();
+					$diffs6[] = $profile['time-diff'];
+				}
+			}
+			
 			ob_end_clean();
 
-			var_dump(array_sum($diffs1) / count($diffs1));
-			var_dump(array_sum($diffs2) / count($diffs2));
+			$total = profile_stop('total');
 
 			?>
+
+			<table class="table table-striped">
+				<thead>
+					<tr><th>Type</th><th>Average Time Taken</th><th>Strength</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Standard render_template()</td>
+						<td><?php echo array_sum($diffs1) / count($diffs1); ?></td>
+						<td><?php echo $profile_strength; ?></td>
+					</tr>
+					<tr>
+						<td>Manually creating Divinity_Template</td>
+						<td><?php echo array_sum($diffs2) / count($diffs2); ?></td>
+						<td><?php echo $profile_strength; ?></td>
+					</tr>
+					<tr>
+						<td>Stardard compile_template()</td>
+						<td><?php echo array_sum($diffs3) / count($diffs3); ?></td>
+						<td><?php echo $profile_strength; ?></td>
+					</tr>
+					<?php if($using_twig): ?>
+					<tr>
+						<td>Twig render_template()</td>
+						<td><?php echo array_sum($diffs4) / count($diffs4); ?></td>
+						<td><?php echo $profile_strength; ?></td>
+					</tr>
+					<?php endif; ?>
+					<?php if($using_mustache): ?>
+					<tr>
+						<td>Mustache render_template()</td>
+						<td><?php echo array_sum($diffs5) / count($diffs5); ?></td>
+						<td><?php echo $profile_strength; ?></td>
+					</tr>
+					<?php endif; ?>
+					<?php if($using_blade): ?>
+					<tr>
+						<td>Blade render_template()</td>
+						<td><?php echo array_sum($diffs6) / count($diffs6); ?></td>
+						<td><?php echo $profile_strength; ?></td>
+					</tr>
+					<?php endif; ?>
+					<tr>
+						<td>Total</td>
+						<td><?php echo $total['time-diff']; ?></td>
+						<td><?php echo $profile_strength * 5; ?></td>
+					</tr>
+				</tbody>
+			</table>
 
 			<hr>
 
@@ -223,6 +341,56 @@ render_template('header'); ?>
 				<?php $index_item = compile_template('index-item'); ?>
 				<?php render_template('single-item', array('content' => $index_item)); ?>
 			</div>
+			<?php if($using_mustache): ?>
+
+			<p>
+				Oh whats that? you don't think PHP is a real templateing language?</br>
+				How about mustache?
+			</p>
+			
+			<div class="well">
+				<?php render_template('examples/mustache-template', array(
+					'title' =>'I am built with mustache!',
+					'content' => 'How do ya like them apples?', 
+					'partial' => array(
+						'title' => 'Oh and i work with partials too'
+					)
+				)); ?>
+			</div>
+			<?php endif; ?>
+			<?php if($using_twig): ?>
+
+			<p>
+				What now? you think mustache is a girly logicless template language?</br>
+				How about twig?
+			</p>
+			
+			<div class="well">
+				<?php render_template('examples/twig-main', array(
+					'title' =>'I am built with twig!',
+					'content' => 'I\'m extending a layout template', 
+					'partial' => array(
+						'title' => 'Oh and i work with partials too'
+					)
+				)); ?>
+			</div>
+			<?php endif; ?>
+			<?php if($using_blade): ?>
+
+			<p>
+				...And Blade
+			</p>
+			
+			<div class="well">
+				<?php render_template('examples/blade-main', array(
+					'title' =>'I am built with blade!',
+					'content' => 'Ouch that\'s razor sharp goodness', 
+					'partial' => array(
+						'title' => 'Also extending layouts and using partials'
+					)
+				)); ?>
+			</div>
+			<?php endif; ?>
 
 			<hr>
 

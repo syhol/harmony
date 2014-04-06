@@ -31,8 +31,8 @@ function bind_post_single_data($data) {
 
 	if ($post instanceof WP_Post) {
 		$defaultData = array(
-			'title' => get_the_title($post->ID),
-			'classes' => join(' ', get_post_class('single-item', $post->ID)),
+			'title' => get_the_title($post),
+			'classes' => join(' ', get_post_class('single-item', $post)),
 			'content' => apply_filters('the_content', $post->post_content)
 		);
 	}
@@ -91,11 +91,11 @@ function bind_post_index_data($data) {
 
 	if ($post instanceof WP_Post) {
 		$defaultData = array(
-			'title' => get_the_title($post->ID),
-			'classes' => join(' ', get_post_class('index-item', $post->ID)),
-			'link' => get_permalink($post->ID),
+			'title' => get_the_title($post),
+			'classes' => join(' ', get_post_class('index-item', $post)),
+			'link' => get_permalink($post),
 			'link_text' => 'Read More&nbsp;&raquo;',
-			'content' => get_excerpt($post->ID),
+			'content' => get_excerpt($post),
 			'title_attribute' => the_title_attribute(array('echo' => false))
 		);
 	}

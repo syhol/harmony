@@ -29,14 +29,6 @@ if (false === defined('ENV')) {
 	define('ENV', 'live');
 }
 
-// Include composer autoloader
-if (file_exists(VENDOR_PATH . 'autoload.php')) {
-	require(VENDOR_PATH . 'autoload.php');
-}
-
-// Require the psr-4 autoloader
-require(CORE_PATH . 'autoloader.php');
-
 // Require php helpers
 require(CORE_PATH . 'php-helpers.php');
 
@@ -59,7 +51,13 @@ foreach ($dir as $module_path) {
 	include($module_init);
 }
 
+// Include composer autoloader
+if (file_exists(VENDOR_PATH . 'autoload.php')) {
+	require(VENDOR_PATH . 'autoload.php');
+}
+
 do_action('modules_loaded');
 
 // require data bindings for templates
 require(CUSTOM_PATH . 'init.php');
+
