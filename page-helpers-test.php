@@ -145,7 +145,7 @@ render_template('header'); ?>
 
 			ob_start();
 
-			$profile_strength = 1;
+			$profile_strength = 10;
 
 			profile_start('total'); 
 

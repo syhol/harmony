@@ -51,7 +51,7 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 	
 	private function check_cache_dir($cache) {
 		if( ! is_dir($cache) ) {
-			mkdir($cache, 0666, true);
+			mkdir($cache, 0777, true);
 		}
 	}
 
