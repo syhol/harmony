@@ -3,7 +3,7 @@
 /**
  * Class wrapper for the render and compile template functions
  * 
- * @package Template
+ * @package Divinity
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
@@ -15,7 +15,7 @@ class Divinity_Template implements ArrayAccess {
 
 	protected $data = array();
 
-	protected $engine = array();
+	protected $engine;
 
 	/**
 	 * Setup the template with required properties

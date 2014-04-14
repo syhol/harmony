@@ -41,7 +41,7 @@ function template($request, array $data = array()) {
  * @return void|string
  */
 function compile_template($request, array $data = array()) {
-	return template($request, $data);
+	return template($request, $data)->compile();
 }
 
 /**

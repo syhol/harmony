@@ -22,7 +22,7 @@ render_template('header'); ?>
 
 			<hr>
 
-			<h3>Sorcery</h3>
+			<h3>Sorcery Forms</h3>
 
 			<?php $widgets = get_registry('sorcery.widgets.factory'); ?>
 			<?php $layouts = get_registry('sorcery.layouts.factory'); ?>
@@ -132,6 +132,72 @@ render_template('header'); ?>
 				<?php var_dump(sorcery_validate_maxchar('testextra', 5)); ?>
 			</p>
 			
+
+			<hr>
+
+			<h3>Voodoo Data Container / ORM</h3>
+
+			<h4>Like WP_Post but more badass</h4>
+
+			<?php $voodoo_post = post(1); ?>
+			<?php $voodoo_post['feature'] = array(
+				'items' => array('One', 'Two', 'Three'),
+				'title' => 'Feature title',
+				'subtitle' => '...and subtitle'
+			); ?>
+
+			<p>
+				Check out all its vars 
+				<?php var_dump($voodoo_post); ?>
+			</p>
+
+			<p>
+				I can get post data and post meta data 
+				<div class="well">
+					<h2><?php echo $voodoo_post->post_title; ?></h2>
+					<p><?php echo $voodoo_post['post_content']; ?></p>
+					<h3><?php echo $voodoo_post['feature.title']; ?></h3>
+					<h4><?php echo $voodoo_post->get('feature.subtitle'); ?></h4>
+					<ul>
+						<?php foreach ($voodoo_post['feature.items'] as $item): ?>
+							<li><?php echo $item; ?></li>
+						<?php endforeach; ?> 
+					</ul>
+					<p><?php echo $voodoo_post->get('feature.content', 'Default Fallback Content...'); ?></p>
+				</div>
+			</p>
+
+			<p>
+				I can set post data and post meta data too
+				<?php 
+				$voodoo_post->shift('feature.items');
+				$voodoo_post->unshift('feature.items', 'Alpha');
+				$voodoo_post->pop('feature.items');
+				$voodoo_post->push('feature.items', 'Charlie');
+				$voodoo_post->post_title = 'New World';
+				$voodoo_post['feature.subtitle'] .= ' with a little extra';
+				$voodoo_post->set('feature.content', 'Setting data on the fly...');
+				?>
+				<div class="well">
+					<h2><?php echo $voodoo_post->post_title; ?></h2>
+					<p><?php echo $voodoo_post['post_content']; ?></p>
+					<h3><?php echo $voodoo_post['feature.title']; ?></h3>
+					<h4><?php echo $voodoo_post->get('feature.subtitle'); ?></h4>
+					<ul>
+						<?php foreach ($voodoo_post['feature.items'] as $item): ?>
+							<li><?php echo $item; ?></li>
+						<?php endforeach; ?> 
+					</ul>
+					<p><?php echo $voodoo_post->get('feature.content', 'Default Fallback Content...'); ?></p>
+				</div>
+				<?php 
+				$voodoo_post->shift('feature.items');
+				$voodoo_post->unshift('feature.items', 'One');
+				$voodoo_post->pop('feature.items');
+				$voodoo_post->push('feature.items', 'Three');
+				$voodoo_post->post_title = 'Hello World';
+				?>
+			</p>
 
 			<hr>
 
@@ -285,7 +351,7 @@ render_template('header'); ?>
 
 			<hr>
 
-			<h3>Render Template</h3>
+			<h3>Divinity Templates</h3>
 			
 			<p>
 				Render a template using data from the 
@@ -462,20 +528,54 @@ render_template('header'); ?>
 			<?php registry_container($old_registry); ?>
 			<p><img src="<?php echo get_registry('site-logo'); ?>" /></p>
 			<h3>Location Helpers</h3>
-			
-			<ul>
-				<li>get_route: <?php echo get_route('to/my/route'); ?></li>
-				<li>get_theme_url: <?php echo get_theme_url('to/my/resource.js'); ?></li>
-				<li>get_theme_path: <?php echo get_theme_path('to/my/resource.php'); ?></li>
-				<li>get_asset_url: <?php echo get_asset_url('js/resource.js'); ?></li>
-				<li>get_asset_path: <?php echo get_asset_path('php/resource.php'); ?></li>
-				<li>get_template_url: <?php echo get_template_url('single/template.php'); ?></li>
-				<li>get_template_path: <?php echo get_template_path('single/template.php'); ?></li>
-				<li>get_function_url: <?php echo get_function_url('core/funcs.php'); ?></li>
-				<li>get_function_path: <?php echo get_function_path('custom/funcs.php'); ?></li>
-				<li>get_module_url: <?php echo get_module_url('my-module/resource.js'); ?></li>
-				<li>get_module_path: <?php echo get_module_path('my-module/resource.php'); ?></li>
-			</ul>
+
+			<table class="table table-striped">
+				<thead>
+					<tr><th>Request</th><th>Result</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>get_route('to/my/route');</td>
+						<td><?php echo get_route('to/my/route'); ?></td>
+					</tr>
+					<tr>
+						<td>get_theme_url('to/my/resource.js');</td>
+						<td><?php echo get_theme_url('to/my/resource.js'); ?></td>
+					</tr>
+					<tr>
+						<td>get_asset_url('js/resource.js');</td>
+						<td><?php echo get_asset_url('js/resource.js'); ?></td>
+					</tr>
+					<tr>
+						<td>get_template_url('single/template.php');</td>
+						<td><?php echo get_template_url('single/template.php'); ?></td>
+					</tr>
+					<tr>
+						<td>get_module_url('my-module/resource.js');</td>
+						<td><?php echo get_module_url('my-module/resource.js'); ?></td>
+					</tr>
+					<tr>
+						<td>get_theme_path('to/my/resource.php');</td>
+						<td><?php echo get_theme_path('to/my/resource.php'); ?></td>
+					</tr>
+					<tr>
+						<td>get_asset_path('php/resource.php');</td>
+						<td><?php echo get_asset_path('php/resource.php'); ?></td>
+					</tr>
+					<tr>
+						<td>get_template_path('single/template.php');</td>
+						<td><?php echo get_template_path('single/template.php'); ?></td>
+					</tr>
+					<tr>
+						<td>get_function_path('custom/funcs.php');</td>
+						<td><?php echo get_function_path('custom/funcs.php'); ?></td>
+					</tr>
+					<tr>
+						<td>get_module_path('my-module/resource.php');</td>
+						<td><?php echo get_module_path('my-module/resource.php'); ?></td>
+					</tr>
+				</tbody>
+			</table>
 
 			<?php 
 
