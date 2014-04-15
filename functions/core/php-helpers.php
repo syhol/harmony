@@ -84,6 +84,27 @@ function array_dot_set(&$array, $key, $value)  {
 }
 
 /**
+ * See if an item in an array exists using "dot" notation.
+ *
+ * @param  array   $array
+ * @param  string  $key
+ * @return mixed
+ */
+function array_dot_exists($array, $key) {
+	if (is_null($key)) return $array;
+	if (isset($array[$key])) return $array[$key];
+
+	foreach (explode('.', $key) as $segment) {
+		if ( ! is_array($array) || ! array_key_exists($segment, $array)) {
+			return false;
+		}
+		$array = $array[$segment];
+	}
+
+	return true;
+}
+
+/**
  * Remove an array item from a given array using "dot" notation.
  *
  * @param  array   $array

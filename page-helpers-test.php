@@ -140,11 +140,13 @@ render_template('header'); ?>
 			<h4>Like WP_Post but more badass</h4>
 
 			<?php $voodoo_post = post(1); ?>
-			<?php $voodoo_post['feature'] = array(
+			<?php
+			$voodoo_post['feature'] = array(
 				'items' => array('One', 'Two', 'Three'),
 				'title' => 'Feature title',
 				'subtitle' => '...and subtitle'
-			); ?>
+			);
+			?>
 
 			<p>
 				Check out all its vars 

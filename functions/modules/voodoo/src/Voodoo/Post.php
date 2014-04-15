@@ -7,7 +7,7 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Voodoo_Post extends Voodoo_Entity {
+class Voodoo_Post extends Glyph {
 
 	protected static $post_keys = array(
 		'ID',

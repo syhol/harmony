@@ -7,8 +7,14 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Voodoo_Post extends Voodoo_Entity implements IteratorAggregate {
+class Voodoo_Collection extends Glyph {
 
+	/**
+	 * Pluck a keys value from multiple sources
+	 * 
+	 * @param  string $index
+	 * @return mixed
+	 */
 	public function pluck($index)
 	{
 		$plucked = array();
@@ -18,10 +24,6 @@ class Voodoo_Post extends Voodoo_Entity implements IteratorAggregate {
 			}
 		}
 		return $plucked;
-	}
-
-	public function getIterator() {
-		return new ArrayIterator($this->data);
 	}
 
 }
