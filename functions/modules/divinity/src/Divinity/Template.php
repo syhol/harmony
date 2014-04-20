@@ -9,10 +9,25 @@
  */
 class Divinity_Template extends Glyph {
 	
+	/**
+	 * Template directory where a collection of templates are stored
+	 * 
+	 * @var boolean|string
+	 */
 	public $template_directory = false;
 	
+	/**
+	 * Template location within the template directory
+	 * 
+	 * @var boolean|string
+	 */
 	public $template = false;
-
+	
+	/**
+	 * Template engine for the template
+	 * 
+	 * @var Divinity_Engine
+	 */
 	protected $engine;
 
 	/**

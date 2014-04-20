@@ -37,11 +37,27 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		$this->set_wp_extensions();
 	}
 	
+	/**
+	 * Compile and output the template
+	 * 
+	 * @param string $directory
+	 * @param string $path
+	 * @param array  $data
+	 * @return boolean
+	 */
 	public function render($directory, $path, $data) {
 		echo $this->compile($directory, $path, $data);
 		return true;
 	}
 	
+	/**
+	 * Compile and return the template
+	 * 
+	 * @param string $directory
+	 * @param string $path
+	 * @param array  $data
+	 * @return string
+	 */
 	public function compile($directory, $path, $data) {
 		$fs = $this->env->getFinder()->getFilesystem();
 		$finder = new Illuminate\View\FileViewFinder($fs, array($directory));
@@ -51,10 +67,20 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		return $this->env->make($path, $data);
 	}
 	
+	/**
+	 * Return the file extension this engine supports, with the leading dot
+	 * 
+	 * @return string
+	 */
 	public function get_extension() {
 		return '.blade.php';
 	}
 	
+	/**
+	 * Return the cache directory and create it if it doesn't exist
+	 * 
+	 * @return string
+	 */
 	private function get_cache_dir() {
 		$upload_dir = wp_upload_dir();
 		$cache = $upload_dir['basedir'] . '/cache/blade';
@@ -64,6 +90,11 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		return $cache;
 	}
 	
+	/**
+	 * Set up blade extensions
+	 *
+	 * @return void
+	 */
 	private function set_wp_extensions() {
 		
 		$this->blade->extend(function($view, $compiler) {
