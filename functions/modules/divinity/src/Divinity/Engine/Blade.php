@@ -10,6 +10,12 @@
 class Divinity_Engine_Blade implements Divinity_Engine {
 
 	private $env;
+	
+	/**
+	 * An instance of the Blade compiler
+	 * @var Illuminate\View\Compilers\BladeCompiler
+	 */
+	private $blade;
 
 	public function __construct() {
 		$directory = get_template_path();
@@ -18,7 +24,7 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		$this->check_cache_dir($cache);
 		
 		$fs_directory = new Illuminate\Filesystem\Filesystem($directory);
-		$blade = new Illuminate\View\Compilers\BladeCompiler($fs_directory, $cache);
+		$this->blade = $blade = new Illuminate\View\Compilers\BladeCompiler($fs_directory, $cache);
 		$blade = new Illuminate\View\Engines\CompilerEngine($blade);
 		$engines = new Illuminate\View\Engines\EngineResolver;
 		$engines->register('blade', function() use ($blade)
@@ -28,6 +34,8 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		$finder = new Illuminate\View\FileViewFinder($fs_directory, array($directory));
 		$dispatcher = new Illuminate\Events\Dispatcher(new Illuminate\Container\Container);
 		$this->env = new Illuminate\View\Environment($engines, $finder, $dispatcher);
+		
+		$this->setWpExtensions();
 	}
 	
 	public function render($directory, $path, $data) {
@@ -50,9 +58,30 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 	}
 	
 	private function check_cache_dir($cache) {
+
 		if( ! is_dir($cache) ) {
 			mkdir($cache, 0777, true);
 		}
 	}
-
+	
+	private function setWpExtensions() {
+		
+		$this->blade->extend(function($view, $compiler) {
+			$pattern = $compiler->createMatcher('harmonyRender');
+			
+			return preg_replace($pattern, '$1<?php render_template($2) ?>', $view);
+		});
+		
+		$this->blade->extend(function($view, $compiler) {
+			$pattern = $compiler->createPlainMatcher('harmonyPosts');
+			
+			return preg_replace($pattern, '<?php if(have_posts()) : while(have_posts()) : the_post(); ?>', $view);
+		});
+		
+		$this->blade->extend(function($view, $compiler) {
+			$pattern = $compiler->createPlainMatcher('harmonyEndPosts');
+			
+			return preg_replace($pattern, '<?php endwhile; endif; ?>', $view);
+		});
+	}
 }

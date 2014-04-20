@@ -2,6 +2,20 @@
 
 ![](https://raw.github.com/syholloway/harmony/master/screenshot.png)
 
+## Installation
+Firstly, install wordpress.
+
+Navigate to {your wordpress install}/wp-content/themes
+
+Clone this repository into a new folder (preferably /harmony)
+
+As this theme makes use of some third party (and frankly awesome tools such as Laravels blade templating engine) you must create a view caching folder and give your server rwx access.
+
+- Create a directory /wp-content/uploads if it doesn't exist
+- Give the server user access to r/w/x to this folder (chmod 775) or (chmod 777)
+- We recommend setting the servers user group (usually www-data on apache) to the uploads folder group.
+	- This means that you only need 775 permissions and is more secure
+	
 ## Todos
 - Wordpress helpers
 	- Location helpers
