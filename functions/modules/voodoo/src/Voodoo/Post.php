@@ -9,6 +9,11 @@
  */
 class Voodoo_Post extends Glyph {
 
+	/**
+	 * Array of WP_Post object keys that need to be saved using wp_update_post
+	 * 
+	 * @var array
+	 */
 	protected static $post_keys = array(
 		'ID',
 		'post_author',
@@ -37,30 +42,47 @@ class Voodoo_Post extends Glyph {
 	);
 
 	/**
+	 * Array of original data
+	 *  
+	 * @var array
+	 */
+	protected $original = array();
+
+	/**
+	 * Setup the container with required properties
+	 *
+	 * @param array           $data
+	 */
+	public function __construct($data = array()) {
+		$this->data = $this->original = $data;
+	}
+
+	/**
 	 * Save post meta and data
 	 * 
-	 * @param string $index key to save data to
-	 * @param string $data  data to set 
 	 * @return self
 	 */	
-	public function set($index, $data) {
-		// Set the data like standard
-		parent::set($index, $data);
-
-		// Get the index and new value at the top level
-		$value = $this->get($index);
-		if (str_contains($index, '.')) {
-			$indexes = explode('.', $index);
-			$index = array_shift($indexes);
-			$value = $this->get($index);
+	public function save() {
+		$post_update = array();
+		foreach ($this->data as $key => $value) {
+			if ( ! isset($this->original[$key]) || $value !== $this->original[$key]) {
+				// Save the new value to the database
+				if(in_array($key, self::$post_keys)) {
+					$post_update['ID'] = $this->data['ID'];
+					$post_update[$key] = $value;
+				} else {
+					update_post_meta($this->data['ID'], $key, $value);
+				}
+			}
 		}
 
-		// Save the new value to the database
-		if(in_array($index, self::$post_keys)) {
-			wp_update_post(array('ID' => $this->data['ID'], $index => $value));
-		} else {
-			update_post_meta($this->data['ID'], $index, $value);
+		// Do all wp_update_post call in one go
+		if ( ! empty($post_update) ) {
+			wp_update_post($post_update);
 		}
+
+		$this->original = $this->data;
+
 		return $this;
 	}
 }

@@ -9,6 +9,10 @@
 
 class Divinity_Engine_Blade implements Divinity_Engine {
 
+	/**
+	 * An instance of the View environment
+	 * @var Illuminate\View\Environment
+	 */
 	private $env;
 	
 	/**
@@ -18,24 +22,19 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 	private $blade;
 
 	public function __construct() {
-		$directory = get_template_path();
-		$upload_dir = wp_upload_dir();
-		$cache = $upload_dir['basedir'] . '/cache/blade';
-		$this->check_cache_dir($cache);
-		
-		$fs_directory = new Illuminate\Filesystem\Filesystem($directory);
-		$this->blade = $blade = new Illuminate\View\Compilers\BladeCompiler($fs_directory, $cache);
-		$blade = new Illuminate\View\Engines\CompilerEngine($blade);
+		$fs = new Illuminate\Filesystem\Filesystem;
+		$this->blade = new Illuminate\View\Compilers\BladeCompiler($fs, $this->get_cache_dir());
+		$blade_engine = new Illuminate\View\Engines\CompilerEngine($this->blade);
 		$engines = new Illuminate\View\Engines\EngineResolver;
-		$engines->register('blade', function() use ($blade)
+		$engines->register('blade', function() use ($blade_engine)
 		{
-			return $blade;
+			return $blade_engine;
 		});
-		$finder = new Illuminate\View\FileViewFinder($fs_directory, array($directory));
+		$finder = new Illuminate\View\FileViewFinder($fs, array(get_template_path()));
 		$dispatcher = new Illuminate\Events\Dispatcher(new Illuminate\Container\Container);
 		$this->env = new Illuminate\View\Environment($engines, $finder, $dispatcher);
 		
-		$this->setWpExtensions();
+		$this->set_wp_extensions();
 	}
 	
 	public function render($directory, $path, $data) {
@@ -44,9 +43,8 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 	}
 	
 	public function compile($directory, $path, $data) {
-
-		$fs_directory = new Illuminate\Filesystem\Filesystem($directory);
-		$finder = new Illuminate\View\FileViewFinder($fs_directory, array($directory));
+		$fs = $this->env->getFinder()->getFilesystem();
+		$finder = new Illuminate\View\FileViewFinder($fs, array($directory));
 		$this->env->setFinder($finder);
 
 		$path = str_replace($this->get_extension(), '', $path);
@@ -57,14 +55,16 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		return '.blade.php';
 	}
 	
-	private function check_cache_dir($cache) {
-
+	private function get_cache_dir() {
+		$upload_dir = wp_upload_dir();
+		$cache = $upload_dir['basedir'] . '/cache/blade';
 		if( ! is_dir($cache) ) {
-			mkdir($cache, 0777, true);
+			mkdir($cache, 0755, true);
 		}
+		return $cache;
 	}
 	
-	private function setWpExtensions() {
+	private function set_wp_extensions() {
 		
 		$this->blade->extend(function($view, $compiler) {
 			$pattern = $compiler->createMatcher('harmonyRender');

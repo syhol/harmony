@@ -16,12 +16,20 @@ class Divinity_Engine_Twig implements Divinity_Engine {
 	
 	public function compile($directory, $path, $data) {
 		$loader = new Twig_Loader_Filesystem($directory);
-		$upload_dir = wp_upload_dir();
 		$options = array(
-			'cache' => $upload_dir['basedir'] . '/cache/twig'
+			'cache' => $this->get_cache_dir()
 		);
 		$twig = new Twig_Environment($loader, $options);
 		return $twig->loadTemplate($path)->render($data);
+	}
+	
+	private function get_cache_dir() {
+		$upload_dir = wp_upload_dir();
+		$cache = $upload_dir['basedir'] . '/cache/twig';
+		if( ! is_dir($cache) ) {
+			mkdir($cache, 0755, true);
+		}
+		return $cache;
 	}
 	
 	public function get_extension() {

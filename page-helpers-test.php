@@ -139,34 +139,50 @@ render_template('header'); ?>
 
 			<h4>Like WP_Post but more badass</h4>
 
-			<?php $voodoo_post = post(1); ?>
-			<?php
+			<?php 
+
+			$voodoo_post = post(1); 
+			$voodoo_post->post_title = 'Hello World';
+			$voodoo_post->post_content = 'Welcome to WordPress. This is your first post. 
+			Edit or delete it, then start blogging! Welcome to WordPress. This is your 
+			first post. Edit or delete it, then start blogging! Welcome to WordPress. 
+			This is your first post. Edit or delete it, then start blogging! Welcome to 
+			WordPress. This is your first post. Edit or delete it, then start blogging! 
+			Welcome to WordPress. This is your first post. Edit or delete it, then start 
+			blogging! Welcome to WordPress. This is your first post. Edit or delete it, 
+			then start blogging! Welcome to WordPress. This is your first post. Edit or 
+			delete it, then start blogging! Welcome to WordPress. This is your first post. 
+			Edit or delete it, then start blogging! Welcome to WordPress. This is your 
+			first post. Edit or delete it, then start blogging! Welcome to WordPress. 
+			This is your first post. Edit or delete it, then start blogging! Welcome to 
+			WordPress. This is your first post. Edit or delete it, then start blogging! 
+			Welcome to WordPress. This is your first post. Edit or delete it, then start 
+			blogging! Welcome to WordPress. This is your first post. Edit or delete it, 
+			then start blogging! Welcome to WordPress. This is your first post. Edit or 
+			delete it, then start blogging! Welcome to WordPress. This is your first post. 
+			Edit or delete it, then start blogging! Welcome to WordPress. This is your 
+			first post. Edit or delete it, then start blogging!';
+
+
 			$voodoo_post['feature'] = array(
 				'items' => array('One', 'Two', 'Three'),
 				'title' => 'Feature title',
 				'subtitle' => '...and subtitle'
 			);
+
+			$voodoo_original = clone $voodoo_post;
+
 			?>
 
 			<p>
-				Check out all its vars 
+				Check out all its vars
 				<?php var_dump($voodoo_post); ?>
 			</p>
 
 			<p>
 				I can get post data and post meta data 
-				<div class="well">
-					<h2><?php echo $voodoo_post->post_title; ?></h2>
-					<p><?php echo $voodoo_post['post_content']; ?></p>
-					<h3><?php echo $voodoo_post['feature.title']; ?></h3>
-					<h4><?php echo $voodoo_post->get('feature.subtitle'); ?></h4>
-					<ul>
-						<?php foreach ($voodoo_post['feature.items'] as $item): ?>
-							<li><?php echo $item; ?></li>
-						<?php endforeach; ?> 
-					</ul>
-					<p><?php echo $voodoo_post->get('feature.content', 'Default Fallback Content...'); ?></p>
-				</div>
+				<?php //Check out the template at {theme}/templates/example/voodoo.php ?>
+				<?php render_template('examples/voodoo', array('voodoo_post' => $voodoo_post)); ?>
 			</p>
 
 			<p>
@@ -177,27 +193,38 @@ render_template('header'); ?>
 				$voodoo_post->pop('feature.items');
 				$voodoo_post->push('feature.items', 'Charlie');
 				$voodoo_post->post_title = 'New World';
+				$voodoo_post['post_content'] = 'New Content';
 				$voodoo_post['feature.subtitle'] .= ' with a little extra';
 				$voodoo_post->set('feature.content', 'Setting data on the fly...');
+
+				//Check out the template at {theme}/templates/example/voodoo.php
+				render_template('examples/voodoo', array('voodoo_post' => $voodoo_post));
 				?>
-				<div class="well">
-					<h2><?php echo $voodoo_post->post_title; ?></h2>
-					<p><?php echo $voodoo_post['post_content']; ?></p>
-					<h3><?php echo $voodoo_post['feature.title']; ?></h3>
-					<h4><?php echo $voodoo_post->get('feature.subtitle'); ?></h4>
-					<ul>
-						<?php foreach ($voodoo_post['feature.items'] as $item): ?>
-							<li><?php echo $item; ?></li>
-						<?php endforeach; ?> 
-					</ul>
-					<p><?php echo $voodoo_post->get('feature.content', 'Default Fallback Content...'); ?></p>
-				</div>
+			</p>
+
+			<p>
+				Although this won't save the data
+				<?php //Check out the template at {theme}/templates/example/voodoo.php ?>
+				<?php render_template('examples/voodoo', array('voodoo_post' => post(1))); ?>
+			</p>
+
+			<p>
+				Calling <code>$voodoo->save()</code> will make edited data permanent 
 				<?php 
-				$voodoo_post->shift('feature.items');
-				$voodoo_post->unshift('feature.items', 'One');
-				$voodoo_post->pop('feature.items');
-				$voodoo_post->push('feature.items', 'Three');
-				$voodoo_post->post_title = 'Hello World';
+				$voodoo_post->save();
+
+				//Check out the template at {theme}/templates/example/voodoo.php
+				render_template('examples/voodoo', array('voodoo_post' => post(1))); 
+
+				// Return to old values
+				$voodoo_post->post_title = $voodoo_original['post_title'];
+				$voodoo_post->post_content = $voodoo_original['post_content'];
+				$voodoo_post['feature'] = array(
+					'items' => array('One', 'Two', 'Three'),
+					'title' => 'Feature title',
+					'subtitle' => '...and subtitle'
+				);
+				$voodoo_post->save(); 
 				?>
 			</p>
 

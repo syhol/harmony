@@ -12,6 +12,7 @@ require('sorcery-common/sorcery-common.php');
 
 require('sorcery-widgets/sorcery-widgets.php');
 require('sorcery-layouts/sorcery-layouts.php');
+require('sorcery-validation/sorcery-validation.php');
 
 //require('sorcery-fields/sorcery-fields.php');
 //require('sorcery-validation/sorcery-validation.php');

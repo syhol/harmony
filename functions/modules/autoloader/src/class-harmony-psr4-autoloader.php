@@ -6,9 +6,11 @@
  * Total ripoff of https://github.com/symfony/ClassLoader/blob/2.4/ClassLoader.php
  * with a few tweaks to make it consistant with the psr-4 autoloader 
  * 
+ * @package Autoloader
  * @author Simon Holloway
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jordi Boggiano <j.boggiano@seld.be>
+ * @license http://opensource.org/licenses/MIT MIT
  */
 class Harmony_PSR4_Autoloader
 {

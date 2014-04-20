@@ -6,10 +6,15 @@
  * @package Glyph
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
- * @version 0.1.0
+ * @version 0.2.0
  */
 class Glyph implements ArrayAccess, IteratorAggregate  {
 
+	/**
+	 * Mixed data set for the object
+	 * 
+	 * @var array
+	 */
 	protected $data = array();
 
 	/**
@@ -147,6 +152,22 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 			return $removed;
 		}
 		return false;
+	}
+
+	/**
+	 * Merge a new array into the data
+	 *
+	 * @param string $index key to merge with
+	 * @return array        the new array
+	 */
+	public function merge($index, $value) {
+		$data = $this->get($index, array());
+		if( ! is_array($data) ) {
+			$data = array();
+		}
+		$data = array_merge_recursive($data, $value);
+		$this->set($index, $data);
+		return $data;
 	}
 
 	/**
