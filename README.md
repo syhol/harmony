@@ -2,6 +2,13 @@
 
 ![](https://raw.github.com/syholloway/harmony/master/screenshot.png)
 
+## Installation
+Firstly, install wordpress.
+
+Navigate to {your wordpress install}/wp-content/themes
+
+Clone this repository into a new folder (preferably /harmony)
+
 ## Todos
 - Wordpress helpers
 	- Location helpers
