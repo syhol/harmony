@@ -8,7 +8,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  * @version 0.2.0
  */
-class Glyph implements ArrayAccess, IteratorAggregate  {
+class Glyph implements ArrayAccess, IteratorAggregate 
+{
 
 	/**
 	 * Mixed data set for the object
@@ -22,7 +23,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 *
 	 * @param array           $data
 	 */
-	public function __construct($data = array()) {
+	public function __construct($data = array())
+	{
 		$this->data = $data;
 	}
 
@@ -33,7 +35,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $value data to set 
 	 * @return self
 	 */
-	public function set($index, $value) {
+	public function set($index, $value)
+	{
 		if (null !== $index && false !== $index)  {
 			array_dot_set($this->data, $index, $value);
 		} else {
@@ -50,7 +53,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param boolean $strict  (optional) passing false will fail if the value is empty 
 	 * @return mixed
 	 */
-	public function get($index = null, $default = null, $strict = true) {
+	public function get($index = null, $default = null, $strict = true)
+	{
 		if (null !== $index || false !== $index)  {
 			if ($this->has($index, $strict)) {
 				return array_dot_get($this->data, $index, $default);
@@ -70,7 +74,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param boolean $strict  (optional) passing false will fail if the value is empty 
 	 * @return boolean
 	 */
-	public function has($index, $strict = true) {
+	public function has($index, $strict = true)
+	{
 		$value = array_dot_get($this->data, $index, null);
 		$found = array_dot_exists($this->data, $index);
 		if ( ! $strict && $found) $found = ! empty($value);
@@ -83,7 +88,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index
 	 * @return self
 	 */
-	public function remove($index) {
+	public function remove($index)
+	{
 		array_dot_forget($this->data, $index);
 		return $this;
 	}
@@ -95,7 +101,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $data  data to push 
 	 * @return array        altered value at index 
 	 */
-	public function push($index, $value) {
+	public function push($index, $value)
+	{
 		$data = $this->get($index, array());
 		if( ! is_array($data) ) {
 			$data = array();
@@ -111,7 +118,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index key to pop a value from
 	 * @return mixed        removed value
 	 */
-	public function pop($index) {
+	public function pop($index)
+	{
 		$data = $this->get($index, array());
 		if(is_array($data)) {
 			$removed = array_pop($data);
@@ -128,7 +136,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $data  data to push 
 	 * @return array        altered value at index 
 	 */
-	public function unshift($index, $value) {
+	public function unshift($index, $value)
+	{
 		$data = $this->get($index, array());
 		if( ! is_array($data) ) {
 			$data = array();
@@ -144,7 +153,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index key to shift a value from
 	 * @return mixed        removed value
 	 */
-	public function shift($index) {
+	public function shift($index)
+	{
 		$data = $this->get($index, array());
 		if(is_array($data)) {
 			$removed = array_shift($data);
@@ -160,7 +170,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index key to merge with
 	 * @return array        the new array
 	 */
-	public function merge($index, $value) {
+	public function merge($index, $value)
+	{
 		$data = $this->get($index, array());
 		if( ! is_array($data) ) {
 			$data = array();
@@ -175,7 +186,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 *
 	 * @return array
 	 */
-	public function to_array() {
+	public function to_array()
+	{
 		return $this->data;
 	}
 
@@ -187,7 +199,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $data  data to set 
 	 * @return boolean
 	 */
-	public function __set($index, $value) {
+	public function __set($index, $value)
+	{
 		$this->set($index, $value);
 		return true;
 	}
@@ -198,7 +211,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index
 	 * @return mixed
 	 */
-	public function __get($index) {
+	public function __get($index)
+	{
 		return $this->get($index);
 	}
 
@@ -208,7 +222,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index
 	 * @return boolean
 	 */
-	public function __isset($index) {
+	public function __isset($index)
+	{
 		return $this->has($index);
 	}
 
@@ -218,7 +233,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string $index 
 	 * @return void
 	 */
-	public function __unset($index) {
+	public function __unset($index)
+	{
 		$this->remove($index);
 	}
 
@@ -228,7 +244,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string|interger $index
 	 * @return boolean
 	 */
-	public function offsetSet($index, $value) {
+	public function offsetSet($index, $value)
+	{
 		if (null !== $index && false !== $index)  {
 			$this->set($index, $value);
 		} else {
@@ -243,7 +260,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string|interger $index
 	 * @return mixed
 	 */
-	public function offsetGet($index) {
+	public function offsetGet($index)
+	{
 		return $this->get($index, false);
 	}
 
@@ -253,7 +271,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string|interger $index
 	 * @return boolean
 	 */
-	public function offsetExists($index) {
+	public function offsetExists($index)
+	{
 		return $this->has($index);
 	}
 
@@ -263,7 +282,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * @param string|interger $index
 	 * @return boolean
 	 */
-	public function offsetUnset($index) {
+	public function offsetUnset($index)
+	{
 		$this->remove($index);
 		return true;
 	}
@@ -274,7 +294,8 @@ class Glyph implements ArrayAccess, IteratorAggregate  {
 	 * 
 	 * @return ArrayIterator
 	 */
-    public function getIterator() {
+    public function getIterator()
+    {
         return new ArrayIterator($this->data);
     }
 }

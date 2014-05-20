@@ -15,8 +15,8 @@
  * 
  * @return array
  */
-function bind_post_single_data($data) {
-	
+function bind_post_single_data($data)
+{
 	if (isset($data['post']) && $data['post'] instanceof WP_Post) {
 		$post = $data['post'];
 	} else {
@@ -48,8 +48,8 @@ add_filter('template_data_single-item', 'bind_post_single_data', 5);
  * 
  * @return array
  */
-function bind_post_single_404_data($data) {
-	
+function bind_post_single_404_data($data)
+{
 	$the404Data = array();
 
 	if ( is_404() ) {
@@ -72,8 +72,8 @@ add_filter('template_data_single-item', 'bind_post_single_404_data', 4);
  * 
  * @return array
  */
-function bind_post_index_data($data) {
-	
+function bind_post_index_data($data)
+{	
 	if (isset($data['post']) && $data['post'] instanceof WP_Post) {
 		$post = $data['post'];
 	} else {

@@ -9,8 +9,14 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-
-function profile_start($profile_id = null) {
+/**
+ * Start a time and memory profile by taking a snapshot
+ * 
+ * @param  mixed $profile_id
+ * @return void
+ */
+function profile_start($profile_id = null)
+{
 	if (is_null($profile_id)) $profile_id = str_random();
 	set_registry('dev-tools.active-profile', $profile_id);
 	set_registry('dev-tools.active-profiles.' . $profile_id, array(
@@ -19,7 +25,14 @@ function profile_start($profile_id = null) {
 	));
 }
 
-function profile_stop($profile_id = null) {
+/**
+ * Stop the profile and return the results
+ * 
+ * @param  mixed $profile_id
+ * @return array {array('time-diff' => float, 'memory-diff' => float)}
+ */
+function profile_stop($profile_id = null)
+{
 	$stop_time = microtime(true);
 	$stop_memory = memory_get_usage(true);
 	if (is_null($profile_id)) {
@@ -34,15 +47,36 @@ function profile_stop($profile_id = null) {
 	);
 }
 
-function profile_dump($profile_id = null) {
+/**
+ * Stop the profile and display the results
+ * 
+ * @param  mixed $profile_id
+ * @return void
+ */
+function profile_dump($profile_id = null)
+{
    var_dump(profile_stop($profile_id));
 }
 
-function profile_dd($profile_id = null) {
+/**
+ * Stop the profile display the results and die
+ * 
+ * @param  mixed $profile_id
+ * @return void
+ */
+function profile_dd($profile_id = null)
+{
    dd(profile_stop($profile_id));
 }
 
-function profile_remove($profile_id) {
+/**
+ * Remove a saved profile
+ * 
+ * @param  mixed $profile_id
+ * @return void
+ */
+function profile_remove($profile_id)
+{
 	$profiles = get_registry('dev-tools.active-profiles', array());
 	if (isset($profiles[$profile_id])) unset($profiles[$profile_id]);
 

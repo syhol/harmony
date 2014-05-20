@@ -17,8 +17,8 @@
  * @param  integer|string $post_id
  * @return string
  */
-function get_excerpt($post_id = null) {
-
+function get_excerpt($post_id = null)
+{
 	if (is_numeric($post_id) || $post_id instanceof WP_Post) {
 		$post = get_post($post_id);
 	} else {

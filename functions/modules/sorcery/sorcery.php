@@ -8,6 +8,7 @@
  * @version 0.1.0
  */
 
+
 require('sorcery-common/sorcery-common.php');
 
 require('sorcery-widgets/sorcery-widgets.php');
@@ -18,7 +19,6 @@ require('sorcery-validation/sorcery-validation.php');
 //require('sorcery-validation/sorcery-validation.php');
 //require('sorcery-forms/sorcery-forms.php');
 
-
 /**
  * Redirect the sorcery-widgets templates to sorcery/sorcery-widgets/templates
  * 
@@ -27,7 +27,8 @@ require('sorcery-validation/sorcery-validation.php');
  * @param string $data
  * @return void
  */
-function sorcery_template_redirect($directory, $path, $request) {
+function sorcery_template_redirect($directory, $path, $request)
+{
 	$sub_modules = array('widgets', 'layouts'); 
 	foreach ($sub_modules as $sub_module) {
 		if (str_contains($request, 'sorcery-' . $sub_module . ':')) {
@@ -45,7 +46,8 @@ add_filter('template_location' , 'sorcery_template_redirect', 30, 3);
  * 
  * @return void
  */
-function sorcery_config_setup() {
+function sorcery_config_setup()
+{
 	add_registry_file(__DIR__ . '/config.php');
 	load_registry_file(__DIR__ . '/config.php');
 }
@@ -56,7 +58,8 @@ add_action('modules_loaded' , 'sorcery_config_setup', 10);
  * 
  * @return void
  */
-function sorcery_factory_setup() {
+function sorcery_factory_setup()
+{
 	$sub_modules = array('widgets', 'layouts', 'validation'); 
 	foreach ($sub_modules as $sub_module) {
 		$bindings = get_registry('sorcery.' . $sub_module . '.factory-bindings', array());

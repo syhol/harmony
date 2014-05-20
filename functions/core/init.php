@@ -38,18 +38,12 @@ require(CORE_PATH . 'wp-helpers.php');
 // Require wordpress hooks
 require(CORE_PATH . 'wp-hooks.php');
 
+// Load module classes
+require(CORE_PATH . 'class-loader.php');
+
 // Include modules
-$dir = new DirectoryIterator(MODULES_PATH);
-foreach ($dir as $module_path) {
-	if ( ! $module_path->isDot() && $module_path->isDir() ) {
-		$module_init = $module_path->getPathname() . DS . $module_path->getFilename() . '.php';
-	} elseif($module_path->isFile()) {
-		$module_init = $module_path->getPathname();
-	} else {
-		continue;
-	}
-	include($module_init);
-}
+$module_loader = new Harmony_Module_Loader(MODULES_PATH, new Harmony_Module_Factory);
+$module_loader->run();
 
 // Include composer autoloader
 if (file_exists(VENDOR_PATH . 'autoload.php')) {

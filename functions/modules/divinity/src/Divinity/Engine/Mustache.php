@@ -7,7 +7,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Divinity_Engine_Mustache implements Divinity_Engine {
+class Divinity_Engine_Mustache implements Divinity_Engine
+{
 
 	/**
 	 * Compile and output the template
@@ -17,7 +18,8 @@ class Divinity_Engine_Mustache implements Divinity_Engine {
 	 * @param array  $data
 	 * @return boolean
 	 */
-	public function render($directory, $path, $data) {
+	public function render($directory, $path, $data)
+	{
 		echo $this->compile($directory, $path, $data);
 		return true;
 	}
@@ -30,7 +32,8 @@ class Divinity_Engine_Mustache implements Divinity_Engine {
 	 * @param array  $data
 	 * @return string
 	 */
-	public function compile($directory, $path, $data) {
+	public function compile($directory, $path, $data)
+	{
 		$path = str_replace($this->get_extension(), '', $path);
 		$loader = new Mustache_Loader_FilesystemLoader($directory);
 		$options = array(
@@ -46,7 +49,8 @@ class Divinity_Engine_Mustache implements Divinity_Engine {
 	 * 
 	 * @return string
 	 */
-	public function get_extension() {
+	public function get_extension()
+	{
 		return '.mustache';
 	}
 
@@ -55,7 +59,8 @@ class Divinity_Engine_Mustache implements Divinity_Engine {
 	 * 
 	 * @return string
 	 */
-	private function get_cache_dir() {
+	private function get_cache_dir()
+	{
 		$upload_dir = wp_upload_dir();
 		$cache = $upload_dir['basedir'] . '/cache/mustache';
 		if( ! is_dir($cache) ) {

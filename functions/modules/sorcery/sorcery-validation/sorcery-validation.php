@@ -11,15 +11,18 @@
  * @version 1.0.0
  */
 
-function sorcery_validate_required($subject) {
+function sorcery_validate_required($subject)
+{
 	return (bool)( ! empty($subject) );
 }
 
-function sorcery_validate_pattern($subject, $pattern) {
+function sorcery_validate_pattern($subject, $pattern)
+{
 	return (bool)preg_match($pattern, $subject);
 }
 
-function sorcery_validate_maxchar($subject, $limit) {
+function sorcery_validate_maxchar($subject, $limit)
+{
 	return (bool)(strlen((string)$subject) <= (int)$limit);
 }
 

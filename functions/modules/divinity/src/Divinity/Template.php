@@ -7,8 +7,8 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Divinity_Template extends Glyph {
-	
+class Divinity_Template extends Glyph
+{	
 	/**
 	 * Template directory where a collection of templates are stored
 	 * 
@@ -38,7 +38,8 @@ class Divinity_Template extends Glyph {
 	 * @param Divinity_Engine $engine
 	 * @param array           $data
 	 */
-	public function __construct($template_directory, $template, Divinity_Engine $engine, array $data = array()) {
+	public function __construct($template_directory, $template, Divinity_Engine $engine, array $data = array())
+	{
 		$this->template_directory = $template_directory;
 		$this->template = $template;
 		$this->data = $data;
@@ -51,7 +52,8 @@ class Divinity_Template extends Glyph {
 	 * @param Divinity_Engine $template
 	 * @return self
 	 */
-	public function set_engine(Divinity_Engine $engine) {
+	public function set_engine(Divinity_Engine $engine)
+	{
 		$this->engine = $engine;
 		return $this;
 	}
@@ -61,7 +63,8 @@ class Divinity_Template extends Glyph {
 	 * 
 	 * @return string
 	 */
-	public function get_engine() {
+	public function get_engine()
+	{
 		return $this->engine;
 	}
 
@@ -71,7 +74,8 @@ class Divinity_Template extends Glyph {
 	 * @param string $data data to set 
 	 * @return self
 	 */
-	public function bulk_set(array $data) {
+	public function bulk_set(array $data)
+	{
 		$data = array_dot($data);
 		foreach ($data as $index => $item) {
 			$this->set($index, $item);
@@ -84,7 +88,8 @@ class Divinity_Template extends Glyph {
 	 * 
 	 * @return void
 	 */
-	public function render() {
+	public function render()
+	{
 		return $this->engine->render(
 			$this->template_directory, 
 			$this->template, 
@@ -97,7 +102,8 @@ class Divinity_Template extends Glyph {
 	 * 
 	 * @return string
 	 */
-	public function compile() {
+	public function compile()
+	{
 		return $this->engine->compile(
 			$this->template_directory, 
 			$this->template, 
@@ -110,7 +116,8 @@ class Divinity_Template extends Glyph {
 	 * 
 	 * @param string|interger $index
 	 */
-	public function __toString() {
+	public function __toString()
+	{
 		return $this->compile();
 	}
 }

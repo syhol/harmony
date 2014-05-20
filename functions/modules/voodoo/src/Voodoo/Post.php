@@ -7,7 +7,8 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Voodoo_Post extends Glyph {
+class Voodoo_Post extends Glyph
+{
 
 	/**
 	 * Array of WP_Post object keys that need to be saved using wp_update_post
@@ -53,7 +54,8 @@ class Voodoo_Post extends Glyph {
 	 *
 	 * @param array           $data
 	 */
-	public function __construct($data = array()) {
+	public function __construct($data = array())
+	{
 		$this->data = $this->original = $data;
 	}
 
@@ -62,7 +64,8 @@ class Voodoo_Post extends Glyph {
 	 * 
 	 * @return self
 	 */	
-	public function save() {
+	public function save()
+	{
 		$post_update = array();
 		foreach ($this->data as $key => $value) {
 			if ( ! isset($this->original[$key]) || $value !== $this->original[$key]) {

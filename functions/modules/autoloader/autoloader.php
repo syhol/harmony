@@ -15,7 +15,8 @@ require('src/class-harmony-psr4-autoloader.php');
  * 
  * @return void
  */
-function autoloader_config_setup() {
+function autoloader_config_setup()
+{
     add_registry_file(__DIR__ . '/config.php');
     load_registry_file(__DIR__ . '/config.php');
     get_registry('autoloader.psr-0')->register();

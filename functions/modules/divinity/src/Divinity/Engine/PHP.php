@@ -7,7 +7,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Divinity_Engine_PHP implements Divinity_Engine {
+class Divinity_Engine_PHP implements Divinity_Engine
+{
 
 	/**
 	 * Compile and output the template
@@ -17,7 +18,8 @@ class Divinity_Engine_PHP implements Divinity_Engine {
 	 * @param array  $data
 	 * @return boolean
 	 */
-	public function render($template_dir, $template, $data) {
+	public function render($template_dir, $template, $data)
+	{
 		extract($data);
 		require($template_dir . $template);
 		return true;
@@ -31,7 +33,8 @@ class Divinity_Engine_PHP implements Divinity_Engine {
 	 * @param array  $data
 	 * @return string
 	 */
-	public function compile($template_dir, $template, $data) {
+	public function compile($template_dir, $template, $data)
+	{
 		extract($data);
 		ob_start();
 		require($template_dir . $template);
@@ -43,7 +46,8 @@ class Divinity_Engine_PHP implements Divinity_Engine {
 	 * 
 	 * @return string
 	 */
-	public function get_extension() {
+	public function get_extension()
+	{
 		return '.php';
 	}
 

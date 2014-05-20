@@ -14,7 +14,8 @@
  * @param  string   $path
  * @return string		  url to site root with extra path appended
  */
-function get_route($path = '') {
+function get_route($path = '')
+{
 	return get_bloginfo('url') . '/' . ltrim($path, '/');
 }
 
@@ -25,7 +26,8 @@ function get_route($path = '') {
  * @param  string   $path
  * @return string		  url to theme with extra path appended
  */
-function get_theme_url($path = '') {
+function get_theme_url($path = '')
+{
 	return get_template_directory_uri() . '/' . ltrim($path, '/');
 }
 
@@ -35,7 +37,8 @@ function get_theme_url($path = '') {
  * @param  string   $path
  * @return string		  url to assets with extra path appended
  */
-function get_asset_url($path = '') {
+function get_asset_url($path = '')
+{
 	return get_theme_url('assets/' . ltrim($path, '/'));
 }
 
@@ -45,7 +48,8 @@ function get_asset_url($path = '') {
  * @param  string   $path
  * @return string		  url to template with extra path appended
  */
-function get_template_url($path = '') {
+function get_template_url($path = '')
+{
 	return get_theme_url('templates/' . ltrim($path, '/'));
 }
 
@@ -55,7 +59,8 @@ function get_template_url($path = '') {
  * @param  string   $path
  * @return string		  url to function with extra path appended
  */
-function get_function_url($path = '') {
+function get_function_url($path = '')
+{
 	return get_theme_url('functions/' . ltrim($path, '/'));
 }
 
@@ -65,6 +70,7 @@ function get_function_url($path = '') {
  * @param  string   $path
  * @return string		  url to module with extra path appended
  */
-function get_module_url($path = '') {
+function get_module_url($path = '')
+{
 	return get_function_url('modules/' . ltrim($path, '/'));
 }

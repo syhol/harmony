@@ -14,7 +14,8 @@
  * 
  * @return void
  */
-function print_theme_assets() {
+function print_theme_assets()
+{
 	wp_enqueue_style('app', get_asset_url('stylesheets/screen.css'));
 }
 add_action('wp_enqueue_scripts', 'print_theme_assets');
@@ -24,7 +25,8 @@ add_action('wp_enqueue_scripts', 'print_theme_assets');
  * 
  * @return void
  */
-function print_admin_assets() {
+function print_admin_assets()
+{
 	wp_enqueue_style('app-admin', get_asset_url('stylesheets/admin.css'));
 }
 add_action('admin_enqueue_scripts', 'print_admin_assets');
@@ -34,7 +36,8 @@ add_action('admin_enqueue_scripts', 'print_admin_assets');
  * 
  * @return void
  */
-function print_require_js() {
+function print_require_js()
+{
 	echo '<script data-main="' . get_asset_url('js/main') . '" src="' . get_asset_url('js/require.js') . '"></script>';
 }
 add_action('wp_footer', 'print_require_js');
@@ -44,7 +47,8 @@ add_action('wp_footer', 'print_require_js');
  * 
  * @return void
  */
-function print_theme_icons() {
+function print_theme_icons()
+{
 	render_template('header/icons');
 }
 add_action('admin_head', 'print_theme_icons');
@@ -55,7 +59,8 @@ add_action('wp_head', 'print_theme_icons');
  * 
  * @return void
  */
-function print_theme_title_tag() {
+function print_theme_title_tag()
+{
 	echo '<title>';
 	wp_title('|');
 	echo '</title>';
@@ -67,7 +72,8 @@ add_action('wp_head', 'print_theme_title_tag', 1);
  * 
  * @return void
  */
-function print_theme_charset() {
+function print_theme_charset()
+{
 	echo '<meta charset="' . get_bloginfo('charset') . '" />';
 }
 add_action('wp_head', 'print_theme_charset', 0);

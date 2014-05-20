@@ -17,15 +17,15 @@ function post($id)
 {
 	if ($id instanceof WP_Query || is_array($id)) {
 		if ($id instanceof WP_Query) {
-			$posts = $id->posts;      // Is WP_Query
+			$posts = $id->get_posts(); // Is WP_Query
 		} elseif (empty($id)) {
-			$posts = array();         // Is empty
+			$posts = array();          // Is empty
 		} elseif (array_pop(array_values($id)) instanceof WP_Post) {
-			$posts = $id;             // Is result of get_posts()
+			$posts = $id;              // Is result of get_posts()
 		} elseif (is_numeric(array_pop(array_values($id))) &&  is_numeric(array_pop(array_keys($id)))) {
-			$posts = $id;             // Is an array of post id's
+			$posts = $id;              // Is an array of post id's
 		} else {
-			$posts = get_posts($id);  // Is WP_Query args
+			$posts = get_posts($id);   // Is WP_Query args
 		}
 		$collection = new Voodoo_Collection;
 		foreach($posts as $post) {
