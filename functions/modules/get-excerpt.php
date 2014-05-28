@@ -1,11 +1,14 @@
 <?php
 /**
- * WordPress Helpers
+ * Get Excerpt
  *
- * @package  Theme_Core
+ * Get Excerpt helper to get the excerpt for a post without using the loop
+ * 
+ * @package  Get_Excerpt
  * @author   Simon Holloway <holloway.sy@gmail.com>
  * @license  http://opensource.org/licenses/MIT MIT
  */
+
 
 /**
  * Get the excerpt from a post id

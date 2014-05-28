@@ -7,6 +7,7 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  * @version 0.2.0
+ * @uses    Charms
  */
 class Glyph implements ArrayAccess, IteratorAggregate 
 {

@@ -572,6 +572,10 @@ render_template('header'); ?>
 						<td><?php echo get_theme_url('to/my/resource.js'); ?></td>
 					</tr>
 					<tr>
+						<td>get_site_url('to/my/resource.js');</td>
+						<td><?php echo get_site_url('to/my/resource.js'); ?></td>
+					</tr>
+					<tr>
 						<td>get_asset_url('js/resource.js');</td>
 						<td><?php echo get_asset_url('js/resource.js'); ?></td>
 					</tr>
@@ -582,6 +586,10 @@ render_template('header'); ?>
 					<tr>
 						<td>get_module_url('my-module/resource.js');</td>
 						<td><?php echo get_module_url('my-module/resource.js'); ?></td>
+					</tr>
+					<tr>
+						<td>get_site_path('to/my/resource.php');</td>
+						<td><?php echo get_site_path('to/my/resource.php'); ?></td>
 					</tr>
 					<tr>
 						<td>get_theme_path('to/my/resource.php');</td>

@@ -22,6 +22,8 @@ As this theme can make use of some third party tools (such as larvels awesome bl
 - We recommend setting the servers user group (usually www-data on apache) to the uploads folder group.
 	- This means that you only need 775 permissions and is more secure
 
+When using harmony as a parent theme, define location constants like CUSTOM_PATH and MODULE_PATH to declare what directories to use for file loading. By changing CUSTOM_PATH to a directory in the child theme, the init.php in the parent theme custom directory will not load, in its place the new (child theme) CUSTOM_PATH's init.php will load after harmony finishes loading. By changing the MODULE_PATH harmony will look in that location for modules instead of the default location.
+
 ## Requirments
 
 * PHP >= 5.2
@@ -51,7 +53,7 @@ Modules listed below:
 - Registry module
 - Sorcery - Form module
 - Voodoo - Model module
+- Charms - PHP helpers module
 - Glyph - Data container module
 - Page Title module
-- Route module
-- PHP Helpers
+- Router module

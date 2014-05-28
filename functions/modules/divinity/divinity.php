@@ -12,6 +12,7 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  * @version 1.1.0
+ * @uses    Glyph, Charms
  */
 
 
@@ -131,6 +132,7 @@ function divinity_set_template_engine($engine, $directory, $path, $request)
 		return $cache;
 	}
 
+
 	if ($extension = get_registry('divinity.request-cache.' . $request . '.extension', false)) {
 		$engines = get_registry('divinity.engine', array());
 		foreach ($engines as $engine_test) {
@@ -184,18 +186,21 @@ function divinity_template_request_cache($directory, $path, $request)
 
 	// See if there is a request-cache in the DB
 	$request_transient = get_transient('divinity.request-cache');
-	
+
 	$request_cache = isset($request_transient[$request]) ? $request_transient[$request] : false ;
 
 	// Run glob to find files and get request data
 	if ( ! $request_cache || ! file_exists($request_cache['raw'] )) {
 		$results = array();
+		
+		// Check if file is in child theme
 		$in_template = str_contains($directory, get_theme_path());
 		if ($in_template && is_child_theme()) {
 			$child_directory = str_replace(get_theme_path(), get_child_theme_path(), $directory);
 			$results = array_merge($results, glob($child_directory . $path . '.*', GLOB_NOSORT));
 		}
 
+		// Check if file is in main theme
 		$results = array_merge($results, glob($directory . $path . '.*', GLOB_NOSORT));
 		
 		$request_cache = array(
@@ -208,12 +213,15 @@ function divinity_template_request_cache($directory, $path, $request)
 			$result = array_shift($results);
 			list($directory, $extension) = explode($path, $result);
 			$request_cache['raw'] = $result;
+			$request_cache['directory'] = $directory;
 			$request_cache['extension'] = $extension;
 		}
 
 		// Set DB transient with an hour timeout
 		$request_transient[$request] = $request_cache;
 		set_transient('divinity.request-cache', $request_transient, 60 * 60);
+	} else {
+		$directory = $request_cache['directory'];
 	}
 
 	set_registry('divinity.request-cache.' . $request, $request_cache);
@@ -249,4 +257,4 @@ function divinity_init()
 	}
 	return $cache;
 }
-add_action('modules_loaded' , 'divinity_init', 90);
+add_action('harmony_loaded' , 'divinity_init', 90);

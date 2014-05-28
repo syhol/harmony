@@ -1,8 +1,8 @@
 <?php
 /**
- * PHP Helpers
- *
- * @package  Theme_Core
+ * Charms - PHP Helper Functions
+ * 
+ * @package  Charms
  * @author   Simon Holloway <holloway.sy@gmail.com>
  * @author   Lots of functions stolen from Laravel's Illuminate\Support
  * @license  http://opensource.org/licenses/MIT MIT

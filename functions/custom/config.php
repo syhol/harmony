@@ -15,7 +15,7 @@ return array(
 	 * All config always loaded regardless of environment
 	 */
 	'all' => array(
-		'site-logo' => 'https://cdn3.iconfinder.com/data/icons/free-social-icons/67/wordpress_square-128.png'
+		'site-logo' => get_asset_url('img/icons/favicon-96x96.png')
 	),
 
 	/**

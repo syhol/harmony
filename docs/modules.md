@@ -20,10 +20,11 @@ Example:
 			* MyClass.php
 		* my-config.json
 
-All module files should have a docblock at the top of the file, stating the name and description of the module, including author name/email and licence. Using the @require doc tag, you can require other modules as dependencies.
+All module files should have a docblock at the top of the file, stating the name and description of the module, including author name/email and licence. Using the @uses doc tag, you can require other modules as dependencies.
 
 Example module-name.php
 
+```
 <?php
 /**
  * Module Name
@@ -33,6 +34,31 @@ Example module-name.php
  * @author  Author Name <author@email.com>
  * @package Module_Name
  * @license MIT
- * @require Other Module Name, another-module-slug, mod-slug, Grand Module Name
+ * @uses Other Module Name, another-module-slug, mod-slug, Grand Module Name
  */
 
+function new_method()
+{
+	return 'returned value';
+}
+?>
+```
+
+Modules can make use of harmony specific hooks like:
+* 'modules_loaded' - Run after all modules have been loaded
+* 'composer_loaded' - Run after the composer autoload.php has been included
+* 'harmony_loaded' - Run after modules and composer (aka all of harmony) is loaded
+* 'custom_loaded' - Run after the custom file has been loaded
+
+Current modules available:
+- Autoloaders module
+- Dev Tools module
+- Divinity - Template Loading module
+- Location Helpers module
+- Registry module
+- Sorcery - Form module
+- Voodoo - Model module
+- Charms - PHP helpers module
+- Glyph - Data container module
+- Page Title module
+- Router module

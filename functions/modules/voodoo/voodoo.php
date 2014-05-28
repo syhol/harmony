@@ -5,6 +5,7 @@
  * @package Voodoo
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
+ * @uses    Glyph
  * @version 0.1.0
  */
 

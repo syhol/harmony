@@ -2,11 +2,11 @@
 
 The following coding style is a mixture of PSR-2 and WordPress style 
 
-### Strings
+## Strings
 
-* Must use single quotes when creating a string 
+* Try to use single quotes when creating a string 
 
-### Indentation
+## Indentation
 
 * 1 tab for PHP indentation
 * 1 tab for HTML indentation
@@ -14,9 +14,9 @@ The following coding style is a mixture of PSR-2 and WordPress style
 * 2 spaces for CSS indentation
 
 
-### Selection
+## Selection
 
-#### Standard Formatting:
+### Standard Formatting:
 
 * 1 space between the selection keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
@@ -45,7 +45,7 @@ if ($condition1) {
 ?>
 ```
 
-#### Templating Formatting:
+### Templating Formatting:
 
 * 1 space between the selection keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
@@ -70,9 +70,9 @@ if ($condition1) {
 <?php endif; ?>
 ```
 
-### Iteration
+## Iteration
 
-#### Standard Formatting:
+### Standard Formatting:
 
 * 1 space between the iteration keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
@@ -97,7 +97,7 @@ while ($condition) {
 ?>
 ```
 
-#### Templating Formatting:
+### Templating Formatting:
 
 * 1 space between the iteration keywork and open parenthese `(`
 * No space between the open parenthese `(` and condition (unless specified)
@@ -124,24 +124,24 @@ while ($condition) {
 
 ```
 
-### Variables
+## Variables
 
 * Use snake_case for long variable names
 * Explicit descriptive names over brevity
 * 1 space each side of an assignment operator `=`
 
-#### Bad example:
+### Bad example:
 ```php
 <?php $ptNmCnt=1; ?>
 ```
 
-#### Good example:
+### Good example:
 ```php
 <?php $post_name_count = 1; ?>
 ```
 
 
-### Functions
+## Functions
 
 * Function name to be in snake_case
 * Parameter names to be in snake_case
@@ -165,16 +165,17 @@ function add_params($param1, array $array_of_params, $default_param = 1)
 ?>
 ```
 
-### Classes
+## Classes
 
  * OOP functionality must be hidden behind procedural functions 
  * One file per class.
- * 
-### Namespaces
+ * Attempt to follow the PSR-0 no namespace file/class nameing method
+
+## Namespaces
 Don't use them.
 
-### Documentation
+## Documentation
 PHP DocBlocks at the top of every file, a PHP DocBlock for each function.
 
-### Type Juggling
+## Type Juggling
 Swapping types should be done with the (bool)/(string)/(array) syntax

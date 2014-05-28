@@ -89,12 +89,12 @@ class Harmony_Module
 	private function parse_docblock($docblock)
 	{
 		$docblock = trim($docblock, '/\\');
-		foreach (explode_multiple(array("\n", "\r\n", "\r"), $docblock) as $line) {
+		foreach ($this->explode_multiple(array("\n", "\r\n", "\r"), $docblock) as $line) {
 			$line = trim($line, "\* \t");
 			if (empty($line)) {
 				continue;
 			} else if (substr($line, 0, 1) === '@') {
-				list($tagname) = explode_multiple(array(' ', "\t"), $line, 2);
+				list($tagname) = $this->explode_multiple(array(' ', "\t"), $line, 2);
 				$tagvalue = substr($line, strlen($tagname));
 				$tagvalue = trim($tagvalue, " \t"); 
 				$tagname = substr($tagname, 1); // Remove the @
@@ -140,4 +140,17 @@ class Harmony_Module
 		update_option('harmony.module.cache', $cache);
 	}
 
+	/**
+	 * Split a string by multiple delimiters
+	 * 
+	 * @param  array			$delimiters
+	 * @param  string|integer   $string
+	 * @param  integer          $limit 
+	 * @return array
+		 */
+	private function explode_multiple($delimiters, $string, $limit = -1)
+	{
+		$delimiters = (array)$delimiters;
+		return explode(chr(1), str_replace($delimiters, chr(1), $string), $limit);
+	}
 }

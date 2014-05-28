@@ -8,6 +8,7 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  * @version 0.0.1
+ * @uses    Registry
  */
 
 /**
