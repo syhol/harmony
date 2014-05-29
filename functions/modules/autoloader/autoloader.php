@@ -5,6 +5,7 @@
  * @package Autoloader
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
+ * @uses    Registry
  */
 
 require('src/class-harmony-psr0-autoloader.php');
@@ -15,7 +16,8 @@ require('src/class-harmony-psr4-autoloader.php');
  * 
  * @return void
  */
-function autoloader_config_setup() {
+function autoloader_config_setup()
+{
     add_registry_file(__DIR__ . '/config.php');
     load_registry_file(__DIR__ . '/config.php');
     get_registry('autoloader.psr-0')->register();

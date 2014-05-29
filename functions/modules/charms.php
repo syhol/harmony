@@ -1,8 +1,8 @@
 <?php
 /**
- * PHP Helpers
- *
- * @package  Theme_Core
+ * Charms - PHP Helper Functions
+ * 
+ * @package  Charms
  * @author   Simon Holloway <holloway.sy@gmail.com>
  * @author   Lots of functions stolen from Laravel's Illuminate\Support
  * @license  http://opensource.org/licenses/MIT MIT
@@ -15,7 +15,8 @@
  * @param  string  $prepend
  * @return array
  */
-function array_dot($array, $prepend = '') {
+function array_dot($array, $prepend = '')
+{
 	$results = array();
 
 	foreach ($array as $key => $value) {
@@ -37,7 +38,8 @@ function array_dot($array, $prepend = '') {
  * @param  mixed   $default
  * @return mixed
  */
-function array_dot_get($array, $key, $default = null) {
+function array_dot_get($array, $key, $default = null)
+{
 	if (is_null($key)) return $array;
 	if (isset($array[$key])) return $array[$key];
 
@@ -61,7 +63,8 @@ function array_dot_get($array, $key, $default = null) {
  * @param  mixed   $value
  * @return array
  */
-function array_dot_set(&$array, $key, $value)  {
+function array_dot_set(&$array, $key, $value)
+{
 	if (is_null($key)) return $array = $value;
 
 	$keys = explode('.', $key);
@@ -90,7 +93,8 @@ function array_dot_set(&$array, $key, $value)  {
  * @param  string  $key
  * @return mixed
  */
-function array_dot_exists($array, $key) {
+function array_dot_exists($array, $key)
+{
 	if (is_null($key)) return $array;
 	if (isset($array[$key])) return $array[$key];
 
@@ -135,7 +139,8 @@ function array_dot_forget(&$array, $key)
  * @param  string|integer   $key
  * @return boolean
  */
-function array_is_first(&$array, $key) {
+function array_is_first(&$array, $key)
+{
 	reset($array);
 	return $key === key($array);
 }
@@ -147,7 +152,8 @@ function array_is_first(&$array, $key) {
  * @param  string|integer   $key
  * @return boolean
  */
-function array_is_last(&$array, $key) {
+function array_is_last(&$array, $key)
+{
 	end($array);
 	return $key === key($array);
 }
@@ -158,7 +164,8 @@ function array_is_last(&$array, $key) {
  * @param  array			$array
  * @return boolean
  */
-function array_get_first(&$array) {
+function array_get_first(&$array)
+{
 	reset($array);
 	return key($array);
 }
@@ -169,7 +176,8 @@ function array_get_first(&$array) {
  * @param  array			$array
  * @return boolean
  */
-function array_get_last(&$array) {
+function array_get_last(&$array)
+{
 	end($array);
 	return key($array);
 }
@@ -179,11 +187,13 @@ function array_get_last(&$array) {
  * 
  * @param  array			$delimiters
  * @param  string|integer   $string
+ * @param  integer          $limit 
  * @return array
  */
-function explode_multiple($delimiters, $string) {
+function explode_multiple($delimiters, $string, $limit = -1)
+{
 	$delimiters = (array)$delimiters;
-	return explode(chr(1), str_replace($delimiters, chr(1), $string));
+	return explode(chr(1), str_replace($delimiters, chr(1), $string), $limit);
 }
 
 /**
@@ -194,7 +204,8 @@ function explode_multiple($delimiters, $string) {
  * @param  string $subject string to run the replace on
  * @return string		  altered $subject string
  */
-function str_replace_first($search, $replace, $subject) {
+function str_replace_first($search, $replace, $subject)
+{
 	$pos = strpos($subject, $search);
 
 	if ($pos !== false) {
@@ -212,7 +223,8 @@ function str_replace_first($search, $replace, $subject) {
  * @param  string $subject string to run the replace on
  * @return string		  altered $subject string
  */
-function str_replace_last($search, $replace, $subject) {
+function str_replace_last($search, $replace, $subject)
+{
 	$pos = strrpos($subject, $search);
 
 	if ($pos !== false) {
@@ -229,7 +241,8 @@ function str_replace_last($search, $replace, $subject) {
  * @param  string|array  $needles
  * @return bool
  */
-function str_contains($haystack, $needles) {
+function str_contains($haystack, $needles)
+{
 	foreach ((array)$needles as $needle) {
 		if ($needle != '' && strpos($haystack, $needle) !== false) {
 			return true;
@@ -247,7 +260,8 @@ function str_contains($haystack, $needles) {
  * @param  int	 $length
  * @return string
  */
-function str_random($length = 16) {
+function str_random($length = 16)
+{
 	$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
@@ -262,7 +276,8 @@ function str_random($length = 16) {
  * @param  boolean $to_nearest_word
  * @return string
  */
-function str_limit($value, $limit = 100, $end = '...', $to_nearest_word = true) {
+function str_limit($value, $limit = 100, $end = '...', $to_nearest_word = true)
+{
 	if (strlen($value) <= $limit) {
 		return $value;
 	}
@@ -284,7 +299,8 @@ function str_limit($value, $limit = 100, $end = '...', $to_nearest_word = true) 
  * @param  string  $end
  * @return string
  */
-function str_limit_words($value, $limit = 20, $end = '...') {
+function str_limit_words($value, $limit = 20, $end = '...')
+{
 	$words = explode(' ', $value);
 
 	if (count($words) <= $limit) {
@@ -301,7 +317,8 @@ function str_limit_words($value, $limit = 20, $end = '...') {
  * @param  boolean $capitalise_first_char
  * @return string
  */
-function camel_case($string, $capitalise_first_char = false) {
+function camel_case($string, $capitalise_first_char = false)
+{
 	$string = str_replace(' ', '', ucwords(strtolower(alphanumeric($string))));
 
 	if ($capitalise_first_char) {
@@ -320,7 +337,8 @@ function camel_case($string, $capitalise_first_char = false) {
  * @param  string $seperator
  * @return string
  */
-function remove_camel_case($string, $seperator = ' ') {
+function remove_camel_case($string, $seperator = ' ')
+{
 	preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $string, $matches);
 
 	$ret = $matches[0];
@@ -342,7 +360,8 @@ function remove_camel_case($string, $seperator = ' ') {
  * @param  string $seperator
  * @return string
  */
-function snake_case($string, $seperator = '_') {
+function snake_case($string, $seperator = '_')
+{
 	return strtolower(str_replace(' ', $seperator, alphanumeric($string)));
 }
 
@@ -353,7 +372,8 @@ function snake_case($string, $seperator = '_') {
  * @param  boolean  $strip_spaces Should spaces be stripped put
  * @return string
  */
-function alphanumeric($string, $strip_spaces = false) {
+function alphanumeric($string, $strip_spaces = false)
+{
 	$pattern = $strip_spaces ? '/[^A-Za-z0-9]/' : '/[^A-Za-z0-9 ]/' ;
 	return preg_replace($pattern, '', $string);
 }
@@ -364,7 +384,8 @@ function alphanumeric($string, $strip_spaces = false) {
  * @param  string $string
  * @return string
  */
-function prettify($string) {
+function prettify($string)
+{
 	return ucfirst(str_replace(array('_', '-'), ' ', $string));
 }
 
@@ -374,7 +395,8 @@ function prettify($string) {
  * @param  dynamic  mixed
  * @return void
  */
-function dd() {
+function dd()
+{
 	foreach (func_get_args() as $var) {
 		var_dump($var);
 	}

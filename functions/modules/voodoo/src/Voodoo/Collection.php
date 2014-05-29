@@ -7,7 +7,8 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  */
-class Voodoo_Collection extends Glyph {
+class Voodoo_Collection extends Glyph
+{
 
 	/**
 	 * Pluck a keys value from multiple sources

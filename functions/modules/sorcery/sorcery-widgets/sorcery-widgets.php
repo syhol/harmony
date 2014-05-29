@@ -12,7 +12,8 @@
  */
 
 
-function sorcery_widget_text($data = array()) {
+function sorcery_widget_text($data = array())
+{
 	$data = sorcery_widget_default_attrs($data);
 
 	$data['attributes']['value'] = isset($data['value']) ? $data['value'] : '';
@@ -23,7 +24,8 @@ function sorcery_widget_text($data = array()) {
 	return template('sorcery-widgets:input', $data);
 }
 
-function sorcery_widget_textarea($data = array()) {
+function sorcery_widget_textarea($data = array())
+{
 	$data = sorcery_widget_default_attrs($data);
 
 	$data['value'] = isset($data['value']) ? $data['value'] : '';
@@ -33,7 +35,8 @@ function sorcery_widget_textarea($data = array()) {
 	return template('sorcery-widgets:textarea', $data);
 }
 
-function sorcery_widget_radio($data = array()) {
+function sorcery_widget_radio($data = array())
+{
 	$data = sorcery_widget_default_attrs($data);
 	$data = sorcery_widget_default_attrs($data, 'container_attributes');
 
@@ -50,7 +53,8 @@ function sorcery_widget_radio($data = array()) {
 	return template('sorcery-widgets:labeled-input', $data);
 }
 
-function sorcery_widget_checkbox($data = array()) {
+function sorcery_widget_checkbox($data = array())
+{
 	$data = sorcery_widget_default_attrs($data);
 	$data = sorcery_widget_default_attrs($data, 'container_attributes');
 
@@ -67,7 +71,8 @@ function sorcery_widget_checkbox($data = array()) {
 	return template('sorcery-widgets:labeled-input', $data);
 }
 
-function sorcery_widget_select($data = array()) {
+function sorcery_widget_select($data = array())
+{
 	$data = sorcery_widget_default_attrs($data);
 
 	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
@@ -77,7 +82,8 @@ function sorcery_widget_select($data = array()) {
 	return template('sorcery-widgets:select', $data);
 }
 
-function sorcery_widget_default_attrs($data, $key = 'attributes') {
+function sorcery_widget_default_attrs($data, $key = 'attributes')
+{
 	if ( ! isset($data[$key]) || ! is_array($data[$key]) ) {
 		$data[$key] = array();
 	}

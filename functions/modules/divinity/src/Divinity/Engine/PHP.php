@@ -7,22 +7,47 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Divinity_Engine_PHP implements Divinity_Engine {
+class Divinity_Engine_PHP implements Divinity_Engine
+{
 
-	public function render($template_dir, $template, $data) {
+	/**
+	 * Compile and output the template
+	 * 
+	 * @param string $directory
+	 * @param string $path
+	 * @param array  $data
+	 * @return boolean
+	 */
+	public function render($template_dir, $template, $data)
+	{
 		extract($data);
 		require($template_dir . $template);
 		return true;
 	}
 	
-	public function compile($template_dir, $template, $data) {
+	/**
+	 * Compile and return the template
+	 * 
+	 * @param string $directory
+	 * @param string $path
+	 * @param array  $data
+	 * @return string
+	 */
+	public function compile($template_dir, $template, $data)
+	{
 		extract($data);
 		ob_start();
 		require($template_dir . $template);
 		return ob_get_clean();
 	}
 	
-	public function get_extension() {
+	/**
+	 * Return the file extension this engine supports, with the leading dot
+	 * 
+	 * @return string
+	 */
+	public function get_extension()
+	{
 		return '.php';
 	}
 

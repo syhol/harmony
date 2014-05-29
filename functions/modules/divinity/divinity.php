@@ -12,7 +12,9 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  * @version 1.1.0
+ * @uses    Glyph, Charms
  */
+
 
 require('helpers.php');
 
@@ -23,7 +25,8 @@ require('helpers.php');
  * @param  array	$data
  * @return void|string
  */
-function template($request, array $data = array()) {
+function template($request, array $data = array())
+{
 	list($directory, $path, $engine, $data) = parse_template_data($request, $data);
 	return new Divinity_Template($directory, $path, $engine, $data);
 }
@@ -40,7 +43,8 @@ function template($request, array $data = array()) {
  * @param  array	$data
  * @return void|string
  */
-function compile_template($request, array $data = array()) {
+function compile_template($request, array $data = array())
+{
 	return template($request, $data)->compile();
 }
 
@@ -56,7 +60,8 @@ function compile_template($request, array $data = array()) {
  * @param  array	$data
  * @return void|string
  */
-function render_template($request, array $data = array()) {
+function render_template($request, array $data = array())
+{
 	return template($request, $data)->render();
 }
 
@@ -67,7 +72,8 @@ function render_template($request, array $data = array()) {
  * @param  array	$data
  * @return array			Contains the [0] => $data and [1] => $path
  */
-function parse_template_data($request, array $data = array()) {
+function parse_template_data($request, array $data = array())
+{
 	$directory = get_template_path();
 	$path = $request;
 	$engine = get_registry('divinity.engine.php');
@@ -101,7 +107,8 @@ function parse_template_data($request, array $data = array()) {
  * @param  string $path 
  * @return string
  */
-function divinity_strip_prefix_from_template_path($path) {
+function divinity_strip_prefix_from_template_path($path)
+{
 	if (str_contains($path, ':')) {
 		$pos = strpos($path, ':');
 		$path = substr($path, $pos + 1);
@@ -119,10 +126,12 @@ add_filter('template_path', 'divinity_strip_prefix_from_template_path', 5, 1);
  * @param  string          $request
  * @return Divinity_Engine
  */
-function divinity_set_template_engine($engine, $directory, $path, $request) {
+function divinity_set_template_engine($engine, $directory, $path, $request)
+{
 	if ($cache = get_registry('divinity.request-cache.' . $request . '.engine', false)) {
 		return $cache;
 	}
+
 
 	if ($extension = get_registry('divinity.request-cache.' . $request . '.extension', false)) {
 		$engines = get_registry('divinity.engine', array());
@@ -150,7 +159,8 @@ add_filter('template_engine', 'divinity_set_template_engine', 5, 4);
  * @param  string $request 
  * @return string
  */
-function divinity_module_template_directory($directory, $path, $request) {
+function divinity_module_template_directory($directory, $path, $request)
+{
 	if (str_contains($request, ':')) {
 		list($module, $new_path) = explode(':', $request);
 		$directory = get_module_path($module . '/templates/');
@@ -167,8 +177,8 @@ add_filter('template_location', 'divinity_module_template_directory', 6, 4);
  * @param  string $request 
  * @return string
  */
-function divinity_template_request_cache($directory, $path, $request) {
-	
+function divinity_template_request_cache($directory, $path, $request)
+{	
 	// See if there is a request cache in the registry, if so, use it
 	if ($cache = get_registry('divinity.request-cache.' . $request . '.directory')) {
 		return $cache;
@@ -176,18 +186,21 @@ function divinity_template_request_cache($directory, $path, $request) {
 
 	// See if there is a request-cache in the DB
 	$request_transient = get_transient('divinity.request-cache');
-	
+
 	$request_cache = isset($request_transient[$request]) ? $request_transient[$request] : false ;
 
 	// Run glob to find files and get request data
 	if ( ! $request_cache || ! file_exists($request_cache['raw'] )) {
 		$results = array();
+		
+		// Check if file is in child theme
 		$in_template = str_contains($directory, get_theme_path());
 		if ($in_template && is_child_theme()) {
 			$child_directory = str_replace(get_theme_path(), get_child_theme_path(), $directory);
 			$results = array_merge($results, glob($child_directory . $path . '.*', GLOB_NOSORT));
 		}
 
+		// Check if file is in main theme
 		$results = array_merge($results, glob($directory . $path . '.*', GLOB_NOSORT));
 		
 		$request_cache = array(
@@ -200,12 +213,15 @@ function divinity_template_request_cache($directory, $path, $request) {
 			$result = array_shift($results);
 			list($directory, $extension) = explode($path, $result);
 			$request_cache['raw'] = $result;
+			$request_cache['directory'] = $directory;
 			$request_cache['extension'] = $extension;
 		}
 
 		// Set DB transient with an hour timeout
 		$request_transient[$request] = $request_cache;
 		set_transient('divinity.request-cache', $request_transient, 60 * 60);
+	} else {
+		$directory = $request_cache['directory'];
 	}
 
 	set_registry('divinity.request-cache.' . $request, $request_cache);
@@ -219,7 +235,8 @@ add_filter('template_location', 'divinity_template_request_cache', 50, 3);
  * 
  * @return void
  */
-function divinity_init() {
+function divinity_init()
+{
 	get_registry('autoloader.psr-0')->addNamespace('Divinity', __DIR__ . '/src');
 	set_registry('divinity.engine.php', new Divinity_Engine_PHP);
 	if(class_exists('Mustache_Template')) {
@@ -240,4 +257,4 @@ function divinity_init() {
 	}
 	return $cache;
 }
-add_action('modules_loaded' , 'divinity_init', 90);
+add_action('harmony_loaded' , 'divinity_init', 90);

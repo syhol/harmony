@@ -1,11 +1,14 @@
 <?php
 /**
- * WordPress Helpers
+ * Get Excerpt
  *
- * @package  Theme_Core
+ * Get Excerpt helper to get the excerpt for a post without using the loop
+ * 
+ * @package  Get_Excerpt
  * @author   Simon Holloway <holloway.sy@gmail.com>
  * @license  http://opensource.org/licenses/MIT MIT
  */
+
 
 /**
  * Get the excerpt from a post id
@@ -17,8 +20,8 @@
  * @param  integer|string $post_id
  * @return string
  */
-function get_excerpt($post_id = null) {
-
+function get_excerpt($post_id = null)
+{
 	if (is_numeric($post_id) || $post_id instanceof WP_Post) {
 		$post = get_post($post_id);
 	} else {

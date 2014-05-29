@@ -7,6 +7,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
+
 /**
  * Get and set the registry container
  * 
@@ -17,7 +18,8 @@
  * @param   mixed   $new_container  a new registry container
  * @return  mixed				   the active registry container (likely an array)
  */
-function registry_container($new_container = null) {
+function registry_container($new_container = null)
+{
 	static $registry_container = array();	
 	$returned_container = $registry_container;
 	if ( ! empty($new_container) ) {
@@ -36,7 +38,8 @@ function registry_container($new_container = null) {
  * @param   mixed   $value 
  * @return  void
  */
-function set_registry($key, $value) {
+function set_registry($key, $value)
+{
 	$registry = registry_container();
 	array_dot_set($registry, $key, $value);
 	registry_container($registry);
@@ -52,7 +55,8 @@ function set_registry($key, $value) {
  * @param   misex   $default default value to return if none found
  * @return  mixed
  */
-function get_registry($key, $default = null) {
+function get_registry($key, $default = null)
+{
 	$registry = registry_container();
 	return array_dot_get($registry, $key, $default);
 }
@@ -68,7 +72,8 @@ function get_registry($key, $default = null) {
  * @param   mixed   $value 
  * @return  mixed
  */
-function push_registry($key, $value) {
+function push_registry($key, $value)
+{
 	$array = get_registry($key, array());
 	if ( ! is_array($array) ) $array = array();
 	array_push($array, $value);
@@ -86,7 +91,8 @@ function push_registry($key, $value) {
  * @param   mixed   $value 
  * @return  mixed
  */
-function pull_registry($key, $index = null) {
+function pull_registry($key, $index = null)
+{
 	$registry = registry_container();
 	if ( ! is_null($index) ) $key .= '.' . $index;
 	$value = array_dot_get($registry, $key, null);
@@ -101,7 +107,8 @@ function pull_registry($key, $index = null) {
  * 
  * @return mixed	old registry container
  */
-function reset_registry() {
+function reset_registry()
+{
 	return registry_container(array());
 }
 
@@ -114,7 +121,8 @@ function reset_registry() {
  * @param array $config
  * @return void
  */
-function load_registry(array $items) {
+function load_registry(array $items)
+{
 	$items = array_dot($items);
 	foreach ($items as $key => $value) {
 		set_registry($key, $value);
@@ -128,7 +136,8 @@ function load_registry(array $items) {
  * @param  string $env defaults to whats in the ENV constant
  * @return void
  */
-function load_registry_files($env = null) {
+function load_registry_files($env = null)
+{
 	if (is_null($env)) {
 		if ( ! defined('ENV') ) {
 			return;
@@ -142,7 +151,6 @@ function load_registry_files($env = null) {
 	}
 }
 
-
 /**
  * Load an array from a registry file into the config variable
  * 
@@ -151,7 +159,8 @@ function load_registry_files($env = null) {
  * @param  string $env  defaults to whats in the ENV constant
  * @return void
  */
-function load_registry_file($file, $env = null) {
+function load_registry_file($file, $env = null)
+{
 	if (is_null($env)) {
 		if ( ! defined('ENV') ) {
 			return;

@@ -17,7 +17,8 @@
  * @param object WP_Query|null
  * @return string title
  */
-function get_page_title($query = null) {
+function get_page_title($query = null)
+{
 	if (is_null($query)) {
 		global $wp_query;
 		$query = $wp_query;
@@ -32,7 +33,8 @@ function get_page_title($query = null) {
  * @param  object WP_Query|null
  * @return string title
  */
-function page_title($query = null) {
+function page_title($query = null)
+{
 	echo get_page_title($query);
 }
 
@@ -43,7 +45,8 @@ function page_title($query = null) {
  * @param  object   WP_Query
  * @return integer|false
  */
-function get_archive_timestamp($query) {
+function get_archive_timestamp($query)
+{
 	if ( ! $query->is_date() )
 		return false;
 
@@ -60,7 +63,6 @@ function get_archive_timestamp($query) {
 	return strtotime($day . '-' . $month . '-' . $year);
 }
 
-
 /**
  * Apply default page title
  * 
@@ -68,7 +70,8 @@ function get_archive_timestamp($query) {
  * @param query WP_Query object
  * @return string title
  */
-function default_page_title($title, $query) { 
+function default_page_title($title, $query)
+{
 	$o = '&ldquo;';
 	$c = '&rdquo;';
 	if ($query->is_home()) {
@@ -112,7 +115,8 @@ add_filter('page_title', 'default_page_title', 5, 2);
  * @param string location
  * @return string title
  */
-function apply_page_title_to_wp_title($title, $sep, $location) {
+function apply_page_title_to_wp_title($title, $sep, $location)
+{
 	$title = get_page_title();
 	$sep = ' ' . trim($sep) . ' ';
 	if ($location !== 'left' ) {

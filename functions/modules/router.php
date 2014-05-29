@@ -8,6 +8,7 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  * @version 0.0.1
+ * @uses    Registry
  */
 
 /**
@@ -16,7 +17,8 @@
  * @param  string        $url url to match against
  * @return array|false
  */
-function get_custom_route($url = null) {
+function get_custom_route($url = null)
+{
 	if (empty($url)) {
 		$url = $_SERVER['REQUEST_URI'];
 	}
@@ -46,7 +48,8 @@ function get_custom_route($url = null) {
  * @param boolean|callable  $callback callable callback on pattern match
  * @param boolean|string    $template template path to include after callback
  */
-function add_route($path, $callback = false, $template = false) {
+function add_route($path, $callback = false, $template = false)
+{
 	$path = '/' . trim($path, '/') . '/';
 	push_registry('router.routes', array(
 		'path' => $path,
@@ -61,7 +64,8 @@ function add_route($path, $callback = false, $template = false) {
  * @param  string $template
  * @return string		  
  */
-function route_template_include($template) {
+function route_template_include($template)
+{
 	if ($route = get_custom_route()) {
 		$template = $route['template'];
 	}
@@ -74,7 +78,8 @@ add_filter('template_include', 'route_template_include');
  * 
  * @return void
  */
-function route_run_callbacks() {
+function route_run_callbacks()
+{
 	if ($route = get_custom_route()) {
 		if (is_callable($route['callback'])) {
 			call_user_func_array($route['callback'], $route['matches']);

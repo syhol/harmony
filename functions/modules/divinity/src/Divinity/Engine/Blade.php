@@ -7,7 +7,8 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-class Divinity_Engine_Blade implements Divinity_Engine {
+class Divinity_Engine_Blade implements Divinity_Engine
+{
 
 	/**
 	 * An instance of the View environment
@@ -21,7 +22,8 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 	 */
 	private $blade;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$fs = new Illuminate\Filesystem\Filesystem;
 		$this->blade = new Illuminate\View\Compilers\BladeCompiler($fs, $this->get_cache_dir());
 		$blade_engine = new Illuminate\View\Engines\CompilerEngine($this->blade);
@@ -37,12 +39,30 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		$this->set_wp_extensions();
 	}
 	
-	public function render($directory, $path, $data) {
+	/**
+	 * Compile and output the template
+	 * 
+	 * @param string $directory
+	 * @param string $path
+	 * @param array  $data
+	 * @return boolean
+	 */
+	public function render($directory, $path, $data)
+	{
 		echo $this->compile($directory, $path, $data);
 		return true;
 	}
 	
-	public function compile($directory, $path, $data) {
+	/**
+	 * Compile and return the template
+	 * 
+	 * @param string $directory
+	 * @param string $path
+	 * @param array  $data
+	 * @return string
+	 */
+	public function compile($directory, $path, $data)
+	{
 		$fs = $this->env->getFinder()->getFilesystem();
 		$finder = new Illuminate\View\FileViewFinder($fs, array($directory));
 		$this->env->setFinder($finder);
@@ -51,11 +71,23 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		return $this->env->make($path, $data);
 	}
 	
-	public function get_extension() {
+	/**
+	 * Return the file extension this engine supports, with the leading dot
+	 * 
+	 * @return string
+	 */
+	public function get_extension()
+	{
 		return '.blade.php';
 	}
 	
-	private function get_cache_dir() {
+	/**
+	 * Return the cache directory and create it if it doesn't exist
+	 * 
+	 * @return string
+	 */
+	private function get_cache_dir()
+	{
 		$upload_dir = wp_upload_dir();
 		$cache = $upload_dir['basedir'] . '/cache/blade';
 		if( ! is_dir($cache) ) {
@@ -64,8 +96,13 @@ class Divinity_Engine_Blade implements Divinity_Engine {
 		return $cache;
 	}
 	
-	private function set_wp_extensions() {
-		
+	/**
+	 * Set up blade extensions
+	 *
+	 * @return void
+	 */
+	private function set_wp_extensions()
+	{	
 		$this->blade->extend(function($view, $compiler) {
 			$pattern = $compiler->createMatcher('harmonyRender');
 			

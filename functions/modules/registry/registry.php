@@ -10,7 +10,9 @@
  * @author  Simon Holloway <holloway.sy@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT
  * @version 1.0.0
+ * @uses    Charms
  */
+
 
 require('registry-meta.php');
 require('functions.php');

@@ -7,6 +7,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
+
 /**
  * Get and set the registry meta
  * 
@@ -17,7 +18,8 @@
  * @param   mixed   $new_meta   a new meta
  * @return  mixed			   the active meta (likely an array)
  */
-function registry_meta($new_meta = null) {
+function registry_meta($new_meta = null)
+{
 	static $registry_meta = array();	
 	$returned_meta = $registry_meta;
 	if ( ! empty($new_meta) ) {
@@ -25,7 +27,6 @@ function registry_meta($new_meta = null) {
 	}
 	return $returned_meta;
 }
-
 
 /**
  * Set a registry meta variable
@@ -37,7 +38,8 @@ function registry_meta($new_meta = null) {
  * @param   mixed   $value 
  * @return  void
  */
-function set_registry_meta($key, $value) {
+function set_registry_meta($key, $value)
+{
 	$registry = registry_meta();
 	array_dot_set($registry, $key, $value);
 	registry_meta($registry);
@@ -53,7 +55,8 @@ function set_registry_meta($key, $value) {
  * @param   misex   $default default value to return if none found
  * @return  mixed
  */
-function get_registry_meta($key, $default = null) {
+function get_registry_meta($key, $default = null)
+{
 	$registry = registry_meta();
 	return array_dot_get($registry, $key, $default);
 }
@@ -64,7 +67,8 @@ function get_registry_meta($key, $default = null) {
  * @param   mixed   $new_meta   a new meta
  * @return  mixed			   the active meta (likely an array)
  */
-function add_registry_file($file_path) {
+function add_registry_file($file_path)
+{
 	$files = get_registry_meta('files', array());
 	$files[] = $file_path;
 	set_registry_meta('files', $files);
@@ -76,7 +80,8 @@ function add_registry_file($file_path) {
  * @param   mixed   $new_meta   a new meta
  * @return  mixed			   the active meta (likely an array)
  */
-function remove_registry_file($file_path) {
+function remove_registry_file($file_path)
+{
 	$files = get_registry_meta('files', array());
 	$pos = array_search($file_path, $files);
 	if ($pos === false) {
@@ -90,6 +95,7 @@ function remove_registry_file($file_path) {
  * 
  * @return  array
  */
-function get_registry_files() {
+function get_registry_files()
+{
 	return get_registry_meta('files', array());
 }
