@@ -135,9 +135,9 @@ render_template('header'); ?>
 
 			<hr>
 
-			<h3>Voodoo Data Container / ORM</h3>
+			<h3>Voodoo Models</h3>
 
-			<h4>Like WP_Post but more badass</h4>
+			<h4>Voodoo Posts - Like WP_Post but more badass</h4>
 
 			<?php 
 
@@ -225,8 +225,52 @@ render_template('header'); ?>
 					'subtitle' => '...and subtitle'
 				);
 				$voodoo_post->save(); 
+
+				unset($voodoo_post->feature);
+				unset($voodoo_post->post_title);
+				$voodoo_post->save();
+				$voodoo_post = post(1);
+				var_dump($voodoo_post->get('feature'));
+				var_dump($voodoo_post->get('post_title'));
+				$voodoo_post['post_title'] = 'Hello World';
+				$voodoo_post['feature'] = array(
+					'items' => array('One', 'Two', 'Three'),
+					'title' => 'Feature title',
+					'subtitle' => '...and subtitle'
+				);
+				$voodoo_post->save(); 
 				?>
 			</p>
+
+			<h4>Voodoo Term - Like wordpress terms, but totes more awesome!</h4>
+
+			<?php $voodoo_terms = term(get_terms('category')); ?>
+
+			Typical Voodoo Term:
+
+			<?php var_dump($voodoo_terms[0]); ?>
+
+			<h4>Voodoo User - Like WP_Users, With tons of amazballs</h4>
+
+			<?php $voodoo_user = user(2); ?>
+
+			Typical Voodoo User:
+
+			<?php var_dump($voodoo_user); ?>
+
+			<h4>Voodoo Setting - Using the wp_options table to the MAX!</h4>
+
+			<?php $voodoo_setting = setting(); ?>
+
+			Use a Voodoo Setting to retrive options from the database in a glyph way:
+
+			<?php var_dump('$voodoo_setting->get("siteurl") returns: "' . $voodoo_setting->get('siteurl') . '"'); ?>
+
+			Also get settings in a context:
+
+			<?php $dashboard_widget_options = setting('dashboard_widget_options'); ?>
+
+			<?php var_dump($dashboard_widget_options['dashboard_primary.title']); ?>
 
 			<hr>
 
@@ -586,10 +630,6 @@ render_template('header'); ?>
 					<tr>
 						<td>get_module_url('my-module/resource.js');</td>
 						<td><?php echo get_module_url('my-module/resource.js'); ?></td>
-					</tr>
-					<tr>
-						<td>get_site_path('to/my/resource.php');</td>
-						<td><?php echo get_site_path('to/my/resource.php'); ?></td>
 					</tr>
 					<tr>
 						<td>get_theme_path('to/my/resource.php');</td>

@@ -54,6 +54,16 @@ class Harmony_Module
 		}
 	}
 
+	public function get_file()
+	{
+		return $this->file;
+	}
+
+	public function get_directory()
+	{
+		return dirname($this->file);
+	}
+
 	public function get_name()
 	{
 		return $this->name;

@@ -2,7 +2,7 @@
 
 Modules are sections of self contained code (with possible dependencies). A module can contain PHP scripts, CSS stylesheets, Javascript scripts, and pretty much anything.
 
-A module is defined by a module file. If the entire module is just a php file, you just have to place that file in the modules directory. If the module containes more than just 1 php file, create a directory with the same name as the module file in the modules directory, then place the module file inside it along side all the other files needed in that module.
+A module is defined by a module file. If the entire module is just a php file, you just have to place that file in the modules directory. If the module containes more than just 1 php file, create a directory with the same name as the module file in the modules directory, then place the module file inside it along side all the other files for that module.
 
 Example:
 

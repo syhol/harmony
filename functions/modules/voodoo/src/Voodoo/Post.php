@@ -66,6 +66,7 @@ class Voodoo_Post extends Glyph
 	 */	
 	public function save()
 	{
+		// Save new and changed values
 		$post_update = array();
 		foreach ($this->data as $key => $value) {
 			if ( ! isset($this->original[$key]) || $value !== $this->original[$key]) {
@@ -79,10 +80,24 @@ class Voodoo_Post extends Glyph
 			}
 		}
 
+		// Delete removed values
+		foreach ($this->original as $key => $value) {
+			if ( ! isset($this->data[$key]) ) {
+				if(in_array($key, self::$post_keys)) {
+					$post_update['ID'] = $this->data['ID'];
+					$post_update[$key] = null;
+				} else {
+					delete_post_meta($this->data['ID'], $key);
+				}
+			}
+		}
+
 		// Do all wp_update_post call in one go
 		if ( ! empty($post_update) ) {
 			wp_update_post($post_update);
 		}
+
+		do_action('voodoo_post_save', $this->data, $this->original, $this);
 
 		$this->original = $this->data;
 
