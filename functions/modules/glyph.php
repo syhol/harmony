@@ -192,7 +192,6 @@ class Glyph implements ArrayAccess, IteratorAggregate
 		return $this->data;
 	}
 
-
 	/**
 	 * Set data
 	 * 
@@ -288,7 +287,6 @@ class Glyph implements ArrayAccess, IteratorAggregate
 		$this->remove($index);
 		return true;
 	}
-
 
 	/**
 	 * Provide an ArrayIterator

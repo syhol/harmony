@@ -19,52 +19,83 @@ if (defined('HARMONY_LOADED')) {
 define('L', PHP_EOL);
 define('DS', DIRECTORY_SEPARATOR);
 
-// Directory constants
-$theme = dirname(dirname(dirname(__FILE__)));
-$directory_constants = array(
-	'THEME_PATH'     => $theme . DS,
-	'TEMPLATES_PATH' => $theme . DS . 'templates' . DS,
-	'ASSETS_PATH'    => $theme . DS . 'assets' . DS,
-	'FUNCTIONS_PATH' => $theme . DS . 'functions' . DS,
-	'CORE_PATH'      => $theme . DS . 'functions' . DS . 'core' . DS,
-	'MODULES_PATH'   => $theme . DS . 'functions' . DS . 'modules' . DS,
-	'VENDOR_PATH'    => $theme . DS . 'functions' . DS . 'vendor' . DS,
-	'CLASS_PATH'     => $theme . DS . 'functions' . DS . 'psr-0' . DS,
-	'CUSTOM_PATH'    => $theme . DS . 'functions' . DS . 'custom' . DS,
-);
-foreach ($directory_constants as $name => $path) {
-	if ( ! defined($name) ) {
-		define($name, $path);
-	}
-}
-
 // Environment constant fallback
 if (false === defined('ENV')) {
 	define('ENV', 'live');
 }
 
+//Set the harmony array defaults
+$theme = dirname(dirname(dirname(__FILE__)));
+$default_harmony_config = array(
+	'env' => ENV,
+	'path' => array(
+		'theme'     => $theme . DS,
+		'templates' => $theme . DS . 'templates' . DS,
+		'assets'    => $theme . DS . 'assets' . DS,
+		'functions' => $theme . DS . 'functions' . DS,
+		'core'      => $theme . DS . 'functions' . DS . 'core' . DS,
+		'vendor'    => $theme . DS . 'functions' . DS . 'vendor' . DS,
+		'class'     => $theme . DS . 'functions' . DS . 'psr-0' . DS,
+		'modules'   => array($theme . DS . 'functions' . DS . 'modules' . DS),
+		'custom'    => array($theme . DS . 'functions' . DS . 'custom' . DS),
+	),
+	'use-default-modules' => true,
+	'use-default-custom' => true,
+);
+
+// Set up the harmony array
+$harmony = array_merge_recursive($default_harmony_config, $harmony_config);
+
+// Remove defaults if set to false
+if ( ! $harmony['use-default-modules'] ) {
+	$default_module_dir = $default_harmony_config['path']['modules'][0];
+	$key = array_search($default_module_dir, $harmony['path']['modules']);
+	if ($key !== false) {
+		unset($harmony['path']['modules'][$key]);
+	}
+}
+if ( ! $harmony['use-default-custom'] ) {
+	$default_module_dir = $default_harmony_config['path']['custom'][0];
+	$key = array_search($default_module_dir, $harmony['path']['custom']);
+	if ($key !== false) {
+		unset($harmony['path']['custom'][$key]);
+	}
+}
+
+// Set constants from the paths
+foreach ($harmony['path'] as $name => $path) {
+	if ( is_string($path) && ! defined($name) ) {
+		define(strtoupper($name) . '_PATH', $path);
+	}
+}
+
 // Load module loader
-require(CORE_PATH . 'src/Harmony/Module.php');
-require(CORE_PATH . 'src/Harmony/Module/Loader.php');
-require(CORE_PATH . 'src/Harmony/Module/Factory.php');
+require($harmony['path']['core'] . 'src/Harmony/Module.php');
+require($harmony['path']['core'] . 'src/Harmony/Module/Loader.php');
+require($harmony['path']['core'] . 'src/Harmony/Module/Factory.php');
 
 // Run the module loader to load all modules
-$module_loader = new Harmony_Module_Loader(MODULES_PATH, new Harmony_Module_Factory);
+$module_loader = new Harmony_Module_Loader(
+	$harmony['path']['modules'], 
+	new Harmony_Module_Factory
+);
 $module_loader->run();
 do_action('modules_loaded');
 
 // Load the composer autoloader
-if (file_exists(VENDOR_PATH . 'autoload.php')) {
-	require(VENDOR_PATH . 'autoload.php');
-	do_action('composer_loaded');
+if (file_exists($harmony['path']['vendor'] . 'autoload.php')) {
+	require($harmony['path']['vendor'] . 'autoload.php');
 }
+do_action('composer_loaded');
 
 // Harmony core loaded 
-do_action('harmony_loaded');
 define('HARMONY_LOADED', true);
+do_action('harmony_loaded');
 
 // Load custom site functionality
-if (file_exists(CUSTOM_PATH . 'init.php')) {
-	require(CUSTOM_PATH . 'init.php');
-	do_action('custom_loaded');
+foreach ($harmony['path']['custom'] as $custom) {
+	if (file_exists($custom . 'init.php')) {
+		require($custom . 'init.php');
+	}
 }
+do_action('custom_loaded');

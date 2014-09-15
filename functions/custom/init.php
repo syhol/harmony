@@ -12,17 +12,17 @@
 
 
 // add and load the config file to the registry
-add_registry_file(CUSTOM_PATH . 'config.php');
-load_registry_file(CUSTOM_PATH . 'config.php');
+add_registry_file(__DIR__ . '/config.php');
+load_registry_file(__DIR__ . '/config.php');
 
 // require php helpers
-require(CUSTOM_PATH . 'php-helpers.php');
+require(__DIR__ . '/php-helpers.php');
 
 // require wordpress helpers
-require(CUSTOM_PATH . 'wp-helpers.php');
+require(__DIR__ . '/wp-helpers.php');
 
 // require wordpress hooks
-require(CUSTOM_PATH . 'wp-hooks.php');
+require(__DIR__ . '/wp-hooks.php');
 
 // require data bindings for templates
-require(CUSTOM_PATH . 'data-bindings.php');
+require(__DIR__ . '/data-bindings.php');

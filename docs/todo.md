@@ -2,9 +2,18 @@
 
 Lots of modules that still need to be planned and built:
 
+## Next Release
+
+- Multiple module directories, editable module directory
+- Documentation on all modules
+- Fix the lingering parent template issue
+
+## WishList
+
 - Wordpress helpers
-- Post Type module
-- Taxonomy module
+- Make the service locator a proper dependency injection container
+- Post Type creation and managemant 
+- Taxonomy creation and managemant
 - Meta module
 	- Meta types
 		- Post

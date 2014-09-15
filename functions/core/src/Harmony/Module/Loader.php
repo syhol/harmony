@@ -10,15 +10,17 @@
  */
 class Harmony_Module_Loader
 {
-	private $directory;
+	private $directories = array();
 
 	private $factory;
 	
-	private $modules;
+	private $modules = array();
 	
-	public function __construct($directory, $factory = null)
+	public function __construct(array $directories, $factory = null)
 	{
-		$this->directory =  new DirectoryIterator($directory);
+		foreach ($directories as $directory) {
+			$this->directories[] = new DirectoryIterator($directory);
+		}
 		
 		if ( ! $factory ) {
 			$factory = new Harmony_Module_Factory;
@@ -35,23 +37,28 @@ class Harmony_Module_Loader
 
 	private function fetch_modules()
 	{
-		foreach ($this->directory as $module_path) {
-			if ( ! $module_path->isDot() && $module_path->isDir() ) {
-				$module_file = $module_path->getPathname() . DS . $module_path->getFilename() . '.php';
-			} elseif($module_path->isFile()) {
-				$module_file = $module_path->getPathname();
-			} else {
-				continue;
+		foreach ($this->directories as $directory) {
+			foreach ($directory as $module_path) {
+				if ( ! $module_path->isDot() && $module_path->isDir() ) {
+					$module_file = $module_path->getPathname() . DS . $module_path->getFilename() . '.php';
+				} elseif($module_path->isFile()) {
+					$module_file = $module_path->getPathname();
+				} else {
+					continue;
+				}
+				$slug = $this->get_slug($module_file);
+				if ( ! isset($this->modules[$slug]) ) {
+					$this->modules[$slug] = $this->factory->new_module($module_file);
+				}
 			}
-			$this->modules[] = $this->factory->new_module($module_file);
 		}
 	}
 
-	private function load_modules()
+	private function get_slug($file)
 	{
-		foreach ($this->modules as $module) {
-			$this->load_module($module);
-		}
+		$file = basename($file);
+		if (defined('PATHINFO_FILENAME')) return pathinfo($file, PATHINFO_FILENAME);
+	    if (strstr($file, '.')) return substr($file, 0, strrpos($file, '.'));
 	}
 
 	private function get_module($name)
@@ -66,6 +73,13 @@ class Harmony_Module_Loader
 			}
 		}
 		return false;
+	}
+
+	private function load_modules()
+	{
+		foreach ($this->modules as $module) {
+			$this->load_module($module);
+		}
 	}
 
 	private function load_module($module)
