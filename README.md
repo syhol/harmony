@@ -1,6 +1,6 @@
 # Harmony - A WP Theme Framework
 
-![Codeship Status for syholloway/harmony](https://codeship.io/projects/f5630470-473c-0132-bfe3-66e4c0b1f915/status)](https://codeship.io/projects/45540)
+[![Codeship Status for syholloway/harmony](https://codeship.io/projects/f5630470-473c-0132-bfe3-66e4c0b1f915/status)](https://codeship.io/projects/45540)
 
 ![](https://raw.github.com/syholloway/harmony/master/screenshot.png)
 
