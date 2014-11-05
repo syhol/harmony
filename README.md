@@ -4,7 +4,7 @@
 
 ![](https://raw.github.com/syholloway/harmony/master/screenshot.png)
 
-**Harmony is a WordPress development theme framework, it helps developers seperate code out and promote code reuse and good coding practises. Harmony comes with a set of modules to really bring some powerful functionality to wordpress.** 
+**Harmony is a WordPress development theme framework, it helps developers seperate code out and promote code reuse and good coding practises. Harmony comes with a set of modules to really bring some powerful functionality to wordpress.**
 
 ## Installation
 
