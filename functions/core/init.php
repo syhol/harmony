@@ -43,6 +43,9 @@ $default_harmony_config = array(
 	'use-default-custom' => true,
 );
 
+if ( ! isset($harmony_config) || ! is_array($harmony_config) )
+	$harmony_config = array();
+
 // Set up the harmony array
 $harmony = array_merge_recursive($default_harmony_config, $harmony_config);
 

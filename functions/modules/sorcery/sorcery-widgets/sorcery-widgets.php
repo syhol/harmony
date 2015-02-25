@@ -21,7 +21,7 @@ function sorcery_widget_text($data = array())
 	$data['attributes']['type'] = 'text';
 	$data['attributes']['class'][] = 'form-control';
 
-	return template('sorcery-widgets:input', $data);
+	return template('sorcery-widgets/input', $data);
 }
 
 function sorcery_widget_textarea($data = array())
@@ -32,7 +32,7 @@ function sorcery_widget_textarea($data = array())
 	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
 	$data['attributes']['class'][] = 'form-control';
 
-	return template('sorcery-widgets:textarea', $data);
+	return template('sorcery-widgets/textarea', $data);
 }
 
 function sorcery_widget_radio($data = array())
@@ -50,7 +50,7 @@ function sorcery_widget_radio($data = array())
 		$data['attributes']['checked'] = 'checked';
 	}
 
-	return template('sorcery-widgets:labeled-input', $data);
+	return template('sorcery-widgets/labeled-input', $data);
 }
 
 function sorcery_widget_checkbox($data = array())
@@ -68,7 +68,7 @@ function sorcery_widget_checkbox($data = array())
 		$data['attributes']['checked'] = 'checked';
 	}
 
-	return template('sorcery-widgets:labeled-input', $data);
+	return template('sorcery-widgets/labeled-input', $data);
 }
 
 function sorcery_widget_select($data = array())
@@ -77,9 +77,9 @@ function sorcery_widget_select($data = array())
 
 	$data['attributes']['name'] = isset($data['id']) ? $data['id'] : '';
 	$data['attributes']['class'][] = 'form-control';
-	$data['item_template'] = 'sorcery-widgets:select-item';
+	$data['item_template'] = 'sorcery-widgets/select-item';
 
-	return template('sorcery-widgets:select', $data);
+	return template('sorcery-widgets/select', $data);
 }
 
 function sorcery_widget_default_attrs($data, $key = 'attributes')

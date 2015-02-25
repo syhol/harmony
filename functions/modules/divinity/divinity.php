@@ -21,14 +21,13 @@ require('helpers.php');
 /**
  * Build a new template object
  * 
- * @param  string   $request 
- * @param  array	$data
- * @return void|string
+ * @param  string   			$request 
+ * @param  Traversable|array	$data
+ * @return Divinity_Template
  */
-function template($request, array $data = array())
+function template($request, $data = array())
 {
-	list($directory, $path, $engine, $data) = parse_template_data($request, $data);
-	return new Divinity_Template($directory, $path, $engine, $data);
+	return get_registry('divinity.factory')->createTemplate($request, $data); 
 }
 
 /**
@@ -66,171 +65,6 @@ function render_template($request, array $data = array())
 }
 
 /**
- * Prepare the data and path for a template
- * 
- * @param  string   $path 
- * @param  array	$data
- * @return array			Contains the [0] => $data and [1] => $path
- */
-function parse_template_data($request, array $data = array())
-{
-	$directory = get_template_path();
-	$path = $request;
-	$engine = get_registry('divinity.engine.php');
-
-	$filters = array(
-		'template_data',
-		'template_data_' . $request,
-		'template_path',
-		'template_path_' . $request,
-		'template_location',
-		'template_location_' . $request,
-		'template_engine',
-		'template_engine_' . $request,
-	);
-
-	$data = apply_filters($filters[0], $data, $request);
-	$data = apply_filters($filters[1], $data, $request);
-	$path = apply_filters($filters[2], $path, $request, $data);
-	$path = apply_filters($filters[3], $path, $request, $data);
-	$directory = apply_filters($filters[4], $directory, $path, $request, $data);
-	$directory = apply_filters($filters[5], $directory, $path, $request, $data);
-	$engine = apply_filters($filters[6], $engine, $directory, $path, $request, $data);
-	$engine = apply_filters($filters[7], $engine, $directory, $path, $request, $data);
-	$path .= $engine->get_extension();
-	return array($directory, $path, $engine, $data);
-}
-
-/**
- * To process the request into a path, the module prefix must be stripped.
- *
- * @param  string $path 
- * @return string
- */
-function divinity_strip_prefix_from_template_path($path)
-{
-	if (str_contains($path, ':')) {
-		$pos = strpos($path, ':');
-		$path = substr($path, $pos + 1);
-	}
-	return $path;
-}
-add_filter('template_path', 'divinity_strip_prefix_from_template_path', 5, 1);
-
-/**
- * Set the template engine based on the extension in the request-cache
- *
- * @param  Divinity_Engine $engine
- * @param  string          $directory
- * @param  string          $path
- * @param  string          $request
- * @return Divinity_Engine
- */
-function divinity_set_template_engine($engine, $directory, $path, $request)
-{
-	if ($cache = get_registry('divinity.request-cache.' . $request . '.engine', false)) {
-		return $cache;
-	}
-
-
-	if ($extension = get_registry('divinity.request-cache.' . $request . '.extension', false)) {
-		$engines = get_registry('divinity.engine', array());
-		foreach ($engines as $engine_test) {
-			if ($extension === $engine_test->get_extension()) {
-				$engine = $engine_test;
-				set_registry('divinity.request-cache.' . $request . '.engine', $engine);
-			}
-		}
-	}
-
-	return $engine;
-}
-add_filter('template_engine', 'divinity_set_template_engine', 5, 4);
-
-/**
- * If there is a "module:" prefix, change the template directory 
- *
- * If there is a "module:" prefix, change the template directory
- * to that modules template directory , e.g.
- * /{theme}/functions/modules/{module}/templates
- * 
- * @param  string $directory 
- * @param  string $path 
- * @param  string $request 
- * @return string
- */
-function divinity_module_template_directory($directory, $path, $request)
-{
-	if (str_contains($request, ':')) {
-		list($module, $new_path) = explode(':', $request);
-		$directory = get_module_path($module . '/templates/');
-	}
-	return $directory;
-}
-add_filter('template_location', 'divinity_module_template_directory', 6, 4);
-
-/**
- * Find the file and save its details to runtime cache against the request name
- * 
- * @param  string $directory 
- * @param  string $path 
- * @param  string $request 
- * @return string
- */
-function divinity_template_request_cache($directory, $path, $request)
-{	
-	// See if there is a request cache in the registry, if so, use it
-	if ($cache = get_registry('divinity.request-cache.' . $request . '.directory')) {
-		return $cache;
-	}
-
-	// See if there is a request-cache in the DB
-	$request_transient = get_transient('divinity.request-cache');
-
-	$request_cache = isset($request_transient[$request]) ? $request_transient[$request] : false ;
-
-	// Run glob to find files and get request data
-	if ( ! $request_cache || ! file_exists($request_cache['raw'] )) {
-		$results = array();
-		
-		// Check if file is in child theme
-		$in_template = str_contains($directory, get_theme_path());
-		if ($in_template && is_child_theme()) {
-			$child_directory = str_replace(get_theme_path(), get_child_theme_path(), $directory);
-			$results = array_merge($results, glob($child_directory . $path . '.*', GLOB_NOSORT));
-		}
-
-		// Check if file is in main theme
-		$results = array_merge($results, glob($directory . $path . '.*', GLOB_NOSORT));
-		
-		$request_cache = array(
-			'raw' => false,
-			'directory' => $directory,
-			'extension' => false
-		);
-
-		if ( ! empty($results) ) {
-			$result = array_shift($results);
-			list($directory, $extension) = explode($path, $result);
-			$request_cache['raw'] = $result;
-			$request_cache['directory'] = $directory;
-			$request_cache['extension'] = $extension;
-		}
-
-		// Set DB transient with an hour timeout
-		$request_transient[$request] = $request_cache;
-		set_transient('divinity.request-cache', $request_transient, 60 * 60);
-	} else {
-		$directory = $request_cache['directory'];
-	}
-
-	set_registry('divinity.request-cache.' . $request, $request_cache);
-
-	return $directory;
-}
-add_filter('template_location', 'divinity_template_request_cache', 50, 3);
-
-/**
  * Add the divinity oop structure to the psr-0 class loader and register engines
  * 
  * @return void
@@ -248,6 +82,17 @@ function divinity_init()
 	if(class_exists('Illuminate\View\Compilers\BladeCompiler')) {
 		set_registry('divinity.engine.blade', new Divinity_Engine_Blade);
 	}
+
+	$engines = get_registry('divinity.engine');
+	
+	$directories = array(
+		get_template_path(),
+		'sorcery-widgets' => get_module_path('sorcery/sorcery-widgets/templates/'),
+		'sorcery-layouts' => get_module_path('sorcery/sorcery-layouts/templates/')
+	);
+
+	$factory = new Divinity_TemplateFactory($directories, $engines);
+	set_registry('divinity.factory', $factory);
 
 	// Make sure a cache directory is set up
 	$upload_dir = wp_upload_dir();

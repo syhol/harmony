@@ -17,7 +17,7 @@ function sorcery_layout_general($data = array())
 	$data = sorcery_widget_default_attrs($data);
 	$data = sorcery_layout_standard_data($data);
 
-	return template('sorcery-layouts:general', $data);
+	return template('sorcery-layouts/general', $data);
 }
 
 function sorcery_layout_horizontal($data = array())
@@ -25,7 +25,7 @@ function sorcery_layout_horizontal($data = array())
 	$data = sorcery_widget_default_attrs($data);
 	$data = sorcery_layout_standard_data($data);
 
-	return template('sorcery-layouts:horizontal', $data);
+	return template('sorcery-layouts/horizontal', $data);
 }
 
 function sorcery_layout_standard_data($data = array())

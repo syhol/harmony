@@ -72,13 +72,13 @@ class Divinity_Engine_Blade implements Divinity_Engine
 	}
 	
 	/**
-	 * Return the file extension this engine supports, with the leading dot
+	 * Return the file extensions this engine supports, with the leading dot
 	 * 
-	 * @return string
+	 * @return array
 	 */
-	public function get_extension()
+	public function get_extensions()
 	{
-		return '.blade.php';
+		return array('.blade.php');
 	}
 	
 	/**

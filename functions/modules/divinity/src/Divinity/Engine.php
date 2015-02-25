@@ -11,5 +11,5 @@ interface Divinity_Engine
 {
 	public function render($template_dir, $template, $data);
 	public function compile($template_dir, $template, $data);
-	public function get_extension();
+	public function get_extensions();
 }

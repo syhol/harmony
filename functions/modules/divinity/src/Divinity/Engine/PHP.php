@@ -42,13 +42,13 @@ class Divinity_Engine_PHP implements Divinity_Engine
 	}
 	
 	/**
-	 * Return the file extension this engine supports, with the leading dot
+	 * Return the file extensions this engine supports, with the leading dot
 	 * 
-	 * @return string
+	 * @return array
 	 */
-	public function get_extension()
+	public function get_extensions()
 	{
-		return '.php';
+		return array('.php');
 	}
 
 }
