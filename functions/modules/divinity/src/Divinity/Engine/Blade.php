@@ -67,7 +67,9 @@ class Divinity_Engine_Blade implements Divinity_Engine
 		$finder = new Illuminate\View\FileViewFinder($fs, array($directory));
 		$this->env->setFinder($finder);
 
-		$path = str_replace($this->get_extension(), '', $path);
+		foreach ($this->get_extensions() as $ext) {
+			$path = str_replace($ext, '', $path);
+		}
 		return $this->env->make($path, $data);
 	}
 	

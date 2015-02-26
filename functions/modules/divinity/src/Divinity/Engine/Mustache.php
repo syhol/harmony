@@ -34,7 +34,9 @@ class Divinity_Engine_Mustache implements Divinity_Engine
 	 */
 	public function compile($directory, $path, $data)
 	{
-		$path = str_replace($this->get_extension(), '', $path);
+		foreach ($this->get_extensions() as $ext) {
+			$path = str_replace($ext, '', $path);
+		}
 		$loader = new Mustache_Loader_FilesystemLoader($directory);
 		$options = array(
 			'loader' => $loader,

@@ -302,7 +302,7 @@ render_template('header'); ?>
 				$template = new Divinity_Template(
 					get_template_path(), 
 					'single-item.php', 
-					get_registry('divinity.engine.php'),
+					new Divinity_Engine_PHP,
 					array('content' => 'look at me!', 'title' => 'Helpers Test', 'classes' => 'a')
 				);
 				$template->render();

@@ -52,3 +52,16 @@ function sorcery_factory_setup()
 	
 }
 add_action('modules_loaded' , 'sorcery_factory_setup', 60);
+
+/**
+ * Register view directories
+ *
+ * @param $factory
+ * @return void
+ */
+function sorcery_divinity_template_init($factory)
+{
+	$factory->addDirectory(get_module_path('sorcery/sorcery-widgets/templates/'), 'sorcery-widgets');
+	$factory->addDirectory(get_module_path('sorcery/sorcery-layouts/templates/'), 'sorcery-layouts');
+}
+add_action('divinity_loaded', 'sorcery_divinity_template_init');
