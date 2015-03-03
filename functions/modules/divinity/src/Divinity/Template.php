@@ -90,6 +90,8 @@ class Divinity_Template extends Glyph
 	 */
 	public function render()
 	{
+		$this->notify();
+
 		return $this->engine->render(
 			$this->template_directory, 
 			$this->template, 
@@ -104,6 +106,8 @@ class Divinity_Template extends Glyph
 	 */
 	public function compile()
 	{
+		$this->notify();
+		
 		return $this->engine->compile(
 			$this->template_directory, 
 			$this->template, 
@@ -119,5 +123,21 @@ class Divinity_Template extends Glyph
 	public function __toString()
 	{
 		return $this->compile();
+	}
+
+	protected function notify()
+	{
+		list($template) = explode('.', $this->template);
+		do_action('template_bind', $this);
+		do_action('template_bind_' . $template, $this);
+	}
+
+	public function apply_defaults($defaults)
+	{
+		foreach ($defaults as $key => $value) {
+			if ( ! isset($this[$key]) ) {
+				$this[$key] = $value;
+			}
+		}
 	}
 }

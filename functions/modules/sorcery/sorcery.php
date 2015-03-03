@@ -61,7 +61,7 @@ add_action('modules_loaded' , 'sorcery_factory_setup', 60);
  */
 function sorcery_divinity_template_init($factory)
 {
-	$factory->addDirectory(get_module_path('sorcery/sorcery-widgets/templates/'), 'sorcery-widgets');
-	$factory->addDirectory(get_module_path('sorcery/sorcery-layouts/templates/'), 'sorcery-layouts');
+	$factory->add_directory(get_module_path('sorcery/sorcery-widgets/templates/'), 'sorcery-widgets');
+	$factory->add_directory(get_module_path('sorcery/sorcery-layouts/templates/'), 'sorcery-layouts');
 }
 add_action('divinity_loaded', 'sorcery_divinity_template_init');

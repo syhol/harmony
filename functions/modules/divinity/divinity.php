@@ -27,7 +27,7 @@ require('helpers.php');
  */
 function template($request, $data = array())
 {
-	return get_registry('divinity.factory')->createTemplate($request, $data); 
+	return get_registry('divinity.factory')->create_template($request, $data);
 }
 
 /**

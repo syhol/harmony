@@ -11,14 +11,14 @@
 /**
  * Set standard data for a post single item
  *  
- * @param object $template template object 
+ * @param Divinity_Template $template template object 
  * 
  * @return array
  */
-function bind_post_single_data($data)
+function bind_post_single_data($template)
 {
-	if (isset($data['post']) && $data['post'] instanceof WP_Post) {
-		$post = $data['post'];
+	if (isset($template['post']) && $template['post'] instanceof WP_Post) {
+		$post = $template['post'];
 	} else {
 		global $post;
 	}
@@ -36,23 +36,23 @@ function bind_post_single_data($data)
 			'content' => apply_filters('the_content', $post->post_content)
 		);
 	}
-	
-	return wp_parse_args($data, $defaultData);
+
+	$template->apply_defaults($defaultData);
 }
-add_filter('template_data_single-item', 'bind_post_single_data', 5);
+add_action('template_bind_single-item', 'bind_post_single_data', 5);
 
 /**
  * Set standard data for a post single item
  *  
- * @param mixed $data data passed to template
+ * @param Divinity_Template $template data passed to template
  * 
  * @return array
  */
-function bind_post_single_404_data($data)
+function bind_post_single_404_data($template)
 {
 	$the404Data = array();
 
-	if ( is_404() ) {
+	if (is_404()) {
 		$the404Data = array(
 			'classes' => 'page-404 error-404 single-item',
 			'title' => 'Page Not Found',
@@ -60,19 +60,19 @@ function bind_post_single_404_data($data)
 		);
 	}
 
-	return wp_parse_args($data, $the404Data);
+	$template->apply_defaults($the404Data);
 }
-add_filter('template_data_single-item', 'bind_post_single_404_data', 4);
+add_action('template_bind_single-item', 'bind_post_single_404_data', 4);
 
 
 /**
  * Set standard data for a post index item from global $post
  *  
- * @param mixed $data data passed to template
+ * @param Divinity_Template $template data passed to template
  * 
  * @return array
  */
-function bind_post_index_data($data)
+function bind_post_index_data($template)
 {	
 	if (isset($data['post']) && $data['post'] instanceof WP_Post) {
 		$post = $data['post'];
@@ -100,6 +100,6 @@ function bind_post_index_data($data)
 		);
 	}
 
-	return wp_parse_args($data, $defaultData);
+	$template->apply_defaults($defaultData);
 }
-add_filter('template_data_index-item', 'bind_post_index_data', 5);
+add_action('template_bind_index-item', 'bind_post_index_data', 5);
