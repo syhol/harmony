@@ -6,6 +6,10 @@
 
 **Harmony is a WordPress development theme framework, it helps developers seperate code out and promote code reuse and good coding practises. Harmony comes with a set of modules to really bring some powerful functionality to wordpress.**
 
+## Now in Nice Modules
+
+https://github.com/wp-harmony
+
 ## Installation
 
 Firstly, install wordpress.
